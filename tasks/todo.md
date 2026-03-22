@@ -240,7 +240,16 @@
 - QA uncovered and fixed a real backend consistency bug in the live-state store: overwriting a single Vercel Blob pathname allowed stale reads after writes on production. The shared store now writes immutable versioned state/audit blobs and reads the latest object by prefix, which restored immediate read-after-write behavior on `GET /api/dashboard-state` and `GET /api/audit-log`.
 
 ## Access Control And Next Wave
-- [ ] Define the smallest real read-protection model for the live Vercel app and document the tradeoff versus full SSO
-- [ ] Implement viewer read protection across the dashboard and APIs, verify locally and on production, and document how stakeholders access the app
-- [ ] Apply the next autonomous command-center improvement on the protected app
-- [ ] Re-verify the improved app end to end and capture remaining concerns
+- [x] Define the smallest real read-protection model for the live Vercel app and document the tradeoff versus full SSO
+- [x] Implement viewer read protection across the dashboard and APIs, verify locally and on production, and document how stakeholders access the app
+- [x] Apply the next autonomous command-center improvement on the protected app
+- [x] Re-verify the improved app end to end and capture remaining concerns
+
+- Added a real production viewer gate with `/access`, `VIEWER_KEY`, guarded dashboard/data routes, and protected APIs. The stable production URL now redirects anonymous users to the access page instead of serving the dashboard directly.
+- Product editors still use `EDITOR_KEY` inside the dashboard; viewers and editors are now separated cleanly.
+- Added `Lock View` to the top bar so a stakeholder can clear viewer access and return to the access screen without manually clearing cookies.
+- Implemented `PD-to-Revenue Efficiency` in the overview from workbook-backed `quarter_summary` and `loss_intelligence`, using the metric spec thresholds (`High leverage`, `Moderate leverage`, `Low leverage`).
+- Verified locally with `vercel dev`: anonymous `/` redirects to `/access`, protected APIs reject unauthorized reads, authenticated `/dashboard` loads, and the new efficiency card renders quarter values.
+- Verified on production `https://autoresearch-fawn.vercel.app`: anonymous `/` redirects to `/access`, `GET /api/dashboard-state` returns `401` without viewer access, access-page login opens the dashboard, `PD-to-Revenue Efficiency` renders source-backed values after data load, and `Lock View` returns the user to `/access?next=%2Fdashboard`.
+- Remaining concern: preview deployments are not yet consistently protected because Vercel preview env assignment for `VIEWER_KEY` is branch-scoped. Production is protected; preview protection should be completed in Vercel settings if preview URLs will be shared.
+- Remaining concern: the GitHub repository itself is still outside the app-level viewer gate. The live app is protected, but repo visibility is a separate decision.
