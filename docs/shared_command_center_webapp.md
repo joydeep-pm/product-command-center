@@ -29,7 +29,15 @@ The UI is useful. The persistence model is not.
 ### Backend
 - Local development server: `/Users/joy/autoresearch/webapp/server.js`
 - Vercel deployment APIs: `/Users/joy/autoresearch/api/*.js`
-- The UI contract stays the same: `/api/dashboard-state`, `/api/audit-log`, `/api/editor-check`
+- Viewer-entry page: `/Users/joy/autoresearch/app/access.html`
+- Protected Vercel routes:
+  - `/api/dashboard-page`
+  - `/api/command-center-data`
+  - `/api/dashboard-state`
+  - `/api/audit-log`
+  - `/api/editor-check`
+  - `/api/viewer-access`
+  - `/api/viewer-logout`
 
 ### Persistence
 - Local fallback:
@@ -37,8 +45,8 @@ The UI is useful. The persistence model is not.
   - `/Users/joy/autoresearch/data/dashboard_audit_log.jsonl`
 - Vercel deployment:
   - private Vercel Blob store `autoresearch-command-center`
-  - state blob: `command-center/live_dashboard_state.json`
-  - audit blob: `command-center/dashboard_audit_log.json`
+  - immutable state blobs under `command-center/state/*.json`
+  - immutable audit blobs under `command-center/audit/*.json`
 
 This is intentionally simple. It is enough for low-write internal usage, but it is not a high-concurrency system.
 
@@ -109,44 +117,70 @@ Returns the most recent audit events.
 
 Returns whether the current request can edit.
 
-## Write Access Model
+### `POST /api/viewer-access`
 
-For v1, read access is open to anyone with the deployed URL unless an additional network or access boundary is added.
+Request body:
+```json
+{
+  "key": "shared-viewer-key",
+  "next": "/dashboard"
+}
+```
+
+Behavior:
+- validates the shared viewer key
+- sets the viewer cookie
+- returns the next route to open
+
+### `POST /api/viewer-logout`
+
+Behavior:
+- clears the viewer cookie
+- returns `{ "ok": true }`
+
+## Access Model
+
+For v1, the live app now has a real shared-viewer boundary:
+- viewers enter `VIEWER_KEY` on `/access`
+- product editors separately enable edit mode with `EDITOR_KEY`
+- protected routes reject requests without viewer access
+- `/dashboard` is served through a guarded API route rather than a bare public page
 
 Write access options:
-1. Set `EDITOR_KEY`
-2. Keep the app internal-only via company network, VPN, or reverse proxy
+1. Set `VIEWER_KEY` for shared internal viewing
+2. Set `EDITOR_KEY` for product-team edits
+3. Later replace the shared viewer key with SSO or an identity-aware proxy
 
-Without a network boundary, “no login” is not sufficient.
+This is still weaker than SSO. It is a pragmatic internal boundary, not a final identity model.
 
 ## Run Locally
 
-Viewer mode only:
+Start the Vercel-shaped local runtime:
 ```bash
 cd /Users/joy/autoresearch
-node webapp/server.js
+vercel dev --listen 8141
 ```
 
-Editor mode with a shared key:
-```bash
-cd /Users/joy/autoresearch
-EDITOR_KEY="replace-me" node webapp/server.js
-```
+Local access depends on `.env.local`:
+- `VIEWER_KEY` for the access page
+- optional `EDITOR_KEY` for local shared editing
 
 Open:
-- `http://127.0.0.1:8123/dashboard`
+- `http://127.0.0.1:8141/access`
 
 ## Deployment Guidance
 
 Current live deployment path:
 - Vercel project `autoresearch`
-- static dashboard rewrite via `/dashboard`
+- guarded dashboard route via `/dashboard`
 - serverless APIs backed by private Blob storage
+- preview/production viewing gated by `VIEWER_KEY`
 - preview/production edits gated by `EDITOR_KEY`
 
 Current limitation:
-- the Vercel URL is public unless you add an external access boundary
-- `EDITOR_KEY` protects writes, not reads
+- the shared viewer key is still a shared secret, not identity-backed access
+- anyone with the live URL and the viewer key can view
+- the GitHub repository and any committed source artifacts are outside this gate
 
 Do not treat this as truly internal-only until you add one of:
 - company VPN / internal subnet

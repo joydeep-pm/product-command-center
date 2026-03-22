@@ -5,8 +5,20 @@
       "destination": "/dashboard"
     },
     {
+      "source": "/access",
+      "destination": "/app/access.html"
+    },
+    {
       "source": "/dashboard",
-      "destination": "/app/dashboard.html"
+      "destination": "/api/dashboard-page"
+    },
+    {
+      "source": "/app/dashboard.html",
+      "destination": "/api/dashboard-page"
+    },
+    {
+      "source": "/data/command_center_data.json",
+      "destination": "/api/command-center-data"
     }
   ]
 }

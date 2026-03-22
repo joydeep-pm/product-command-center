@@ -459,6 +459,10 @@ body.light .sel option{background:#fff;color:#1C2B4A}
         <span class="t-icon">✎</span>
         <span id="editorLabel">Enable Edit</span>
       </button>
+      <button class="theme-btn" onclick="lockViewerAccess()" id="lockBtn">
+        <span class="t-icon">⇤</span>
+        <span>Lock View</span>
+      </button>
       <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
         <span class="t-icon" id="themeIcon">🌙</span>
         <span id="themeLabel">Light Mode</span>
@@ -600,6 +604,11 @@ body.light .sel option{background:#fff;color:#1C2B4A}
           <div class="card-title" style="margin-bottom:4px">Revenue Unlock by Quarter</div>
           <div class="card-sub" style="margin-bottom:12px">Workbook-traceable lost pipeline that becomes addressable if the target quarter ships on time.</div>
           <div class="signal-list" id="revenueUnlock"></div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:4px">PD-to-Revenue Efficiency</div>
+          <div class="card-sub" style="margin-bottom:12px">Quarter leverage measured as recoverable revenue unlocked per 100 person-days invested.</div>
+          <div class="signal-list" id="pdEfficiency"></div>
         </div>
         
         <div class="card" id="deliveryConfidenceCard">
@@ -1243,6 +1252,14 @@ async function connectEditor() {
   syncAuditInputs();
   rerenderActiveView();
 }
+async function lockViewerAccess() {
+  try {
+    await fetch('/api/viewer-logout', {method:'POST', headers:{'Content-Type':'application/json'}});
+  } catch (e) {
+    // Redirect anyway so the access boundary is restored even if logout telemetry fails.
+  }
+  window.location.href = `/access?next=${encodeURIComponent('/dashboard')}`;
+}
 function renderAuditLog() {
   const el = document.getElementById('auditLogList');
   if(!el) return;
@@ -1698,6 +1715,35 @@ function renderRevenueUnlock() {
     </div>`;
   }).join('');
 }
+function getPdEfficiencyRows() {
+  const quarterSummary = getQuarterSummary() || {};
+  const unlockRows = getRevenueUnlockRows();
+  return ['Q1','Q2','Q3','Q4'].map(q => {
+    const pd = Number(quarterSummary?.[q]?.pd_total || 0);
+    const unlock = unlockRows.find(row => row.q === q)?.total || 0;
+    const efficiency = pd > 0 ? (unlock / pd) * 100 : 0;
+    const tier = efficiency >= 1 ? 'High leverage' : efficiency >= 0.4 ? 'Moderate leverage' : 'Low leverage';
+    return {q, pd, unlock, efficiency, tier};
+  });
+}
+function renderPdEfficiency() {
+  const host = document.getElementById('pdEfficiency');
+  if(!host) return;
+  const rows = getPdEfficiencyRows();
+  host.innerHTML = rows.map(row => {
+    const tone = row.tier === 'High leverage' ? 'var(--green)' : row.tier === 'Moderate leverage' ? 'var(--amber)' : 'var(--red)';
+    return `<div class="signal-row">
+      <div>
+        <div class="signal-name">${row.q} leverage</div>
+        <div class="signal-copy">${row.pd.toLocaleString()} PD planned · ₹${row.unlock.toFixed(1)} Cr tied to this quarter</div>
+      </div>
+      <div class="signal-side">
+        <div class="signal-val" style="color:${tone}">₹${row.efficiency.toFixed(2)}</div>
+        <div class="signal-meta">${row.tier} / 100 PD</div>
+      </div>
+    </div>`;
+  }).join('');
+}
 function statusRowsToCsv(rows) {
   const header = ['scope','name','quarter_tag','status','note','completed','in_progress','at_risk','blocked','not_started'];
   const lines = rows.map(row => [
@@ -1859,7 +1905,8 @@ async function loadCommandCenterData() {
   const candidates = ['../data/command_center_data.json', '/data/command_center_data.json'];
   for (const path of candidates) {
     try {
-      const res = await fetch(path, {cache: 'no-store'});
+      const sourcePath = path === '/data/command_center_data.json' ? '/api/command-center-data' : path;
+      const res = await fetch(sourcePath, {cache: 'no-store'});
       if(!res.ok) continue;
       SOURCE_DATA = await res.json();
       break;
@@ -1999,6 +2046,7 @@ function renderOverview() {
   renderStatusConsoleList(filteredRows);
   renderStatusQueryMatrix();
   renderRevenueUnlock();
+  renderPdEfficiency();
   renderDeliveryConfidence();
 }
 
