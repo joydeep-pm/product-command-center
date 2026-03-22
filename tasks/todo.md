@@ -219,6 +219,23 @@
 - The final fix binds inline handlers at runtime and removes the parse-breaking handler strings, restoring sidebar navigation and adjacent controls such as the theme toggle.
 - Verified on `https://autoresearch-fawn.vercel.app`: `Roadmap` activates `pane-roadmap`, the active nav state updates, the title updates to `Roadmap`, and the theme toggle flips to light mode with zero console errors.
 
+## Design Consultation
+- [x] Review current product requirements and the live dashboard shell before proposing a system
+- [x] Define a source-of-truth design direction for the command center
+- [x] Create `DESIGN.md`, a preview artifact, and implementation guardrails for future UI work
+- [x] Apply the new design system to the live dashboard shell and verify the shell visually
+
+## Review
+- There is no `requirements.md` in the repo, so the design system is grounded in `docs/command_center_spec.md`, `docs/dashboard_metric_spec.md`, `docs/shared_command_center_webapp.md`, and the live shell in `app/dashboard.html`.
+- Product identity is now locked as a high-trust internal operating room for product and business leadership, not a generic admin console and not a glossy investor deck.
+- The resulting system deliberately separates strategic typography from operational UI: serif only for sectional authority, highly legible sans for all interaction and body text, restrained color, and minimal motion.
+- A persistent `DESIGN.md` now exists to stop future visual drift, and a standalone preview page demonstrates the intended typography, palette, shell, and control language before further implementation work.
+- The live shell in `app/dashboard.html` now uses the design-system palette and font stack (`Instrument Serif`, `Source Sans 3`, `IBM Plex Sans`, `IBM Plex Mono`) instead of the earlier generic system-font shell.
+- The topbar “Updated by” instability came from a real CSS root cause: `status-chip` was reused for both header state chips and small inline count pills. The small-pill rules were overriding the header component. That collision is now removed by splitting the compact pill style into `status-micro-chip`.
+- Verified the updated shell by rendering direct desktop and mobile screenshots from `app/dashboard.html`:
+  - `/Users/joy/autoresearch/runs/dashboard_shell_file_desktop.png`
+  - `/Users/joy/autoresearch/runs/dashboard_shell_file_mobile.png`
+
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published
 - [ ] Patch ignore rules or repo hygiene needed for a safe initial push
