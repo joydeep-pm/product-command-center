@@ -9,7 +9,7 @@
 :root {
   --bg:#05080F; --surface:#0C1220; --card:#101828; --card-hi:#162035;
   --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.14);
-  --text:#DCE4F2; --muted:#506080; --subtle:#263550;
+  --text:#DCE4F2; --muted:#506080; --muted-strong:#8FA2C8; --subtle:#263550;
   --blue:#3B82F6; --blue-dim:rgba(59,130,246,0.12);
   --amber:#F59E0B; --amber-dim:rgba(245,158,11,0.12);
   --green:#10B981; --green-dim:rgba(16,185,129,0.12);
@@ -21,7 +21,7 @@
 body.light {
   --bg:#F1F5FB; --surface:#FFFFFF; --card:#FFFFFF; --card-hi:#EBF0FF;
   --border:rgba(0,0,0,0.09); --border-hi:rgba(0,0,0,0.16);
-  --text:#1C2B4A; --muted:#7890B0; --subtle:#D0DCF0;
+  --text:#1C2B4A; --muted:#7890B0; --muted-strong:#5C7397; --subtle:#D0DCF0;
   --blue:#2563EB; --blue-dim:rgba(37,99,235,0.09);
   --amber:#D97706; --amber-dim:rgba(217,119,6,0.09);
   --green:#059669; --green-dim:rgba(5,150,105,0.09);
@@ -55,11 +55,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .topbar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);min-height:52px;flex-shrink:0;transition:background 0.2s}
 .tb-left{min-width:260px;display:grid;gap:2px}
 .tb-title{font-family:Georgia,serif;font-size:17px;color:var(--text)}
-.tb-sub{font-size:11px;color:var(--muted);margin-top:1px;line-height:1.5;max-width:320px}
+.tb-sub{font-size:11px;color:var(--muted-strong);margin-top:1px;line-height:1.5;max-width:360px}
 .tb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .tb-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .tb-input{min-width:140px;width:140px}
 .tb-reason{min-width:220px;width:220px}
+.editor-only{display:flex}
 
 /* ── THEME TOGGLE ── */
 .theme-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.15s}
@@ -111,7 +112,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .m-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
 .m-val{font-family:Georgia,serif;font-size:28px;line-height:1}
 .m-val.red{color:var(--red)}.m-val.amber{color:var(--amber)}.m-val.blue{color:var(--blue)}.m-val.green{color:var(--green)}
-.m-sub{font-size:10.5px;color:var(--muted);margin-top:6px}
+.m-sub{font-size:11px;color:var(--muted-strong);margin-top:7px;line-height:1.5}
 
 /* ── STATUS PILLS ── */
 .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:500;white-space:nowrap}
@@ -436,6 +437,13 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 #toast.show{transform:translateY(0);opacity:1}
 .toast-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
 #importFile{display:none}
+body.viewer-readonly .editor-only{display:none!important}
+body.viewer-readonly .sb-footer .sb-btn{display:none}
+body.viewer-readonly .sb-footer{padding-top:8px;padding-bottom:12px}
+body.viewer-readonly #editorBtn{border-color:rgba(59,130,246,0.24);background:var(--blue-dim);color:var(--blue)}
+body.viewer-readonly #editorBtn:hover{background:rgba(59,130,246,0.16)}
+body.viewer-readonly .tb-right{gap:8px}
+body.viewer-readonly .tb-sub{max-width:520px}
 </style>
 </head>
 <body>
@@ -459,8 +467,8 @@ body.light .sel option{background:#fff;color:#1C2B4A}
   <div class="nav-item" onclick="nav('risks',this)"><span class="nav-icon">⚠</span> Risks &amp; Hiring</div>
   <div class="nav-item" onclick="nav('deepdive',this)"><span class="nav-icon">◉</span> Product Deep-Dives</div>
   <div class="sb-footer">
-    <button class="sb-btn" onclick="exportData()">↓ Export JSON Backup</button>
-    <button class="sb-btn" onclick="document.getElementById('importFile').click()">↑ Import JSON Backup</button>
+    <button class="sb-btn editor-only" onclick="exportData()">↓ Export JSON Backup</button>
+    <button class="sb-btn editor-only" onclick="document.getElementById('importFile').click()">↑ Import JSON Backup</button>
     <input type="file" id="importFile" accept=".json" onchange="importData(event)">
     <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px">FY 2026–27 · Confidential</div>
   </div>
@@ -476,7 +484,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
     </div>
     <div class="tb-right">
       <span class="badge-local" id="sharedModeBadge">Local Mode</span>
-      <div class="tb-meta">
+      <div class="tb-meta editor-only">
         <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
         <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
       </div>
@@ -1130,6 +1138,7 @@ function rerenderActiveView() {
   if(active === 'pane-strategy') renderStrategy();
 }
 function updateSharedModeUi() {
+  document.body.classList.toggle('viewer-readonly', SHARED.enabled && !SHARED.canEdit);
   const badge = document.getElementById('sharedModeBadge');
   const label = document.getElementById('editorLabel');
   const sub = document.querySelector('.tb-sub');
@@ -1139,7 +1148,7 @@ function updateSharedModeUi() {
   }
   if(label) {
     if(!SHARED.enabled) label.textContent = 'Local Edit';
-    else label.textContent = SHARED.canEdit ? 'Editor Enabled' : 'Enable Edit';
+    else label.textContent = SHARED.canEdit ? 'Editor Enabled' : 'Unlock Editor';
   }
   if(sub) {
     const base = 'M2P Finflux Core Lending · FY 2026–27';
