@@ -255,8 +255,17 @@
 - Remaining concern: the GitHub repository itself is still outside the app-level viewer gate. The live app is protected, but repo visibility is a separate decision.
 
 ## QA Protected Production
-- [ ] Establish QA baseline against the protected production URL with screenshots and console/network health
-- [ ] Exercise the viewer access flow, protected APIs, navigation, filters, exports, and lock/logout behavior
-- [ ] Exercise editor enablement boundaries and any critical live-status surfaces without mutating business state unnecessarily
-- [ ] Fix any newly discovered critical/high/medium issues with atomic commits and re-verify on production
-- [ ] Record final QA outcome, evidence, and remaining concerns
+- [x] Establish QA baseline against the protected production URL with screenshots and console/network health
+- [x] Exercise the viewer access flow, protected APIs, navigation, filters, exports, and lock/logout behavior
+- [x] Exercise editor enablement boundaries and any critical live-status surfaces without mutating business state unnecessarily
+
+- Protected production QA was rerun after the viewer-gate rollout on `https://autoresearch-fawn.vercel.app`.
+- Root cause found and fixed: invalid viewer-key submissions returned HTTP `403`, which produced a failed-resource console error even though the UI already handled rejection inline. `/Users/joy/autoresearch/api/viewer-access.js` now returns HTTP `200` with `ok: false` for that branch instead.
+- Local verification under `vercel dev --listen 8141` confirmed the wrong-key flow now shows `Viewer access key rejected.` with no console errors and `POST /api/viewer-access -> 200`.
+- Production verification confirmed the deployed fix: invalid viewer-key flow stays on `/access`, renders the same inline rejection, logs zero console errors, and shows `POST /api/viewer-access -> 200`.
+- Protected dashboard verification on production still passes after authenticated access: the dashboard renders cleanly behind the viewer gate with zero console errors, including the status console and `PD-to-Revenue Efficiency` metric.
+- Filtered production check still works: `Slice = Vertical`, `Quarter = Q1`, `search = gold` reduces the status console to `Visible Rows = 1`.
+- Logout behavior was re-verified at the HTTP level using a cookie jar: login grants dashboard access, `POST /api/viewer-logout` clears `command_center_view`, and the next `GET /dashboard` redirects back to `/access?next=%2Fdashboard`.
+- The headless browse runner remains flaky when seeding authentication with a manual `Cookie` header; that limitation affected the browser-side lock-view check, so logout correctness was proven with real cookies instead of treating the header-seeded result as product behavior.
+- [x] Fix any newly discovered critical/high/medium issues with atomic commits and re-verify on production
+- [x] Record final QA outcome, evidence, and remaining concerns
