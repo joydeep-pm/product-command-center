@@ -198,14 +198,15 @@
 - [x] Inspect repo, git remote state, and deployment readiness
 - [x] Determine the correct production architecture for shared live status on Vercel
 - [x] Implement required persistence changes for live shared status
-- [ ] Push to GitHub and deploy to Vercel if credentials and environment allow
+- [x] Push to GitHub and deploy to Vercel if credentials and environment allow
 
 - Added Vercel-native API routes under `/Users/joy/autoresearch/api` and a shared storage layer under `/Users/joy/autoresearch/webapp/shared-store.js` so the deployed app no longer depends on the local JSON filesystem.
 - Added `/Users/joy/autoresearch/package.json` with `@vercel/blob` and `/Users/joy/autoresearch/vercel.json` rewrites so `/dashboard` serves the existing HTML while `/api/*` stays dynamic.
 - Linked the repo to the Vercel project `autoresearch`, created and linked a private Blob store `autoresearch-command-center`, and pulled the development env locally.
 - Verified the Vercel-shaped runtime through `vercel dev` with `storage_mode: vercel-blob`, a successful state write, and a successful audit-log read.
 - Reset the Blob-backed shared state and audit log back to a clean baseline after verification.
-- Deployed a live Vercel build successfully; GitHub push remains incomplete because this repo has no GitHub remote configured and the machine does not have GitHub CLI/auth set up.
+- Pushed the repo to `https://github.com/joydeep-pm/product-command-center` on branch `main` with initial commit `f72e86e`.
+- Deployed both preview and stable production builds on Vercel; the stable alias is `https://autoresearch-fawn.vercel.app`.
 
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published
