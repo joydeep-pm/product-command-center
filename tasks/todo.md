@@ -288,3 +288,7 @@
 - Regression baseline written locally to `/Users/joy/autoresearch/.gstack/design-reports/design-baseline.json`.
 - Current design summary from this pass: Design Score `D -> B`, AI Slop Score `C -> B`.
 - Remaining medium/polish opportunities: reduce the always-visible edit-control weight for viewers, slightly raise KPI supporting-copy contrast, and decide whether the serif headline treatment is a deliberate brand choice or leftover styling.
+- Continued the design pass with a viewer-mode polish fix after the responsive issues were resolved.
+- Commit `b1a28a2` hides editor-only inputs and JSON backup controls in read-only mode, renames the action to `Unlock Editor`, and raises KPI supporting-copy contrast so the dashboard reads more like a stakeholder command center than an admin surface.
+- Verified locally on `vercel dev --listen 8143` and on production with zero console errors in both desktop and mobile viewer mode.
+- Production evidence was captured in `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-003-viewer-shell-prod-after.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-003-viewer-shell-mobile-prod-after.png`.
