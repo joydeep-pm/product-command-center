@@ -296,3 +296,11 @@
 - Commit `befe78c` promotes live-state metadata out of the tiny subtitle and into a dedicated header status strip with separate mode, state, update time, and actor surfaces.
 - Verified locally with headless Chrome screenshots at `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-local-desktop.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-local-mobile.png`.
 - Verified the deployed production build by waiting for the protected dashboard HTML to include the new header IDs and then capturing hydrated production screenshots through a protected local proxy at `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-prod-desktop.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-prod-mobile.png`.
+
+## QA Follow-up
+
+- User review exposed four real shell regressions that earlier QA/design passes did not catch: overview density, status-strip wrapping, globally small type scale, and topbar badge clipping in the protected viewer state.
+- Fixed in commit `b86cf02`: the overview now keeps secondary operational sections collapsed by default, the shell type scale is larger, the topbar actions/badges are split into stable rows, and the status strip uses a mobile-safe stacked layout.
+- Verified locally with screenshots at `/Users/joy/autoresearch/.gstack/qa-reports/screenshots/overview-fix-local-desktop.png` and `/Users/joy/autoresearch/.gstack/qa-reports/screenshots/overview-fix-local-mobile.png`.
+- Verified on production with hydrated protected-view screenshots at `/Users/joy/autoresearch/.gstack/qa-reports/screenshots/overview-fix-prod-desktop.png` and `/Users/joy/autoresearch/.gstack/qa-reports/screenshots/overview-fix-prod-mobile.png`.
+- Root cause of the earlier miss: the QA passes were too flow-oriented and too console-oriented. They did not apply explicit executive-usability checks for information density, small-text readability, or topbar overflow after the protected viewer state hydrated.
