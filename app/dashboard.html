@@ -1902,11 +1902,10 @@ function renderResourceRisk() {
 }
 
 async function loadCommandCenterData() {
-  const candidates = ['../data/command_center_data.json', '/data/command_center_data.json'];
+  const candidates = ['/api/command-center-data', '../data/command_center_data.json', '/data/command_center_data.json'];
   for (const path of candidates) {
     try {
-      const sourcePath = path === '/data/command_center_data.json' ? '/api/command-center-data' : path;
-      const res = await fetch(sourcePath, {cache: 'no-store'});
+      const res = await fetch(path, {cache: 'no-store'});
       if(!res.ok) continue;
       SOURCE_DATA = await res.json();
       break;
