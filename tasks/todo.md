@@ -223,3 +223,17 @@
 - [ ] Inspect repo state and identify what should not be published
 - [ ] Patch ignore rules or repo hygiene needed for a safe initial push
 - [ ] Add GitHub remote, commit the publishable repo state, and push
+
+## Production QA Sweep
+- [x] Define the broader production QA scope and evidence targets
+- [x] Exercise all major panes and shared status flows on production
+- [x] Fix any defects found and verify them locally and on production
+- [x] Record QA findings, verification evidence, and remaining concerns
+
+- Broader production QA covered all six primary panes, status filtering, status exports, responsive rendering, editor enablement, live shared save, audit-log visibility, and the reversible shared-state update path on `https://autoresearch-fawn.vercel.app`.
+- Verified navigation by clicking each sidebar item and confirming active pane, active nav state, and topbar title alignment with zero console errors.
+- Verified the status console after async load: default view rendered `17` rows, scoped filtering (`Vertical` + `Q1` + `gold`) reduced correctly to a single row, and JSON/CSV exports generated download payloads with the expected MIME types and filenames.
+- Verified responsive captures were generated for mobile, tablet, and desktop via the browse runner under `/Users/joy/autoresearch/.gstack/qa-reports/screenshots/prod-sweep-*.png` with no console errors on load.
+- Verified shared edit mode on production using the configured editor key: the dashboard switched to `Shared Live`, `Editor Enabled`, and accepted a reversible EPIC status update for `COL-02a`.
+- Verified the shared write path end to end: the temporary `COL-02a` status flip persisted, the audit log recorded the update, and the state was then restored to the true empty baseline via the live API so production state is clean again.
+- No new product defect was found in this pass. The remaining concern is operational rather than functional: read access is still public to anyone with the URL, while write access is protected only by the editor key.

@@ -78,7 +78,8 @@ async function writeBlobJson(pathname, payload) {
     addRandomSuffix: false,
     allowOverwrite: true,
     contentType: 'application/json',
-    cacheControlMaxAge: 60,
+    // Live dashboard state must be read-after-write fresh.
+    cacheControlMaxAge: 0,
   });
 }
 
