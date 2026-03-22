@@ -30,7 +30,7 @@ body.light {
   --cyan:#0891B2;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:14px}
+html{font-size:15px}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",sans-serif;display:flex;height:100vh;overflow:hidden;line-height:1.5;transition:background 0.2s,color 0.2s}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -39,10 +39,10 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 /* ── SIDEBAR ── */
 #sidebar{width:var(--sidebar);min-width:var(--sidebar);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;z-index:10;transition:background 0.2s}
 .sb-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
-.sb-brand{font-family:Georgia,serif;font-size:15px;color:var(--text);letter-spacing:0.2px}
-.sb-tag{font-size:9.5px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px}
-.sb-section{padding:14px 18px 6px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.nav-item{display:flex;align-items:center;gap:9px;padding:9px 18px;cursor:pointer;font-size:12.5px;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;user-select:none}
+.sb-brand{font-family:Georgia,serif;font-size:15.5px;color:var(--text);letter-spacing:0.2px}
+.sb-tag{font-size:10px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px}
+.sb-section{padding:14px 18px 6px;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.nav-item{display:flex;align-items:center;gap:9px;padding:10px 18px;cursor:pointer;font-size:13px;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;user-select:none}
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,0.03)}
 .nav-item.active{color:var(--text);border-left-color:var(--blue);background:var(--blue-dim)}
 .nav-icon{font-size:13px;width:16px;text-align:center;flex-shrink:0}
@@ -52,32 +52,32 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 /* ── MAIN ── */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:var(--surface);min-height:52px;flex-shrink:0;transition:background 0.2s;gap:18px}
+.topbar{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:var(--surface);min-height:52px;flex-shrink:0;transition:background 0.2s;gap:18px}
 .tb-left{min-width:260px;display:grid;gap:4px}
-.tb-title{font-family:Georgia,serif;font-size:17px;color:var(--text)}
-.tb-sub{font-size:11px;color:var(--muted-strong);margin-top:1px;line-height:1.5;max-width:360px}
+.tb-title{font-family:Georgia,serif;font-size:18px;color:var(--text)}
+.tb-sub{font-size:11.5px;color:var(--muted-strong);margin-top:1px;line-height:1.5;max-width:420px}
 .tb-status{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.status-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.03);min-height:34px}
-.status-chip-label{font-size:9.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted)}
-.status-chip-value{font-size:11px;font-weight:600;color:var(--text);line-height:1.4}
+.status-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.03);min-height:36px;min-width:0}
+.status-chip-label{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted)}
+.status-chip-value{font-size:11.5px;font-weight:600;color:var(--text);line-height:1.4;white-space:nowrap}
 .status-chip-muted .status-chip-value{color:var(--muted-strong);font-weight:500}
-.status-chip-mode{padding:7px 12px;min-height:34px;display:inline-flex;align-items:center}
-.tb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
-.tb-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.status-chip-mode{padding:8px 12px;min-height:36px;display:inline-flex;align-items:center}
+.tb-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;min-width:0}
+.tb-actions,.tb-meta,.tb-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .tb-input{min-width:140px;width:140px}
 .tb-reason{min-width:220px;width:220px}
 .editor-only{display:flex}
 
 /* ── THEME TOGGLE ── */
-.theme-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap}
 .theme-btn:hover{background:var(--card);color:var(--text)}
 .theme-btn .t-icon{font-size:13px;line-height:1}
 
 /* ── BADGES ── */
-.badge-fy{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(59,130,246,0.2);letter-spacing:0.4px}
-.badge-conf{padding:3px 10px;border-radius:20px;font-size:9.5px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2)}
-.badge-shared{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.4px;border:1px solid rgba(16,185,129,0.2);background:var(--green-dim);color:var(--green)}
-.badge-local{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.4px;border:1px solid rgba(245,158,11,0.2);background:var(--amber-dim);color:var(--amber)}
+.badge-fy{padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(59,130,246,0.2);letter-spacing:0.4px;white-space:nowrap}
+.badge-conf{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);white-space:nowrap}
+.badge-shared{padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:0.4px;border:1px solid rgba(16,185,129,0.2);background:var(--green-dim);color:var(--green);white-space:nowrap}
+.badge-local{padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:0.4px;border:1px solid rgba(245,158,11,0.2);background:var(--amber-dim);color:var(--amber);white-space:nowrap}
 .audit-list{display:flex;flex-direction:column;gap:10px}
 .audit-row{padding:12px;border:1px solid var(--border);border-radius:var(--rs);background:rgba(255,255,255,0.02)}
 .audit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
@@ -102,11 +102,19 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 /* ── CARDS ── */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:background 0.2s,border-color 0.2s}
-.card-title{font-family:Georgia,serif;font-size:13px;color:var(--text);margin-bottom:4px}
-.card-sub{font-size:11px;color:var(--muted)}
+.card-title{font-family:Georgia,serif;font-size:14px;color:var(--text);margin-bottom:4px}
+.card-sub{font-size:12px;color:var(--muted)}
 .divider{height:1px;background:var(--border);margin:20px 0}
-.sec-title{font-family:Georgia,serif;font-size:15px;color:var(--text);margin-bottom:3px}
-.sec-sub{font-size:11.5px;color:var(--muted);margin-bottom:16px}
+.sec-title{font-family:Georgia,serif;font-size:16px;color:var(--text);margin-bottom:3px}
+.sec-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+.overview-fold{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-top:18px;overflow:hidden}
+.overview-fold summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:Georgia,serif;font-size:14px;color:var(--text)}
+.overview-fold summary::-webkit-details-marker{display:none}
+.overview-fold summary::after{content:'+';font-family:inherit;font-size:16px;color:var(--muted)}
+.overview-fold[open] summary{border-bottom:1px solid var(--border)}
+.overview-fold[open] summary::after{content:'−'}
+.overview-fold-body{padding:18px}
+.overview-fold-meta{font-family:inherit;font-size:11.5px;color:var(--muted);font-weight:400}
 
 /* ── METRIC CARDS ── */
 .metric{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;position:relative;overflow:hidden}
@@ -115,10 +123,10 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .metric.m-amber::after{background:var(--amber)}
 .metric.m-blue::after{background:var(--blue)}
 .metric.m-green::after{background:var(--green)}
-.m-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
-.m-val{font-family:Georgia,serif;font-size:28px;line-height:1}
+.m-label{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+.m-val{font-family:Georgia,serif;font-size:30px;line-height:1}
 .m-val.red{color:var(--red)}.m-val.amber{color:var(--amber)}.m-val.blue{color:var(--blue)}.m-val.green{color:var(--green)}
-.m-sub{font-size:11px;color:var(--muted-strong);margin-top:7px;line-height:1.5}
+.m-sub{font-size:12px;color:var(--muted-strong);margin-top:7px;line-height:1.5}
 
 /* ── STATUS PILLS ── */
 .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:500;white-space:nowrap}
@@ -136,7 +144,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .prio-p2{background:rgba(80,96,128,0.12);color:var(--muted);border:1px solid rgba(80,96,128,0.2)}
 
 /* ── STATUS SELECT ── */
-.sel{background:var(--card-hi);border:1px solid var(--border);color:var(--text);font-size:11px;padding:4px 22px 4px 8px;border-radius:var(--rs);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23506080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;font-family:inherit;min-width:130px}
+.sel{background:var(--card-hi);border:1px solid var(--border);color:var(--text);font-size:11.5px;padding:5px 24px 5px 9px;border-radius:var(--rs);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23506080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;font-family:inherit;min-width:130px}
 .sel:hover{border-color:var(--border-hi)}
 .sel option{background:#1a2540;color:#dce4f2}
 body.light .sel option{background:#fff;color:#1C2B4A}
@@ -178,7 +186,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 .m-val{font-size:13px;color:var(--text);margin-bottom:14px}
 .m-ta{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:12px;padding:9px 11px;resize:vertical;min-height:75px;outline:none;font-family:inherit;line-height:1.5}
 .m-ta:focus{border-color:var(--blue)}
-.btn{padding:7px 16px;border-radius:var(--rs);font-size:12px;cursor:pointer;border:none;font-family:inherit;transition:all 0.15s}
+.btn{padding:8px 16px;border-radius:var(--rs);font-size:12px;cursor:pointer;border:none;font-family:inherit;transition:all 0.15s}
 .btn-pr{background:var(--blue);color:#fff}.btn-pr:hover{background:#1d4ed8}
 .btn-gh{background:transparent;color:var(--muted);border:1px solid var(--border)}.btn-gh:hover{background:var(--card);color:var(--text)}
 
@@ -196,10 +204,10 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 
 /* ── FILTER BAR ── */
 .fbar{display:flex;align-items:center;gap:7px;margin-bottom:14px;flex-wrap:wrap}
-.fb{padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.15s;font-family:inherit}
+.fb{padding:6px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.15s;font-family:inherit}
 .fb:hover{border-color:var(--border-hi);color:var(--text)}
 .fb.on{background:var(--blue-dim);border-color:rgba(59,130,246,0.3);color:var(--blue)}
-.fsearch{padding:5px 12px;border-radius:20px;font-size:11px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;min-width:150px;font-family:inherit}
+.fsearch{padding:6px 12px;border-radius:20px;font-size:11.5px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;min-width:150px;font-family:inherit}
 .fsearch:focus{border-color:var(--blue)}
 .fsearch::placeholder{color:var(--muted)}
 
@@ -403,9 +411,10 @@ body.light .sel option{background:#fff;color:#1C2B4A}
   .tb-left{min-width:0;width:100%}
   .tb-sub{max-width:none}
   .tb-status{width:100%}
-  .status-chip{width:100%;justify-content:space-between}
+  .status-chip{width:100%;justify-content:flex-start;align-items:flex-start;flex-direction:column;gap:3px}
+  .status-chip-value{white-space:normal;word-break:break-word}
   .status-chip-mode{width:auto}
-  .tb-right,.tb-meta{width:100%;justify-content:flex-start}
+  .tb-right,.tb-actions,.tb-meta,.tb-badges{width:100%;justify-content:flex-start;align-items:flex-start}
   .tb-input,.tb-reason{width:100%;min-width:0;flex:1 1 100%}
   .g2,.g3,.g4,.prog-summary,.status-summary,.signal-grid{grid-template-columns:1fr}
   .tab-pane{padding:16px}
@@ -508,24 +517,28 @@ body.viewer-readonly .tb-status{max-width:760px}
       </div>
     </div>
     <div class="tb-right">
-      <div class="tb-meta editor-only">
-        <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
-        <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
+      <div class="tb-actions">
+        <div class="tb-meta editor-only">
+          <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
+          <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
+        </div>
+        <button class="theme-btn" onclick="connectEditor()" id="editorBtn">
+          <span class="t-icon">✎</span>
+          <span id="editorLabel">Enable Edit</span>
+        </button>
+        <button class="theme-btn" onclick="lockViewerAccess()" id="lockBtn">
+          <span class="t-icon">⇤</span>
+          <span>Lock View</span>
+        </button>
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+          <span class="t-icon" id="themeIcon">🌙</span>
+          <span id="themeLabel">Light Mode</span>
+        </button>
       </div>
-      <button class="theme-btn" onclick="connectEditor()" id="editorBtn">
-        <span class="t-icon">✎</span>
-        <span id="editorLabel">Enable Edit</span>
-      </button>
-      <button class="theme-btn" onclick="lockViewerAccess()" id="lockBtn">
-        <span class="t-icon">⇤</span>
-        <span>Lock View</span>
-      </button>
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
-        <span class="t-icon" id="themeIcon">🌙</span>
-        <span id="themeLabel">Light Mode</span>
-      </button>
-      <span class="badge-fy">FY 2026–27</span>
-      <span class="badge-conf">Confidential</span>
+      <div class="tb-badges">
+        <span class="badge-fy">FY 2026–27</span>
+        <span class="badge-conf">Confidential</span>
+      </div>
     </div>
   </div>
   <!-- CONTENT -->
@@ -583,115 +596,122 @@ body.viewer-readonly .tb-status{max-width:760px}
           <div class="prog-summary" id="progSummary"></div>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="card status-console">
-        <div class="card-title" style="margin-bottom:4px">Status Console</div>
-        <div class="card-sub" style="margin-bottom:12px">Filter the command center by slice, quarter, and status, then export the exact view leadership is using.</div>
-        <div class="fbar" style="margin-bottom:0">
-          <span style="font-size:11px;color:var(--muted)">Slice:</span>
-          <select class="sel" id="statusScopeFilter" onchange="setStatusConsoleFilter('scope',this.value)">
-            <option value="ALL">All</option>
-            <option value="Vertical">Vertical</option>
-            <option value="Horizontal">Horizontal</option>
-            <option value="Quarter">Quarter</option>
-          </select>
-          <span style="font-size:11px;color:var(--muted)">Quarter:</span>
-          <select class="sel" id="statusQuarterFilter" onchange="setStatusConsoleFilter('quarter',this.value)">
-            <option value="ALL">All</option>
-            <option value="Q1">Q1</option>
-            <option value="Q2">Q2</option>
-            <option value="Q3">Q3</option>
-            <option value="Q4">Q4</option>
-          </select>
-          <span style="font-size:11px;color:var(--muted)">Status:</span>
-          <select class="sel" id="statusStateFilter" onchange="setStatusConsoleFilter('status',this.value)">
-            <option value="ALL">All</option>
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="At Risk">At Risk</option>
-            <option value="Blocked">Blocked</option>
-            <option value="Completed">Completed</option>
-          </select>
-          <input type="text" class="fsearch" id="statusSearchInput" placeholder="Search slice or note…" oninput="setStatusConsoleFilter('search',this.value)">
-          <button class="btn btn-gh" style="margin-left:auto" onclick="exportStatusConsole('json')">Export JSON</button>
-          <button class="btn btn-pr" onclick="exportStatusConsole('csv')">Export CSV</button>
+      <details class="overview-fold">
+        <summary>Live Status & Filters <span class="overview-fold-meta">Open when you need slice-by-slice status, not every time you land on Overview.</span></summary>
+        <div class="overview-fold-body">
+          <div class="card status-console">
+            <div class="card-title" style="margin-bottom:4px">Status Console</div>
+            <div class="card-sub" style="margin-bottom:12px">Filter the command center by slice, quarter, and status, then export the exact view leadership is using.</div>
+            <div class="fbar" style="margin-bottom:0">
+              <span style="font-size:11px;color:var(--muted)">Slice:</span>
+              <select class="sel" id="statusScopeFilter" onchange="setStatusConsoleFilter('scope',this.value)">
+                <option value="ALL">All</option>
+                <option value="Vertical">Vertical</option>
+                <option value="Horizontal">Horizontal</option>
+                <option value="Quarter">Quarter</option>
+              </select>
+              <span style="font-size:11px;color:var(--muted)">Quarter:</span>
+              <select class="sel" id="statusQuarterFilter" onchange="setStatusConsoleFilter('quarter',this.value)">
+                <option value="ALL">All</option>
+                <option value="Q1">Q1</option>
+                <option value="Q2">Q2</option>
+                <option value="Q3">Q3</option>
+                <option value="Q4">Q4</option>
+              </select>
+              <span style="font-size:11px;color:var(--muted)">Status:</span>
+              <select class="sel" id="statusStateFilter" onchange="setStatusConsoleFilter('status',this.value)">
+                <option value="ALL">All</option>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="At Risk">At Risk</option>
+                <option value="Blocked">Blocked</option>
+                <option value="Completed">Completed</option>
+              </select>
+              <input type="text" class="fsearch" id="statusSearchInput" placeholder="Search slice or note…" oninput="setStatusConsoleFilter('search',this.value)">
+              <button class="btn btn-gh" style="margin-left:auto" onclick="exportStatusConsole('json')">Export JSON</button>
+              <button class="btn btn-pr" onclick="exportStatusConsole('csv')">Export CSV</button>
+            </div>
+            <div class="status-summary" id="statusSummary"></div>
+            <div class="divider" style="margin:14px 0"></div>
+            <div class="status-console-list" id="statusConsoleList"></div>
+          </div>
+          <div class="divider"></div>
+          <div class="card" style="margin-bottom:0">
+            <div class="card-title" style="margin-bottom:4px">Status Query Matrix</div>
+            <div class="card-sub" style="margin-bottom:14px">At any point, leadership should be able to slice delivery posture by vertical, horizontal, and quarter without reading the full roadmap.</div>
+            <div class="status-query-grid">
+              <div class="status-col">
+                <div class="status-col-head">
+                  <div>
+                    <div class="status-col-title">By Vertical</div>
+                    <div class="status-col-sub">Sellable product lines and their current delivery posture.</div>
+                  </div>
+                </div>
+                <div class="status-list" id="statusByVertical"></div>
+              </div>
+              <div class="status-col">
+                <div class="status-col-head">
+                  <div>
+                    <div class="status-col-title">By Horizontal</div>
+                    <div class="status-col-sub">Cross-cutting capabilities that can unblock or derail multiple verticals.</div>
+                  </div>
+                </div>
+                <div class="status-list" id="statusByHorizontal"></div>
+              </div>
+              <div class="status-col">
+                <div class="status-col-head">
+                  <div>
+                    <div class="status-col-title">By Quarter</div>
+                    <div class="status-col-sub">Quarter health from live EPIC statuses, not plan-only narrative.</div>
+                  </div>
+                </div>
+                <div class="status-list" id="statusByQuarter"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="status-summary" id="statusSummary"></div>
-        <div class="divider" style="margin:14px 0"></div>
-        <div class="status-console-list" id="statusConsoleList"></div>
-      </div>
-      <div class="divider"></div>
-      <div class="card" style="margin-bottom:18px">
-        <div class="card-title" style="margin-bottom:4px">Status Query Matrix</div>
-        <div class="card-sub" style="margin-bottom:14px">At any point, leadership should be able to slice delivery posture by vertical, horizontal, and quarter without reading the full roadmap.</div>
-        <div class="status-query-grid">
-          <div class="status-col">
-            <div class="status-col-head">
-              <div>
-                <div class="status-col-title">By Vertical</div>
-                <div class="status-col-sub">Sellable product lines and their current delivery posture.</div>
-              </div>
-            </div>
-            <div class="status-list" id="statusByVertical"></div>
-          </div>
-          <div class="status-col">
-            <div class="status-col-head">
-              <div>
-                <div class="status-col-title">By Horizontal</div>
-                <div class="status-col-sub">Cross-cutting capabilities that can unblock or derail multiple verticals.</div>
-              </div>
-            </div>
-            <div class="status-list" id="statusByHorizontal"></div>
-          </div>
-          <div class="status-col">
-            <div class="status-col-head">
-              <div>
-                <div class="status-col-title">By Quarter</div>
-                <div class="status-col-sub">Quarter health from live EPIC statuses, not plan-only narrative.</div>
-              </div>
-            </div>
-            <div class="status-list" id="statusByQuarter"></div>
-          </div>
-        </div>
-      </div>
-      <div class="divider"></div>
+      </details>
 
-      <div class="signal-grid" id="opsSignalGrid">
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Revenue Unlock by Quarter</div>
-          <div class="card-sub" style="margin-bottom:12px">Workbook-traceable lost pipeline that becomes addressable if the target quarter ships on time.</div>
-          <div class="signal-list" id="revenueUnlock"></div>
+      <details class="overview-fold">
+        <summary>Operating Signals & Evidence <span class="overview-fold-meta">Revenue leverage, source traceability, dependencies, and recent activity live here.</span></summary>
+        <div class="overview-fold-body">
+          <div class="signal-grid" id="opsSignalGrid">
+            <div class="card">
+              <div class="card-title" style="margin-bottom:4px">Revenue Unlock by Quarter</div>
+              <div class="card-sub" style="margin-bottom:12px">Workbook-traceable lost pipeline that becomes addressable if the target quarter ships on time.</div>
+              <div class="signal-list" id="revenueUnlock"></div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:4px">PD-to-Revenue Efficiency</div>
+              <div class="card-sub" style="margin-bottom:12px">Quarter leverage measured as recoverable revenue unlocked per 100 person-days invested.</div>
+              <div class="signal-list" id="pdEfficiency"></div>
+            </div>
+            <div class="card" id="deliveryConfidenceCard">
+              <div class="card-title" style="margin-bottom:4px">Delivery Confidence</div>
+              <div class="card-sub" style="margin-bottom:12px">Forward-looking quarter confidence after blocked work, at-risk work, and dependency concentration are applied.</div>
+              <div class="signal-list" id="deliveryConfidence"></div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="g3">
+            <div class="card">
+              <div class="card-title" style="margin-bottom:4px">Source Index</div>
+              <div class="card-sub" style="margin-bottom:12px">Every headline in this command center should trace back to a source artifact.</div>
+              <div class="source-list" id="sourceIndex"></div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:4px">Dependency Watchlist</div>
+              <div class="card-sub" style="margin-bottom:12px">Execution constraints that can invalidate quarter plans if missed.</div>
+              <div class="dep-watch" id="depWatch"></div>
+            </div>
+            <div class="card">
+              <div class="card-title" style="margin-bottom:4px">Recent Updates</div>
+              <div class="card-sub" style="margin-bottom:12px">Latest command-center changes from the shared audit log.</div>
+              <div class="audit-list" id="auditLogList"></div>
+            </div>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">PD-to-Revenue Efficiency</div>
-          <div class="card-sub" style="margin-bottom:12px">Quarter leverage measured as recoverable revenue unlocked per 100 person-days invested.</div>
-          <div class="signal-list" id="pdEfficiency"></div>
-        </div>
-        
-        <div class="card" id="deliveryConfidenceCard">
-          <div class="card-title" style="margin-bottom:4px">Delivery Confidence</div>
-          <div class="card-sub" style="margin-bottom:12px">Forward-looking quarter confidence after blocked work, at-risk work, and dependency concentration are applied.</div>
-          <div class="signal-list" id="deliveryConfidence"></div>
-        </div>
-
-      </div>
-      <div class="g3">
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Source Index</div>
-          <div class="card-sub" style="margin-bottom:12px">Every headline in this command center should trace back to a source artifact.</div>
-          <div class="source-list" id="sourceIndex"></div>
-        </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Dependency Watchlist</div>
-          <div class="card-sub" style="margin-bottom:12px">Execution constraints that can invalidate quarter plans if missed.</div>
-          <div class="dep-watch" id="depWatch"></div>
-        </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Recent Updates</div>
-          <div class="card-sub" style="margin-bottom:12px">Latest command-center changes from the shared audit log.</div>
-          <div class="audit-list" id="auditLogList"></div>
-        </div>
-      </div>
+      </details>
     </div>
 
     <!-- ══ STRATEGY ══ -->
