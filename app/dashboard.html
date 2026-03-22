@@ -2017,7 +2017,7 @@ function renderStrategy() {
       <div class="pil-num" style="color:${p.color}">${String(i+1).padStart(2,'0')}</div>
       <div style="flex:1"><div class="pil-title">${p.title}</div><div class="pil-desc">${p.body || p.desc || ''}</div>${strategyTraceHTML(p.source_refs)}</div>
       <div style="flex-shrink:0">
-        <select class="sel" onchange="ST.strStatus['s${i}']=this.value;saveST('shared', `Strategy pillar ${p.title} set to ${this.value}`);renderOverview()">
+        <select class="sel" onchange="ST.strStatus['s${i}']=this.value;saveST('shared', 'Strategy pillar ${p.title} set to ' + this.value);renderOverview()">
           ${['Not Started','In Progress','Completed','At Risk'].map(s=>`<option${(ST.strStatus['s'+i]||'Not Started')===s?' selected':''}>${s}</option>`).join('')}
         </select>
       </div>
@@ -2178,7 +2178,7 @@ function renderRisks() {
     `<div class="hire-row">
       <div style="flex:1"><div class="hire-role">${h.role}</div><div style="font-size:10.5px;color:var(--muted);margin-top:1px">${h.why}</div></div>
       <span class="hire-when">${h.when}</span>
-      <select class="sel" style="min-width:115px" onchange="ST.hireStatus[${i}]=this.value;saveST('shared', `Hiring track ${h.role} set to ${this.value}`)">
+      <select class="sel" style="min-width:115px" onchange="ST.hireStatus[${i}]=this.value;saveST('shared', 'Hiring track ${h.role} set to ' + this.value)">
         ${['Not Started','In Progress','Completed','At Risk'].map(s=>`<option${(ST.hireStatus[i]||'Not Started')===s?' selected':''}>${s}</option>`).join('')}
       </select>
     </div>`).join('');
@@ -2188,7 +2188,7 @@ function renderRisks() {
       <div class="dec-num" style="color:${d.color}">${i+1}</div>
       <div class="dec-body"><div class="dec-title">${d.title}</div><div class="dec-desc">${d.desc}</div></div>
       <div style="flex-shrink:0">
-        <select class="sel" onchange="ST.decStatus[${i}]=this.value;saveST('shared', `Decision ${d.title} set to ${this.value}`)">
+        <select class="sel" onchange="ST.decStatus[${i}]=this.value;saveST('shared', 'Decision ${d.title} set to ' + this.value)">
           ${['Not Started','In Progress','Completed','Blocked'].map(s=>`<option${(ST.decStatus[i]||'Not Started')===s?' selected':''}>${s}</option>`).join('')}
         </select>
       </div>
