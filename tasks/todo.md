@@ -253,3 +253,10 @@
 - Verified on production `https://autoresearch-fawn.vercel.app`: anonymous `/` redirects to `/access`, `GET /api/dashboard-state` returns `401` without viewer access, access-page login opens the dashboard, `PD-to-Revenue Efficiency` renders source-backed values after data load, and `Lock View` returns the user to `/access?next=%2Fdashboard`.
 - Remaining concern: preview deployments are not yet consistently protected because Vercel preview env assignment for `VIEWER_KEY` is branch-scoped. Production is protected; preview protection should be completed in Vercel settings if preview URLs will be shared.
 - Remaining concern: the GitHub repository itself is still outside the app-level viewer gate. The live app is protected, but repo visibility is a separate decision.
+
+## QA Protected Production
+- [ ] Establish QA baseline against the protected production URL with screenshots and console/network health
+- [ ] Exercise the viewer access flow, protected APIs, navigation, filters, exports, and lock/logout behavior
+- [ ] Exercise editor enablement boundaries and any critical live-status surfaces without mutating business state unnecessarily
+- [ ] Fix any newly discovered critical/high/medium issues with atomic commits and re-verify on production
+- [ ] Record final QA outcome, evidence, and remaining concerns

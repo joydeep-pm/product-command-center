@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     const key = String(body.key || '').trim();
     const next = String(body.next || '/dashboard').trim() || '/dashboard';
     if (!key || key !== viewerKey()) {
-      send(res, 403, {
+      send(res, 200, {
         ok: false,
         error: 'viewer_key_invalid',
         message: 'Viewer access key rejected.',
