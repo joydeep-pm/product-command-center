@@ -6,3 +6,4 @@
 - Do not trust liberal evaluators. If a score is mostly driven by keyword presence or broad structure checks, treat it as weak evidence and tighten the rubric before using it to guide iterations.
 - Do not confuse analytical structure with research depth. For market-research work, depth means explicit methodology, quantified coverage, named-player breadth, and honest completeness gaps, not just solid synthesis and a clean narrative.
 - For this dashboard, QA cannot stop at “no console errors” or “navigation works.” It must explicitly check executive density, type legibility, protected-view hydration state, topbar wrapping, and badge clipping on both desktop and mobile.
+- When dashboard panes are source-hydrated or data-sparse in static previews, verify the typography layer separately from content completeness. Readability fixes still need proof even if the pane preview cannot fully render business data.
