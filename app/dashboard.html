@@ -2628,36 +2628,34 @@ function showToast(msg) {
   t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-Object.assign(window, {
-  nav,
-  connectEditor,
-  toggleTheme,
-  setActorName,
-  setPendingReason,
-  setStatusConsoleFilter,
-  exportStatusConsole,
-  setRmQ,
-  setRmSt,
-  setRmSearch,
-  setAopQ,
-  setAopSearch,
-  openDDP,
-  closeDDP,
-  togglePhase,
-  openEpicModal,
-  saveEmStatus,
-  saveEmNotes,
-  openAddModal,
-  doAddEpic,
-  closeModal,
-  exportData,
-  importData,
-  setEpicSt,
-  setGalSt,
-  saveST,
-  renderOverview,
-  renderKanban,
-  showToast,
+const INLINE_HANDLER_EVENTS = ['click','change','input','blur'];
+function runInlineHandler(code, element, event) {
+  return (function(){ return eval(code); }).call(element);
+}
+function bindInlineHandlerElement(el) {
+  INLINE_HANDLER_EVENTS.forEach(type => {
+    const attr = 'on' + type;
+    const code = el.getAttribute?.(attr);
+    const flag = `bound${type[0].toUpperCase()}${type.slice(1)}`;
+    if(!code || el.dataset?.[flag]) return;
+    el.removeAttribute(attr);
+    el.addEventListener(type, function(event) {
+      return runInlineHandler(code, this, event);
+    });
+    if(el.dataset) el.dataset[flag] = '1';
+  });
+}
+function bindInlineHandlers(root=document) {
+  if(!root) return;
+  if(root.nodeType === 1) bindInlineHandlerElement(root);
+  if(root.querySelectorAll) root.querySelectorAll('[onclick],[onchange],[oninput],[onblur]').forEach(bindInlineHandlerElement);
+}
+const inlineObserver = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if(node.nodeType === 1) bindInlineHandlers(node);
+    });
+  });
 });
 
 // ══════════════════════════════════════════
@@ -3369,12 +3367,15 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;col
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
+bindInlineHandlers(document);
+inlineObserver.observe(document.body,{childList:true,subtree:true});
 updateSharedModeUi();
 loadSharedState().finally(() => {
   renderOverview();
   renderStrategy();
   renderRisks();
   loadCommandCenterData();
+  bindInlineHandlers(document);
 });
 </script>
 </body>
