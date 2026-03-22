@@ -269,3 +269,22 @@
 - The headless browse runner remains flaky when seeding authentication with a manual `Cookie` header; that limitation affected the browser-side lock-view check, so logout correctness was proven with real cookies instead of treating the header-seeded result as product behavior.
 - [x] Fix any newly discovered critical/high/medium issues with atomic commits and re-verify on production
 - [x] Record final QA outcome, evidence, and remaining concerns
+
+## Design Review
+
+- [x] Capture visual baseline for access page and authenticated dashboard panes
+- [x] Identify highest-impact visual and hierarchy issues with screenshot evidence
+- [x] Apply design fixes in atomic commits with re-verification
+- [x] Record final design-review outcome and remaining concerns
+
+- Ran a focused design-review pass on the live viewer-gated command center at `https://autoresearch-fawn.vercel.app/access`, covering the access page and the authenticated dashboard shell/overview on desktop and mobile.
+- First-impression verdict: operational and serious, but the initial mobile rendering broke trust by compressing key surfaces into unreadable slivers.
+- Verified baseline screenshots were captured for the access page, the dashboard overview, and responsive mobile states under `/Users/joy/autoresearch/.gstack/design-reports/screenshots/`.
+- High-impact issue 1 fixed in commit `250a5a1`: the access page kept its four explainer cards in a two-column layout on mobile, producing one-to-three words per line. The fix stacks those cards to one column below `640px`, tightens mobile padding, and vertically stacks the CTA buttons.
+- High-impact issue 2 fixed in commit `751b610`: the dashboard shell was not mobile-responsive. The fix converts the fixed sidebar into a horizontal mobile nav strip, stacks the topbar controls, collapses the major grids to one column, and restores full-width content on narrow screens.
+- Local verification on `vercel dev --listen 8142` passed with zero console errors for both fixes.
+- Production verification also passed with zero console errors. The updated mobile access page now reads cleanly, and the mobile dashboard now presents a usable top nav plus full-width KPI cards instead of a crushed split-screen layout.
+- Design review report written locally to `/Users/joy/autoresearch/.gstack/design-reports/design-audit-autoresearch-fawn-vercel-app-2026-03-22.md`.
+- Regression baseline written locally to `/Users/joy/autoresearch/.gstack/design-reports/design-baseline.json`.
+- Current design summary from this pass: Design Score `D -> B`, AI Slop Score `C -> B`.
+- Remaining medium/polish opportunities: reduce the always-visible edit-control weight for viewers, slightly raise KPI supporting-copy contrast, and decide whether the serif headline treatment is a deliberate brand choice or leftover styling.
