@@ -208,6 +208,17 @@
 - Pushed the repo to `https://github.com/joydeep-pm/product-command-center` on branch `main` with initial commit `f72e86e`.
 - Deployed both preview and stable production builds on Vercel; the stable alias is `https://autoresearch-fawn.vercel.app`.
 
+## QA Sidebar Fix
+- [x] Reproduce the reported sidebar failure against the live deployment in a browser
+- [x] Identify the root cause in `app/dashboard.html`
+- [x] Patch the runtime so inline dashboard actions bind reliably
+- [x] Re-verify locally through `vercel dev` and on production after deploy
+
+- The reported sidebar bug was real on production: clicking `Roadmap` left `pane-overview` active and the topbar title unchanged.
+- Root cause was a dashboard-script parse failure caused by nested backticks inside inline-handler HTML template strings; this prevented the main script from initializing and left all inline UI actions dead.
+- The final fix binds inline handlers at runtime and removes the parse-breaking handler strings, restoring sidebar navigation and adjacent controls such as the theme toggle.
+- Verified on `https://autoresearch-fawn.vercel.app`: `Roadmap` activates `pane-roadmap`, the active nav state updates, the title updates to `Roadmap`, and the theme toggle flips to light mode with zero console errors.
+
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published
 - [ ] Patch ignore rules or repo hygiene needed for a safe initial push
