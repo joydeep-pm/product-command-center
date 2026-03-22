@@ -1,0 +1,2 @@
+{"id":"real_001","submitted_at":"2026-03-21T18:10:00+05:30","requester":"product","prompt":"What is the latest CAGR for embedded lending in India? Keep it short and cite the source.","context":"pricing review for a lending platform","expected_shape":"quick_answer","run_status":"pending"}
+{"id":"real_002","submitted_at":"2026-03-21T18:10:00+05:30","requester":"strategy","prompt":"Should we enter payroll-linked lending for Indian SMEs, and what would the biggest competitor gap be?","context":"new market assessment","expected_shape":"multi_mode_wrapper","run_status":"pending"}

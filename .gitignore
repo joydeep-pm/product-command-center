@@ -1,0 +1,13 @@
+runs/
+results.tsv
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+node_modules/
+.vercel/
+.vercel
+.env*.local
+tmp_*
+data/live_dashboard_state.json
+data/dashboard_audit_log.jsonl

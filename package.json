@@ -1,0 +1,12 @@
+{
+  "name": "m2p-finflux-command-center",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Shared product command center for M2P Finflux Core Lending",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.3.1"
+  }
+}

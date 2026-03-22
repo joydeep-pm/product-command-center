@@ -1,0 +1,123 @@
+[
+  {
+    "id": "tam_india_fintech",
+    "case_type": "content",
+    "prompt": "Size the TAM/SAM/SOM for B2B lending software in India for the next 3 years.",
+    "expected_modes": ["Mode 1"],
+    "must_include": ["TAM", "SAM", "SOM", "confidence", "so what"]
+  },
+  {
+    "id": "competitor_mapping",
+    "case_type": "content",
+    "prompt": "Map the competitive landscape for vertical AI SDR tools and tell me where the gaps are.",
+    "expected_modes": ["Mode 2"],
+    "must_include": ["competitive set", "positioning", "gaps", "moat"]
+  },
+  {
+    "id": "segment_priority",
+    "case_type": "content",
+    "prompt": "Who should we target first for a workflow automation product for clinics?",
+    "expected_modes": ["Mode 3"],
+    "must_include": ["segment", "priority", "pain point", "channels"]
+  },
+  {
+    "id": "pricing_scan",
+    "case_type": "content",
+    "prompt": "How should we price an AI note-taking tool for SMB sales teams?",
+    "expected_modes": ["Mode 4"],
+    "must_include": ["pricing", "value metric", "tiers", "architecture"]
+  },
+  {
+    "id": "go_no_go",
+    "case_type": "content",
+    "prompt": "Should we enter the SME payroll software market in India?",
+    "expected_modes": ["Mode 5"],
+    "must_include": ["GO", "risks", "fit", "timing", "next steps"]
+  },
+  {
+    "id": "quick_question",
+    "case_type": "content",
+    "prompt": "What's the CAGR for Indian edtech?",
+    "expected_modes": ["quick question"],
+    "must_include": ["sources"]
+  },
+  {
+    "id": "quick_question_restraint",
+    "case_type": "selection",
+    "prompt": "What's the latest revenue of Freshworks? Just give me the number and source.",
+    "expected_modes": ["quick question"],
+    "requires_direct_answer": true,
+    "forbid_full_report": true
+  },
+  {
+    "id": "decision_plus_pricing_wrapper",
+    "case_type": "selection",
+    "prompt": "Should we enter the India SMB payroll software market, who are the main competitors, and how should we price the initial product?",
+    "expected_modes": ["Mode 5", "Mode 2", "Mode 4", "complex research"],
+    "primary_mode": "Mode 5",
+    "requires_wrapper": true
+  },
+  {
+    "id": "competitive_pricing_combo",
+    "case_type": "selection",
+    "prompt": "Map the competitor landscape for AI SDR tools and identify the biggest pricing gap we can exploit.",
+    "expected_modes": ["Mode 2", "Mode 4", "complex research"],
+    "requires_wrapper": true
+  },
+  {
+    "id": "conflicting_market_estimates",
+    "case_type": "selection",
+    "prompt": "Estimate the market size for Indian B2B procurement software and call out any conflicting estimates between sources instead of forcing one number.",
+    "expected_modes": ["Mode 1"],
+    "requires_conflict_surfacing": true
+  },
+  {
+    "id": "latest_data_request",
+    "case_type": "selection",
+    "prompt": "What's the latest market size estimate for global payroll SaaS? Prefer current data, cite the date, and flag if the best source is older than 12 months.",
+    "expected_modes": ["quick question"],
+    "requires_direct_answer": true,
+    "requires_recency": true,
+    "requires_date_flag": true
+  },
+  {
+    "id": "benchmark_driven_landscape",
+    "case_type": "selection",
+    "prompt": "Benchmark open-weight LLM models on reasoning, coding, multilingual performance, context length, deployability, and licensing.",
+    "expected_modes": ["Mode 2"],
+    "requires_quantified_benchmark_table": true
+  },
+  {
+    "id": "full_market_map_layers",
+    "case_type": "selection",
+    "prompt": "Build a full market map of GLP-1 manufacturers in India across API makers, formulation players, and CDMOs/CMOs.",
+    "expected_modes": ["Mode 2"],
+    "requires_coverage_checklist": true
+  },
+  {
+    "id": "primary_metric_unavailable",
+    "case_type": "selection",
+    "prompt": "Estimate the total AUM outstanding in the Loan Against Securities market in India, and if that exact metric is not defensible, say so explicitly and separate any proxy metrics.",
+    "expected_modes": ["Mode 1"],
+    "requires_primary_metric_discipline": true
+  },
+  {
+    "id": "investor_grade_market_sizing_depth",
+    "case_type": "selection",
+    "prompt": "Build an investor-grade market size view for India data center colocation, show the source trail, key assumptions, and a sensitivity range rather than a single fragile number.",
+    "expected_modes": ["Mode 1"],
+    "requires_source_ledger": true,
+    "requires_assumptions_ledger": true,
+    "requires_sensitivity_analysis": true
+  },
+  {
+    "id": "exhaustive_landscape_depth",
+    "case_type": "selection",
+    "prompt": "Create an exhaustive market map of B2B loan management system providers across India, MENA, and Southeast Asia with a broad vendor universe, shortlist the most relevant firms, and compare product modules.",
+    "expected_modes": ["Mode 2"],
+    "requires_universe_table": true,
+    "requires_deep_dive_shortlist": true,
+    "requires_module_coverage_grid": true,
+    "requires_search_beyond_named_examples": true
+  }
+]
