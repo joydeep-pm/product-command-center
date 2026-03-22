@@ -11,3 +11,4 @@ node_modules/
 tmp_*
 data/live_dashboard_state.json
 data/dashboard_audit_log.jsonl
+.gstack/
