@@ -19,6 +19,8 @@ const STATE_PATH = path.join(ROOT, 'data', 'live_dashboard_state.json');
 const AUDIT_PATH = path.join(ROOT, 'data', 'dashboard_audit_log.jsonl');
 const STATE_BLOB_PATH = 'command-center/live_dashboard_state.json';
 const AUDIT_BLOB_PATH = 'command-center/dashboard_audit_log.json';
+const STATE_BLOB_PREFIX = 'command-center/state/';
+const AUDIT_BLOB_PREFIX = 'command-center/audit/';
 const MAX_AUDIT_ENTRIES = 250;
 
 function nowIso() {
@@ -83,10 +85,29 @@ async function writeBlobJson(pathname, payload) {
   });
 }
 
+function blobVersionPath(prefix, version) {
+  const stamp = `${Date.now()}`.padStart(13, '0');
+  const safeVersion = String(version || 1).padStart(6, '0');
+  return `${prefix}${stamp}-v${safeVersion}.json`;
+}
+
+async function readLatestVersionedBlob(prefix) {
+  const { list } = blobSdk;
+  const result = await list({ prefix });
+  const latest = (result.blobs || [])
+    .slice()
+    .sort((a, b) => a.pathname.localeCompare(b.pathname))
+    .at(-1);
+  return latest || null;
+}
+
 async function readStateEnvelope() {
   if (useBlobStore()) {
     try {
-      const raw = await readBlobJson(STATE_BLOB_PATH, defaultStateEnvelope());
+      const latest = await readLatestVersionedBlob(STATE_BLOB_PREFIX);
+      const raw = latest
+        ? await readBlobJson(latest.pathname, defaultStateEnvelope())
+        : await readBlobJson(STATE_BLOB_PATH, defaultStateEnvelope());
       return normalizeEnvelope(raw);
     } catch {
       return defaultStateEnvelope();
@@ -104,7 +125,7 @@ async function readStateEnvelope() {
 async function writeStateEnvelope(envelope) {
   const next = normalizeEnvelope(envelope);
   if (useBlobStore()) {
-    await writeBlobJson(STATE_BLOB_PATH, next);
+    await writeBlobJson(blobVersionPath(STATE_BLOB_PREFIX, next.meta.version), next);
     return;
   }
   ensureLocalFiles();
@@ -117,6 +138,19 @@ async function readAuditEntries(limit = 50) {
   const safeLimit = Math.max(1, Math.min(200, Number(limit || 50)));
   if (useBlobStore()) {
     try {
+      const { list } = blobSdk;
+      const result = await list({ prefix: AUDIT_BLOB_PREFIX });
+      const latest = (result.blobs || [])
+        .slice()
+        .sort((a, b) => b.pathname.localeCompare(a.pathname))
+        .slice(0, safeLimit);
+      if (latest.length) {
+        const rows = await Promise.all(latest.map(async (blob) => {
+          const raw = await readBlobJson(blob.pathname, null);
+          return raw && typeof raw === 'object' ? raw : null;
+        }));
+        return rows.filter(Boolean);
+      }
       const raw = await readBlobJson(AUDIT_BLOB_PATH, []);
       return Array.isArray(raw) ? raw.slice(0, safeLimit) : [];
     } catch {
@@ -138,9 +172,7 @@ async function appendAuditEvent(event) {
     shared_keys: Array.isArray(event.shared_keys) ? event.shared_keys : [],
   };
   if (useBlobStore()) {
-    const current = await readAuditEntries(MAX_AUDIT_ENTRIES);
-    current.unshift(nextEvent);
-    await writeBlobJson(AUDIT_BLOB_PATH, current.slice(0, MAX_AUDIT_ENTRIES));
+    await writeBlobJson(blobVersionPath(AUDIT_BLOB_PREFIX, nextEvent.version), nextEvent);
     return;
   }
   ensureLocalFiles();
