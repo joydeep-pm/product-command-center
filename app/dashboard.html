@@ -2628,6 +2628,38 @@ function showToast(msg) {
   t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
+Object.assign(window, {
+  nav,
+  connectEditor,
+  toggleTheme,
+  setActorName,
+  setPendingReason,
+  setStatusConsoleFilter,
+  exportStatusConsole,
+  setRmQ,
+  setRmSt,
+  setRmSearch,
+  setAopQ,
+  setAopSearch,
+  openDDP,
+  closeDDP,
+  togglePhase,
+  openEpicModal,
+  saveEmStatus,
+  saveEmNotes,
+  openAddModal,
+  doAddEpic,
+  closeModal,
+  exportData,
+  importData,
+  setEpicSt,
+  setGalSt,
+  saveST,
+  renderOverview,
+  renderKanban,
+  showToast,
+});
+
 // ══════════════════════════════════════════
 // GOLD LOAN HTML (escaped for JS embedding)
 // ══════════════════════════════════════════
@@ -3333,38 +3365,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;col
 </div><!-- end container -->
 </body>
 </html>`;
-
-Object.assign(window, {
-  nav,
-  connectEditor,
-  toggleTheme,
-  setActorName,
-  setPendingReason,
-  setStatusConsoleFilter,
-  exportStatusConsole,
-  setRmQ,
-  setRmSt,
-  setRmSearch,
-  setAopQ,
-  setAopSearch,
-  openEpicModal,
-  saveEmStatus,
-  saveEmNotes,
-  openAddModal,
-  doAddEpic,
-  closeModal,
-  exportData,
-  importData,
-  togglePhase,
-  openDDP,
-  closeDDP,
-  setEpicSt,
-  setGalSt,
-  saveST,
-  renderOverview,
-  renderKanban,
-  showToast,
-});
 
 // ══════════════════════════════════════════
 // INIT
