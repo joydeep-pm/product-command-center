@@ -292,3 +292,7 @@
 - Commit `b1a28a2` hides editor-only inputs and JSON backup controls in read-only mode, renames the action to `Unlock Editor`, and raises KPI supporting-copy contrast so the dashboard reads more like a stakeholder command center than an admin surface.
 - Verified locally on `vercel dev --listen 8143` and on production with zero console errors in both desktop and mobile viewer mode.
 - Production evidence was captured in `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-003-viewer-shell-prod-after.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-003-viewer-shell-mobile-prod-after.png`.
+- Continued the design pass with a shell-hierarchy fix after viewer-mode polish.
+- Commit `befe78c` promotes live-state metadata out of the tiny subtitle and into a dedicated header status strip with separate mode, state, update time, and actor surfaces.
+- Verified locally with headless Chrome screenshots at `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-local-desktop.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-local-mobile.png`.
+- Verified the deployed production build by waiting for the protected dashboard HTML to include the new header IDs and then capturing hydrated production screenshots through a protected local proxy at `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-prod-desktop.png` and `/Users/joy/autoresearch/.gstack/design-reports/screenshots/finding-004-header-prod-mobile.png`.
