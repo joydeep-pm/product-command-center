@@ -52,10 +52,16 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 /* ── MAIN ── */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);min-height:52px;flex-shrink:0;transition:background 0.2s}
-.tb-left{min-width:260px;display:grid;gap:2px}
+.topbar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:var(--surface);min-height:52px;flex-shrink:0;transition:background 0.2s;gap:18px}
+.tb-left{min-width:260px;display:grid;gap:4px}
 .tb-title{font-family:Georgia,serif;font-size:17px;color:var(--text)}
 .tb-sub{font-size:11px;color:var(--muted-strong);margin-top:1px;line-height:1.5;max-width:360px}
+.tb-status{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.status-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.03);min-height:34px}
+.status-chip-label{font-size:9.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted)}
+.status-chip-value{font-size:11px;font-weight:600;color:var(--text);line-height:1.4}
+.status-chip-muted .status-chip-value{color:var(--muted-strong);font-weight:500}
+.status-chip-mode{padding:7px 12px;min-height:34px;display:inline-flex;align-items:center}
 .tb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .tb-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .tb-input{min-width:140px;width:140px}
@@ -396,6 +402,9 @@ body.light .sel option{background:#fff;color:#1C2B4A}
   .topbar{padding:16px;align-items:flex-start;flex-direction:column;gap:12px}
   .tb-left{min-width:0;width:100%}
   .tb-sub{max-width:none}
+  .tb-status{width:100%}
+  .status-chip{width:100%;justify-content:space-between}
+  .status-chip-mode{width:auto}
   .tb-right,.tb-meta{width:100%;justify-content:flex-start}
   .tb-input,.tb-reason{width:100%;min-width:0;flex:1 1 100%}
   .g2,.g3,.g4,.prog-summary,.status-summary,.signal-grid{grid-template-columns:1fr}
@@ -444,6 +453,7 @@ body.viewer-readonly #editorBtn{border-color:rgba(59,130,246,0.24);background:va
 body.viewer-readonly #editorBtn:hover{background:rgba(59,130,246,0.16)}
 body.viewer-readonly .tb-right{gap:8px}
 body.viewer-readonly .tb-sub{max-width:520px}
+body.viewer-readonly .tb-status{max-width:760px}
 </style>
 </head>
 <body>
@@ -480,10 +490,24 @@ body.viewer-readonly .tb-sub{max-width:520px}
   <div class="topbar">
     <div class="tb-left">
       <div class="tb-title" id="tbTitle">Overview</div>
-      <div class="tb-sub">M2P Finflux Core Lending · FY 2026–27</div>
+      <div class="tb-sub" id="tbSubline">M2P Finflux Core Lending · FY 2026–27</div>
+      <div class="tb-status" id="tbStatusBar">
+        <span class="badge-local status-chip-mode" id="sharedModeBadge">Local Mode</span>
+        <div class="status-chip status-chip-muted" id="tbStateChip">
+          <span class="status-chip-label">State</span>
+          <span class="status-chip-value" id="tbStateValue">Browser-local prototype</span>
+        </div>
+        <div class="status-chip status-chip-muted" id="tbUpdatedChip">
+          <span class="status-chip-label">Updated</span>
+          <span class="status-chip-value" id="tbUpdatedValue">Unsynced state</span>
+        </div>
+        <div class="status-chip status-chip-muted" id="tbActorChip">
+          <span class="status-chip-label">By</span>
+          <span class="status-chip-value" id="tbActorValue">This browser</span>
+        </div>
+      </div>
     </div>
     <div class="tb-right">
-      <span class="badge-local" id="sharedModeBadge">Local Mode</span>
       <div class="tb-meta editor-only">
         <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
         <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
@@ -1141,23 +1165,32 @@ function updateSharedModeUi() {
   document.body.classList.toggle('viewer-readonly', SHARED.enabled && !SHARED.canEdit);
   const badge = document.getElementById('sharedModeBadge');
   const label = document.getElementById('editorLabel');
-  const sub = document.querySelector('.tb-sub');
+  const sub = document.getElementById('tbSubline');
+  const stateValue = document.getElementById('tbStateValue');
+  const updatedValue = document.getElementById('tbUpdatedValue');
+  const actorValue = document.getElementById('tbActorValue');
   if(badge) {
     badge.textContent = SHARED.enabled ? 'Shared Live' : 'Local Mode';
-    badge.className = SHARED.enabled ? 'badge-shared' : 'badge-local';
+    badge.className = SHARED.enabled ? 'badge-shared status-chip-mode' : 'badge-local status-chip-mode';
   }
   if(label) {
     if(!SHARED.enabled) label.textContent = 'Local Edit';
     else label.textContent = SHARED.canEdit ? 'Editor Enabled' : 'Unlock Editor';
   }
   if(sub) {
-    const base = 'M2P Finflux Core Lending · FY 2026–27';
-    if(!SHARED.enabled) {
-      sub.textContent = `${base} · Browser-local prototype mode`;
-    } else {
-      const meta = SHARED.lastSaved ? `Live state · ${new Date(SHARED.lastSaved).toLocaleString()}${SHARED.updatedBy ? ` · ${SHARED.updatedBy}` : ''}` : 'Live state';
-      sub.textContent = `${base} · ${meta}`;
-    }
+    sub.textContent = 'M2P Finflux Core Lending · FY 2026–27';
+  }
+  if(stateValue) {
+    if(!SHARED.enabled) stateValue.textContent = 'Browser-local prototype';
+    else stateValue.textContent = SHARED.canEdit ? 'Editor session active' : 'Viewer session active';
+  }
+  if(updatedValue) {
+    if(!SHARED.enabled) updatedValue.textContent = 'Unsynced state';
+    else updatedValue.textContent = SHARED.lastSaved ? new Date(SHARED.lastSaved).toLocaleString() : 'Awaiting live update';
+  }
+  if(actorValue) {
+    if(!SHARED.enabled) actorValue.textContent = 'This browser';
+    else actorValue.textContent = SHARED.updatedBy || 'System';
   }
 }
 async function fetchAuditLog() {
