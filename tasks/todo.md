@@ -383,3 +383,19 @@
 - Fixed by decoupling editor authentication from editor tool visibility. The primary header now stays command-center focused, while actor/reason fields and JSON backup actions live inside a compact editor tools drawer opened on demand.
 - Removed editor-only backup controls from the sidebar so editing does not pollute the navigation shell.
 - Local verification was done in two states: clean viewer shell and editor-tools-open shell via seeded local storage screenshots.
+
+## Leadership Snapshot Upgrade
+
+- [x] Review the January monthly product update sample and identify the sections leadership actually needs in PDF form
+- [x] Add a monthly-update style PDF export and improve roadmap export metadata/circulation notes
+- [ ] Verify the new snapshot routes locally and on production, then record results
+
+- The January sample is a structured monthly briefing, not just a metric sheet. The upgraded overall snapshot now mirrors that shape with Executive Summary, Product Updates, Platform Updates, Upcoming Features / Initiatives, and Risks & Dependencies.
+- The Overview export button now opens a monthly-style PDF route and captures an optional circulation note that is printed in the footer.
+- The roadmap snapshot now includes the same period metadata and circulation note so it can travel as part of a leadership pack instead of a raw print page.
+- Local verification passed for both routes:
+  - `/dashboard?snapshot=overall&period=March%202026&note=Leadership%20circulation%20draft`
+  - `/dashboard?snapshot=roadmap&period=March%202026&note=For%20March%20leadership%20pack`
+- Tall-view render proofs were captured at:
+  - `/Users/joy/autoresearch/runs/monthly_snapshot_local_tall.png`
+  - `/Users/joy/autoresearch/runs/roadmap_snapshot_local_tall.png`

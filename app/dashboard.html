@@ -527,6 +527,7 @@ body.snapshot-mode #main{display:none}
 .snapshot-metric-value{font-size:24px;font-weight:700;line-height:1;color:#11243A}
 .snapshot-metric-copy{font-size:11px;color:#5B7394;line-height:1.5;margin-top:8px}
 .snapshot-two-col{display:grid;grid-template-columns:1.2fr 0.8fr;gap:16px;margin-top:14px}
+.snapshot-balanced-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
 .snapshot-card{padding:14px 16px;border:1px solid #D7E0EB;border-radius:12px;background:#FFFFFF}
 .snapshot-card-title{font-size:13px;font-weight:700;color:#11243A;margin-bottom:8px}
 .snapshot-list{display:flex;flex-direction:column;gap:10px}
@@ -547,6 +548,7 @@ body.snapshot-mode #main{display:none}
 .snapshot-epic-id{font-family:var(--font-mono);font-size:10px;color:#5B7394}
 .snapshot-epic-name{font-size:12px;font-weight:700;color:#11243A;margin-top:2px}
 .snapshot-epic-note{font-size:11px;color:#5B7394;line-height:1.45;margin-top:3px}
+.snapshot-note{margin-top:10px;padding:10px 12px;border:1px dashed #C7D4E3;border-radius:10px;background:#FAFCFF;font-size:11px;line-height:1.5;color:#47617F}
 .snapshot-footer{margin-top:18px;padding-top:10px;border-top:1px solid #D7E0EB;font-size:10.5px;color:#6B83A3;display:flex;justify-content:space-between;gap:12px}
 body.editor-panel-open .editor-tray{display:flex}
 </style>
@@ -642,7 +644,7 @@ body.editor-panel-open .editor-tray{display:flex}
         <div class="lead-title">FY27 is a completion problem, not a demand problem.</div>
         <div class="lead-copy">Demand is already real. The operating problem is turning near-fit into wins by closing parity gaps, clearing compliance gates, and protecting the quarters that unlock revenue.</div>
         <div class="lead-actions">
-          <button class="btn btn-pr" onclick="openLeadershipSnapshot('overall')">Leadership PDF</button>
+          <button class="btn btn-pr" onclick="openLeadershipSnapshot('overall')">Monthly Update PDF</button>
         </div>
         <div class="lead-note">
             <span class="note-chip">57% of FY26 losses were feature-gap driven</span>
@@ -1292,9 +1294,14 @@ let ST = {};
 let SOURCE_DATA = null;
 let SHARED = {enabled:false, canEdit:true, requiresEditorKey:false, lastSaved:null, updatedBy:null, updatedReason:null, version:null, syncTimer:null, auditEntries:[]};
 let LAST_SHARED_SNAPSHOT = null;
+function defaultSnapshotPeriod() {
+  return new Intl.DateTimeFormat('en-US', {month:'long', year:'numeric'}).format(new Date());
+}
 const URL_PARAMS = new URLSearchParams(window.location.search);
 const SNAPSHOT_MODE = URL_PARAMS.get('snapshot');
 const SNAPSHOT_PRINT = URL_PARAMS.get('print') === '1';
+const SNAPSHOT_PERIOD = URL_PARAMS.get('period') || defaultSnapshotPeriod();
+const SNAPSHOT_NOTE = URL_PARAMS.get('note') || '';
 const SHARED_KEYS = ['epicStatus','epicNotes','strStatus','hireStatus','decStatus','galStatus','customEpics'];
 const LOCAL_AUDIT_FALLBACK = [
   {actor:'local browser', note:'Dashboard is running in local prototype mode. Shared audit trail appears only when served through the shared web app.', at:null, version:null},
@@ -1313,6 +1320,7 @@ function loadST() {
   if(!ST.actorName)  ST.actorName = 'product-team';
   if(ST.pendingReason === undefined || ST.pendingReason === null) ST.pendingReason = '';
   if(ST.editorPanelOpen === undefined || ST.editorPanelOpen === null) ST.editorPanelOpen = false;
+  if(!ST.snapshotContext) ST.snapshotContext = {};
 }
 function saveLocalST() { try { localStorage.setItem(LS, JSON.stringify(ST)); } catch(e){} }
 function cloneJson(value) { return JSON.parse(JSON.stringify(value)); }
@@ -2104,13 +2112,26 @@ function exportStatusConsole(format) {
   showToast('Filtered status exported as CSV');
 }
 function openLeadershipSnapshot(kind) {
-  const url = `${window.location.pathname}?snapshot=${kind}&print=1`;
+  const lastContext = ST.snapshotContext?.[kind] || {};
+  const defaultNote = lastContext.note || '';
+  const note = window.prompt('Optional circulation note for leadership footer:', defaultNote);
+  if(note === null) return;
+  if(!ST.snapshotContext) ST.snapshotContext = {};
+  ST.snapshotContext[kind] = {period: defaultSnapshotPeriod(), note: String(note || '').trim()};
+  saveST('local');
+  const params = new URLSearchParams({
+    snapshot: kind,
+    print: '1',
+    period: ST.snapshotContext[kind].period,
+  });
+  if(ST.snapshotContext[kind].note) params.set('note', ST.snapshotContext[kind].note);
+  const url = `${window.location.pathname}?${params.toString()}`;
   const popup = window.open(url, '_blank', 'noopener,noreferrer');
   if(!popup) {
     showToast('Popup blocked. Allow popups for PDF export.');
     return;
   }
-  showToast(`Opening ${kind === 'roadmap' ? 'roadmap' : 'overall'} snapshot. Use Save as PDF in print dialog.`);
+  showToast(`Opening ${kind === 'roadmap' ? 'roadmap' : 'monthly'} snapshot. Use Save as PDF in print dialog.`);
 }
 function leadershipSummaryText() {
   return 'Demand is real, but FY27 outcome depends on closing parity gaps, clearing compliance blockers, and protecting Q1/Q2 execution bandwidth before expansion bets dilute credibility.';
@@ -2120,10 +2141,70 @@ function snapshotMetaRows() {
   const summary = activeSummaryEntry();
   return [
     {label:'Generated', value:now.toLocaleString()},
+    {label:'Period', value:SNAPSHOT_PERIOD},
     {label:'Fiscal Year', value:'FY 2026–27'},
     {label:'Last Changed', value:summary?.at ? new Date(summary.at).toLocaleString() : 'No shared update'},
     {label:'Updated By', value:displayActorName(summary)},
   ];
+}
+function parseLossValue(text) {
+  const raw = String(text || '').replace(/[₹,\s]/g, '').replace(/Cr/ig, '');
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : 0;
+}
+function monthlyProductUpdateRows(limit=5) {
+  return GALLERY
+    .filter(item => item.type === 'v')
+    .sort((a,b) => {
+      const aq = String(a.q || '');
+      const bq = String(b.q || '');
+      const aRank = aq.includes('Q1') ? 0 : aq.includes('Q2') ? 1 : aq.includes('Q3') ? 2 : 3;
+      const bRank = bq.includes('Q1') ? 0 : bq.includes('Q2') ? 1 : bq.includes('Q3') ? 2 : 3;
+      if(aRank !== bRank) return aRank - bRank;
+      return parseLossValue(b.loss) - parseLossValue(a.loss);
+    })
+    .slice(0, limit)
+    .map(item => ({
+      name:item.name,
+      copy:`${item.tag}. Current focus: ${item.q}. Status: ${getGalSt(item.id)}.`,
+      value:item.loss || item.opp || item.q,
+    }));
+}
+function monthlyPlatformUpdateRows() {
+  const preferred = ['compliance','colending','collections','ai'];
+  return preferred
+    .map(id => GALLERY.find(item => item.id === id))
+    .filter(Boolean)
+    .map(item => ({
+      name:item.name,
+      copy:`${item.tag}. Current focus: ${item.q}.`,
+      value:item.opp || item.loss || item.q,
+    }));
+}
+function monthlyUpcomingRows(limit=4) {
+  return getEpics()
+    .filter(epic => ['Q1','Q2'].includes(epic.q))
+    .sort((a,b) => {
+      const aq = a.q === 'Q1' ? 0 : 1;
+      const bq = b.q === 'Q1' ? 0 : 1;
+      if(aq !== bq) return aq - bq;
+      const pa = a.prio === 'P0' ? 0 : a.prio === 'P1' ? 1 : 2;
+      const pb = b.prio === 'P0' ? 0 : b.prio === 'P1' ? 1 : 2;
+      if(pa !== pb) return pa - pb;
+      return epicPdValue(b) - epicPdValue(a);
+    })
+    .slice(0, limit)
+    .map(epic => ({
+      name:`${epic.q} · ${epic.name}`,
+      copy:epic.notes,
+      value:`${epic.prio} · ${epicPdLabel(epic, true)}`,
+    }));
+}
+function snapshotFooterNote(kind) {
+  const note = String(SNAPSHOT_NOTE || '').trim();
+  if(note) return note;
+  if(kind === 'roadmap') return 'For roadmap circulation. Save as PDF from browser print and attach with the monthly update note.';
+  return 'For monthly leadership circulation. Save as PDF from browser print and attach with the operating review email.';
 }
 function snapshotMetricRows() {
   return [
@@ -2232,7 +2313,10 @@ function buildOverallSnapshotHtml() {
   const metrics = snapshotMetricRows();
   const watch = leadershipWatchRows();
   const risks = overallRiskRows();
-  const decisions = decisionRows();
+  const productUpdates = monthlyProductUpdateRows();
+  const platformUpdates = monthlyPlatformUpdateRows();
+  const upcoming = monthlyUpcomingRows();
+  const decisions = decisionRows(2);
   const meta = snapshotMetaRows();
   return `
     <style>@page{size:A4 portrait;margin:12mm}</style>
@@ -2240,7 +2324,7 @@ function buildOverallSnapshotHtml() {
       <div class="snapshot-header">
         <div>
           <div class="snapshot-brand">M2P Finflux · Leadership Snapshot</div>
-          <div class="snapshot-title">Overall Product Update</div>
+          <div class="snapshot-title">Monthly Product Update · ${SNAPSHOT_PERIOD}</div>
           <div class="snapshot-sub">${leadershipSummaryText()}</div>
         </div>
         <div class="snapshot-meta">${meta.map(item => `<div><strong>${item.label}:</strong> ${item.value}</div>`).join('')}</div>
@@ -2257,7 +2341,7 @@ function buildOverallSnapshotHtml() {
       </div>
       <div class="snapshot-two-col">
         <div class="snapshot-card">
-          <div class="snapshot-card-title">What Leadership Should Watch</div>
+          <div class="snapshot-card-title">Executive Summary</div>
           <div class="snapshot-list">${watch.map(item => `
             <div class="snapshot-item">
               <div class="snapshot-item-main">
@@ -2279,10 +2363,21 @@ function buildOverallSnapshotHtml() {
             </div>`).join('')}</div>
         </div>
       </div>
-      <div class="snapshot-section">
+      <div class="snapshot-balanced-grid">
         <div class="snapshot-card">
-          <div class="snapshot-card-title">Leadership Decisions Required</div>
-          <div class="snapshot-list">${decisions.map(item => `
+          <div class="snapshot-card-title">Product Updates</div>
+          <div class="snapshot-list">${productUpdates.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">Platform Updates</div>
+          <div class="snapshot-list">${platformUpdates.map(item => `
             <div class="snapshot-item">
               <div class="snapshot-item-main">
                 <div class="snapshot-item-name">${item.name}</div>
@@ -2292,9 +2387,23 @@ function buildOverallSnapshotHtml() {
             </div>`).join('')}</div>
         </div>
       </div>
+      <div class="snapshot-section">
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">Upcoming Product Features / Initiatives</div>
+          <div class="snapshot-list">${upcoming.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+          <div class="snapshot-note"><strong>Leadership note:</strong> ${decisions.map(item => item.name).join(' · ')}</div>
+        </div>
+      </div>
       <div class="snapshot-footer">
         <span>Prepared from the live Product Command Center</span>
-        <span>For leadership review · Save as PDF from browser print</span>
+        <span>${snapshotFooterNote('overall')}</span>
       </div>
     </div>`;
 }
@@ -2307,7 +2416,7 @@ function buildRoadmapSnapshotHtml() {
       <div class="snapshot-header">
         <div>
           <div class="snapshot-brand">M2P Finflux · Leadership Snapshot</div>
-          <div class="snapshot-title">Roadmap Snapshot</div>
+          <div class="snapshot-title">Roadmap Snapshot · ${SNAPSHOT_PERIOD}</div>
           <div class="snapshot-sub">Each quarter needs a distinct commercial proof point. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens markets, and Q4 monetizes the platform layer.</div>
         </div>
         <div class="snapshot-meta">${snapshotMetaRows().map(item => `<div><strong>${item.label}:</strong> ${item.value}</div>`).join('')}</div>
@@ -2345,18 +2454,19 @@ function buildRoadmapSnapshotHtml() {
               </div>
               <div class="snapshot-item-value">${item.value}</div>
             </div>`).join('')}</div>
+          <div class="snapshot-note"><strong>Circulation note:</strong> ${snapshotFooterNote('roadmap')}</div>
         </div>
       </div>
       <div class="snapshot-footer">
         <span>Prepared from the live Product Command Center roadmap</span>
-        <span>For leadership review · Save as PDF from browser print</span>
+        <span>${snapshotFooterNote('roadmap')}</span>
       </div>
     </div>`;
 }
 function renderLeadershipSnapshotPage(kind) {
   const normalized = kind === 'roadmap' ? 'roadmap' : 'overall';
   document.body.classList.add('snapshot-mode');
-  document.title = normalized === 'roadmap' ? 'Roadmap Snapshot' : 'Overall Product Update';
+  document.title = normalized === 'roadmap' ? `Roadmap Snapshot - ${SNAPSHOT_PERIOD}` : `Monthly Product Update - ${SNAPSHOT_PERIOD}`;
   document.body.innerHTML = normalized === 'roadmap' ? buildRoadmapSnapshotHtml() : buildOverallSnapshotHtml();
   if(SNAPSHOT_PRINT) {
     setTimeout(() => window.print(), 250);
