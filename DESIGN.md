@@ -13,12 +13,12 @@
 - **Reference sites:** Internal product context only. No external design research was used for this initial system.
 
 ## Typography
-- **Display/Hero:** `Instrument Serif` — reserved for page titles, section titles, and a few high-authority figures. It introduces gravity without turning the product into an editorial magazine.
+- **Primary heading system:** `IBM Plex Sans` — use this for page titles, section titles, thesis blocks, major metrics, and all operational emphasis. It reads sharper, more technical, and more native to a product command center than an editorial serif.
 - **Body:** `Source Sans 3` — highly legible, understated, and strong at medium-density operational reading.
-- **UI/Labels:** `Source Sans 3` — same family as body for consistency; use semibold and tracking shifts instead of switching families.
+- **UI/Labels:** `IBM Plex Sans` — use semibold weights and tracking shifts for hierarchy rather than introducing a contrasting display family.
 - **Data/Tables:** `IBM Plex Sans` — crisp numerals and stronger technical character for tables, filters, matrices, and dense metric rows.
 - **Code:** `IBM Plex Mono`
-- **Loading:** Google Fonts for `Instrument Serif`, `Source Sans 3`, `IBM Plex Sans`, and `IBM Plex Mono`
+- **Loading:** Google Fonts for `Source Sans 3`, `IBM Plex Sans`, and `IBM Plex Mono`
 - **Scale:**
   - `12px` micro metadata only
   - `14px` secondary labels and compact controls
@@ -62,7 +62,8 @@
 ## System Rules
 - Viewer mode must feel materially cleaner than editor mode. Editing affordances should recede unless the user explicitly unlocks editing.
 - Overview is an executive scan surface first. Operational detail belongs behind folds, filters, or secondary panes.
-- Use serif only for authority moments: page titles, section titles, major metrics. Do not use serif for controls, table headers, chips, or dense body copy.
+- Do not use editorial serif display typography in the live dashboard. This product is a high-trust operating surface, not a magazine layout or strategy deck cover.
+- Keep the heading system sans-first across Overview, Strategy, Roadmap, Risks, AOP, and Deep-Dives. Hierarchy should come from weight, spacing, and composition, not from switching to a decorative font.
 - Do not use purple as a primary accent. Reserve color for meaning, not decoration.
 - Avoid gradient-heavy or marketing-style hero treatments. This product earns trust through precision and restraint.
 - Every high-value metric should visually read as source-backed and decision-relevant, not as dashboard filler.

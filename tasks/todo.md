@@ -260,6 +260,8 @@
   - `/Users/joy/autoresearch/runs/prod_strategy.png`
   - `/Users/joy/autoresearch/runs/prod_roadmap.png`
   - `/Users/joy/autoresearch/runs/prod_risks.png`
+- Rolled back the over-applied serif heading system from the live dashboard and restored a sans-first operational hierarchy for shell titles, thesis blocks, runtime summary cards, and roadmap strip metrics.
+- Updated `DESIGN.md` to match the actual product language: IBM Plex Sans now owns headings and operational emphasis, while serif/editorial treatments are explicitly disallowed in the live dashboard.
 
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published

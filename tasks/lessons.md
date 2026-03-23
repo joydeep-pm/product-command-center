@@ -11,3 +11,4 @@
 - Do not harden temporary access-control assumptions into the product without rechecking the operating model. For this dashboard, internal read access is intentionally open while live writes alone need protection.
 - Treat `vercel dev` as production-adjacent when Blob credentials are present. Shared-state write tests can mutate the live store unless storage is isolated first or the prior state is restored immediately after verification.
 - Do not reuse the overview’s serif display title style inside operational panes like Roadmap. Pane thesis blocks should read like decision support, not like editorial poster copy.
+- Do not let a design-system idea override the product's actual visual language. For this dashboard, the correct heading system is sans-first and operational across the live app, not serif-led.
