@@ -23,18 +23,6 @@
   --font-ui:"Satoshi","Satoshi Variable","Inter","Segoe UI",sans-serif;
   --font-mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
 }
-body.light {
-  --bg:#EEF3F9; --surface:#F9FBFD; --card:#FFFFFF; --card-hi:#F1F5FB;
-  --border:rgba(186,201,221,0.9); --border-hi:rgba(73,98,129,0.26);
-  --text:#132339; --muted:#5F7694; --muted-strong:#4C6688; --subtle:#CFD9E6;
-  --blue:#2F6BFF; --blue-dim:rgba(47,107,255,0.08);
-  --amber:#B27C1F; --amber-dim:rgba(178,124,31,0.09);
-  --green:#1F9D68; --green-dim:rgba(31,157,104,0.09);
-  --red:#C63838; --red-dim:rgba(198,56,56,0.09);
-  --purple:#596AD6; --purple-dim:rgba(89,106,214,0.09);
-  --cyan:#2F7BDE;
-  --shadow-soft:0 18px 44px rgba(18,35,57,0.08);
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
 body{background:
@@ -75,12 +63,14 @@ body{background:
 .tb-actions,.tb-meta,.tb-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .tb-input{min-width:120px;width:120px}
 .tb-reason{min-width:180px;width:180px}
-.editor-only{display:flex}
+.editor-only{display:none}
 
-/* ── THEME TOGGLE ── */
+/* ── TOPBAR ACTIONS ── */
 .theme-btn{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap}
 .theme-btn:hover{background:var(--card);color:var(--text)}
 .theme-btn .t-icon{font-size:13px;line-height:1}
+.editor-tray{display:none;padding:12px 22px;border-bottom:1px solid var(--border);background:rgba(7,18,31,0.92);gap:10px;align-items:center;flex-wrap:wrap}
+.editor-tray-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
 
 /* ── BADGES ── */
 .badge-fy,.badge-conf,.badge-shared,.badge-local{padding:4px 10px;border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap}
@@ -162,7 +152,6 @@ body{background:
 .sel{background:var(--card-hi);border:1px solid var(--border);color:var(--text);font-size:12px;padding:7px 26px 7px 10px;border-radius:var(--rs);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%2393A8C3' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;font-family:var(--font-ui);min-width:130px}
 .sel:hover{border-color:var(--border-hi)}
 .sel option{background:#1a2540;color:#dce4f2}
-body.light .sel option{background:#fff;color:#1C2B4A}
 
 /* ── PROGRESS BAR ── */
 .prog-track{width:100%;height:5px;background:var(--border);border-radius:99px;overflow:hidden}
@@ -504,6 +493,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 #toast.show{transform:translateY(0);opacity:1}
 .toast-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
 #importFile{display:none}
+body.editor-active .editor-only{display:flex}
 body.viewer-readonly .editor-only{display:none!important}
 body.viewer-readonly .sb-footer .sb-btn{display:none}
 body.viewer-readonly .sb-footer{padding-top:8px;padding-bottom:12px}
@@ -512,6 +502,7 @@ body.viewer-readonly #editorBtn:hover{background:rgba(59,130,246,0.16)}
 body.viewer-readonly .tb-right{gap:8px}
 body.viewer-readonly .tb-sub{max-width:520px}
 body.viewer-readonly .tb-status{max-width:760px}
+body.editor-active .editor-tray{display:flex}
 </style>
 </head>
 <body>
@@ -567,22 +558,19 @@ body.viewer-readonly .tb-status{max-width:760px}
     </div>
     <div class="tb-right">
       <div class="tb-actions">
-        <div class="tb-meta editor-only">
-          <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
-          <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
-        </div>
         <button class="theme-btn" onclick="connectEditor()" id="editorBtn">
           <span class="t-icon">✎</span>
           <span id="editorLabel">Unlock Editor</span>
-        </button>
-        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
-          <span class="t-icon" id="themeIcon">🌙</span>
-          <span id="themeLabel">Light Mode</span>
         </button>
         <span class="badge-fy">FY 2026–27</span>
         <span class="badge-conf">Confidential</span>
       </div>
     </div>
+  </div>
+  <div class="editor-tray editor-only">
+    <div class="editor-tray-label">Editor Session</div>
+    <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
+    <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
   </div>
   <!-- CONTENT -->
   <div id="content">
@@ -1253,7 +1241,6 @@ function loadST() {
   if(!ST.galStatus)  ST.galStatus  = {};
   if(!ST.customEpics) ST.customEpics = [];
   if(!ST.statusConsole) ST.statusConsole = {scope:'ALL', quarter:'ALL', status:'ALL', search:''};
-  if(!ST.theme)      ST.theme = 'dark';
   if(!ST.editorKey)  ST.editorKey = '';
   if(!ST.actorName)  ST.actorName = 'product-team';
   if(ST.pendingReason === undefined || ST.pendingReason === null) ST.pendingReason = '';
@@ -1340,6 +1327,7 @@ function rerenderActiveView() {
 }
 function updateSharedModeUi() {
   document.body.classList.toggle('viewer-readonly', SHARED.enabled && !SHARED.canEdit);
+  document.body.classList.toggle('editor-active', !SHARED.enabled || SHARED.canEdit);
   const badge = document.getElementById('sharedModeBadge');
   const label = document.getElementById('editorLabel');
   const sub = document.getElementById('tbSubline');
@@ -2165,25 +2153,6 @@ async function loadCommandCenterData() {
   renderRisks();
   renderGallery();
 }
-
-// ══════════════════════════════════════════
-// THEME
-// ══════════════════════════════════════════
-function toggleTheme() {
-  const isLight = document.body.classList.toggle('light');
-  ST.theme = isLight ? 'light' : 'dark';
-  saveST('local');
-  document.getElementById('themeIcon').textContent = isLight ? '☀️' : '🌙';
-  document.getElementById('themeLabel').textContent = isLight ? 'Dark Mode' : 'Light Mode';
-}
-function initTheme() {
-  if(ST.theme === 'light') {
-    document.body.classList.add('light');
-    document.getElementById('themeIcon').textContent = '☀️';
-    document.getElementById('themeLabel').textContent = 'Dark Mode';
-  }
-}
-initTheme();
 
 // ══════════════════════════════════════════
 // NAVIGATION

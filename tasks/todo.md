@@ -373,3 +373,5 @@
 
 - Replaced the command center font system with Satoshi across the live dashboard, entry page, and design preview; kept mono only for code-like IDs and trace tags.
 - Updated DESIGN.md so the project source of truth matches the shipped typography system.
+
+- Removed the incomplete light mode and moved editor metadata fields into a secondary editor tray so the Strategy shell reads as one coherent operating surface.

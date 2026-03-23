@@ -12,3 +12,6 @@
 - Treat `vercel dev` as production-adjacent when Blob credentials are present. Shared-state write tests can mutate the live store unless storage is isolated first or the prior state is restored immediately after verification.
 - Do not reuse the overview’s serif display title style inside operational panes like Roadmap. Pane thesis blocks should read like decision support, not like editorial poster copy.
 - Do not let a design-system idea override the product's actual visual language. For this dashboard, the correct heading system is sans-first and operational across the live app, not serif-led.
+
+- Do not ship partial theme systems. If light mode does not fully theme shell, content, and controls coherently, remove it instead of exposing a split dark-shell/light-canvas UI.
+- Keep editor controls out of the primary command-center header. Editing metadata belongs in a secondary tray or dedicated edit state, not in the first visual row stakeholders scan.
