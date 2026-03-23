@@ -370,3 +370,6 @@
 - Verification caveat: `vercel dev` was connected to the live Blob store, so the smoke-test write temporarily changed shared metadata. The prior live content (`ECO-01` back to `In Progress`) was restored immediately after the check.
 - Removed the unused viewer-gate implementation files (`/Users/joy/autoresearch/webapp/access-node.js`, `/Users/joy/autoresearch/api/viewer-access.js`, `/Users/joy/autoresearch/api/viewer-logout.js`) so the repo no longer carries dead access-control code.
 - Adjusted the dashboard audit presentation so system-originated verification/restore entries are visually marked as `System` and do not take over the topbar’s `Last Changed` / `Updated By` summary when a newer business entry exists.
+
+- Replaced the command center font system with Satoshi across the live dashboard, entry page, and design preview; kept mono only for code-like IDs and trace tags.
+- Updated DESIGN.md so the project source of truth matches the shipped typography system.

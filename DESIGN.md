@@ -13,12 +13,12 @@
 - **Reference sites:** Internal product context only. No external design research was used for this initial system.
 
 ## Typography
-- **Primary heading system:** `IBM Plex Sans` — use this for page titles, section titles, thesis blocks, major metrics, and all operational emphasis. It reads sharper, more technical, and more native to a product command center than an editorial serif.
-- **Body:** `Source Sans 3` — highly legible, understated, and strong at medium-density operational reading.
-- **UI/Labels:** `IBM Plex Sans` — use semibold weights and tracking shifts for hierarchy rather than introducing a contrasting display family.
-- **Data/Tables:** `IBM Plex Sans` — crisp numerals and stronger technical character for tables, filters, matrices, and dense metric rows.
+- **Primary heading system:** `Satoshi` — use this for page titles, section titles, thesis blocks, major metrics, and all operational emphasis. It reads sharper, more technical, and more native to a product command center than an editorial serif.
+- **Body:** `Satoshi` — highly legible, understated, and strong at medium-density operational reading.
+- **UI/Labels:** `Satoshi` — use semibold weights and tracking shifts for hierarchy rather than introducing a contrasting display family.
+- **Data/Tables:** `Satoshi` — crisp numerals and stronger technical character for tables, filters, matrices, and dense metric rows.
 - **Code:** `IBM Plex Mono`
-- **Loading:** Google Fonts for `Source Sans 3`, `IBM Plex Sans`, and `IBM Plex Mono`
+- **Loading:** Fontshare for `Satoshi`; `IBM Plex Mono` is optional for code-like IDs and traces only
 - **Scale:**
   - `12px` micro metadata only
   - `14px` secondary labels and compact controls

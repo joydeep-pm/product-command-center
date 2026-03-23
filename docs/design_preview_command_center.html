@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Command Center Design Preview</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#04101C;
@@ -25,6 +24,8 @@
       --radius-md:10px;
       --radius-lg:14px;
       --shadow:0 18px 60px rgba(0,0,0,0.3);
+      --font-ui:"Satoshi","Satoshi Variable","Inter","Segoe UI",sans-serif;
+      --font-mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
     }
     body.light{
       --bg:#EEF3F9;
@@ -39,7 +40,7 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:"Source Sans 3",sans-serif;
+      font-family:var(--font-ui);
       background:
         radial-gradient(circle at top left, rgba(47,107,255,0.12), transparent 30%),
         radial-gradient(circle at top right, rgba(200,146,46,0.08), transparent 28%),
@@ -57,13 +58,13 @@
       background:rgba(255,255,255,0.02);
     }
     h1{
-      font-family:"Instrument Serif",serif;font-weight:400;font-size:54px;line-height:.98;margin:16px 0 14px;max-width:780px;
+      font-family:var(--font-ui);font-weight:700;font-size:54px;line-height:.98;margin:16px 0 14px;max-width:780px;
       letter-spacing:-0.02em;
     }
     .hero-copy{max-width:760px;font-size:18px;line-height:1.6;color:var(--muted)}
     .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
     .btn{
-      padding:11px 16px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:600 14px "Source Sans 3",sans-serif;cursor:pointer;
+      padding:11px 16px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font:700 14px var(--font-ui);cursor:pointer;
     }
     .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
     .header-strip{
@@ -74,30 +75,30 @@
     .strip-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
     .strip-value{font-size:15px;font-weight:600}
     .section{margin-top:32px}
-    .section h2{font-family:"Instrument Serif",serif;font-size:31px;font-weight:400;margin:0 0 8px}
+    .section h2{font-family:var(--font-ui);font-size:31px;font-weight:700;margin:0 0 8px}
     .section p{margin:0;color:var(--muted);font-size:16px;line-height:1.6}
     .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:18px}
     .swatch{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);background:var(--card)}
     .swatch-tone{height:86px}
     .swatch-meta{padding:14px}
     .swatch-name{font-weight:700;font-size:14px}
-    .swatch-hex{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);margin-top:4px}
+    .swatch-hex{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-top:4px}
     .font-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;margin-top:18px}
     .font-card,.shell,.mock{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
     .font-card{padding:20px}
     .font-role{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-    .display-sample{font-family:"Instrument Serif",serif;font-size:44px;line-height:1.02}
+    .display-sample{font-family:var(--font-ui);font-size:44px;font-weight:700;line-height:1.02}
     .body-sample{font-size:17px;line-height:1.7}
-    .data-sample{font-family:"IBM Plex Sans",sans-serif}
+    .data-sample{font-family:var(--font-ui)}
     .data-row{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding:12px 0;font-size:15px}
     .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
     .metric-card{padding:18px;border-radius:var(--radius-md);background:var(--card);border:1px solid var(--border)}
     .metric-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-    .metric-value{font-family:"Instrument Serif",serif;font-size:34px;line-height:1;margin-top:8px}
+    .metric-value{font-family:var(--font-ui);font-size:34px;font-weight:700;line-height:1;margin-top:8px}
     .metric-copy{margin-top:8px;font-size:14px;color:var(--muted)}
     .shell{margin-top:18px;overflow:hidden}
     .shell-top{display:flex;justify-content:space-between;gap:18px;padding:20px 22px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
-    .shell-title{font-family:"Instrument Serif",serif;font-size:26px}
+    .shell-title{font-family:var(--font-ui);font-size:26px;font-weight:700}
     .shell-sub{font-size:15px;color:var(--muted);margin-top:6px;max-width:620px}
     .chip-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .chip{padding:8px 11px;border-radius:999px;border:1px solid var(--border);font-size:13px;background:rgba(255,255,255,0.02)}
@@ -109,21 +110,21 @@
     .panel{padding:20px}
     .panel-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
     .panel-card{padding:18px;border-radius:var(--radius-md);background:var(--card-hi);border:1px solid var(--border)}
-    .panel-card h3{font-family:"Instrument Serif",serif;font-size:22px;font-weight:400;margin:0 0 4px}
+    .panel-card h3{font-family:var(--font-ui);font-size:22px;font-weight:700;margin:0 0 4px}
     .panel-card p{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 12px}
     .status-table{margin-top:8px}
-    .status-row{display:grid;grid-template-columns:1.4fr .9fr .9fr .7fr;gap:10px;padding:12px 0;border-top:1px solid var(--border);font-family:"IBM Plex Sans",sans-serif;font-size:14px}
+    .status-row{display:grid;grid-template-columns:1.4fr .9fr .9fr .7fr;gap:10px;padding:12px 0;border-top:1px solid var(--border);font-family:var(--font-ui);font-size:14px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:4px 10px;border-radius:999px;border:1px solid transparent;font-size:12px;font-weight:600}
     .risk{background:rgba(200,146,46,0.12);color:var(--amber);border-color:rgba(200,146,46,0.28)}
     .good{background:rgba(31,157,104,0.12);color:var(--green);border-color:rgba(31,157,104,0.25)}
     .block{background:rgba(214,69,69,0.12);color:var(--red);border-color:rgba(214,69,69,0.25)}
     .mock-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
     .mock{padding:18px}
-    .mock h3{font-family:"Instrument Serif",serif;font-size:24px;font-weight:400;margin:0 0 8px}
+    .mock h3{font-family:var(--font-ui);font-size:24px;font-weight:700;margin:0 0 8px}
     .mock p{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 14px}
     .audit-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--border);font-size:14px}
     .toolbar{position:sticky;top:0;z-index:20;display:flex;justify-content:flex-end;padding:18px 24px 0}
-    .toggle{padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);font:600 13px "Source Sans 3",sans-serif;cursor:pointer}
+    .toggle{padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);font:700 13px var(--font-ui);cursor:pointer}
     @media (max-width: 980px){
       h1{font-size:42px}
       .font-grid,.metric-grid,.panel-grid,.mock-grid{grid-template-columns:1fr}
@@ -182,15 +183,15 @@
       <p>Serif is reserved for authority moments. Sans handles reading and control surfaces. Data gets a sharper technical voice.</p>
       <div class="font-grid">
         <div class="font-card">
-          <div class="font-role">Display · Instrument Serif</div>
+          <div class="font-role">Primary UI · Satoshi</div>
           <div class="display-sample">Quarter risk is visible before it becomes revenue damage.</div>
         </div>
         <div class="font-card">
-          <div class="font-role">Body · Source Sans 3</div>
+          <div class="font-role">Body · Satoshi</div>
           <div class="body-sample">The command center should read like an operating room: serious, legible, and decision-first. Nothing should look ornamental unless it helps leadership understand status faster.</div>
         </div>
         <div class="font-card data-sample">
-          <div class="font-role">Data · IBM Plex Sans</div>
+          <div class="font-role">Dense Data · Satoshi</div>
           <div class="data-row"><span>Q2 revenue unlock</span><strong>₹18.4 Cr</strong></div>
           <div class="data-row"><span>Compliance gates open</span><strong>03</strong></div>
           <div class="data-row"><span>Delivery confidence</span><strong>64 / 100</strong></div>
