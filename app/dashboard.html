@@ -61,16 +61,21 @@ body{background:
 .status-chip-mode{padding:7px 11px;min-height:32px;display:inline-flex;align-items:center}
 .tb-right{display:flex;align-items:flex-start;gap:8px;flex-shrink:0;min-width:0}
 .tb-actions,.tb-meta,.tb-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.tb-input{min-width:120px;width:120px}
-.tb-reason{min-width:180px;width:180px}
+.tb-input{min-width:140px;width:140px}
+.tb-reason{min-width:260px;width:260px}
 .editor-only{display:none}
 
 /* ── TOPBAR ACTIONS ── */
 .theme-btn{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap}
 .theme-btn:hover{background:var(--card);color:var(--text)}
 .theme-btn .t-icon{font-size:13px;line-height:1}
-.editor-tray{display:none;padding:12px 22px;border-bottom:1px solid var(--border);background:rgba(7,18,31,0.92);gap:10px;align-items:center;flex-wrap:wrap}
-.editor-tray-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.editor-tray{display:none;padding:12px 22px;border-bottom:1px solid var(--border);background:rgba(7,18,31,0.92);gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.editor-tray-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.editor-tray-copy{font-size:11px;line-height:1.45;color:var(--muted);max-width:360px}
+.editor-tray-fields{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.editor-tray-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.editor-tray-group{display:flex;flex-direction:column;gap:4px}
+.editor-mini-label{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
 
 /* ── BADGES ── */
 .badge-fy,.badge-conf,.badge-shared,.badge-local{padding:4px 10px;border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap}
@@ -109,6 +114,7 @@ body{background:
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:background 0.2s,border-color 0.2s;box-shadow:var(--shadow-soft)}
 .card-title{font-family:var(--font-ui);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.01em}
 .card-sub{font-size:0.92rem;color:var(--muted);line-height:1.55}
+.lead-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .divider{height:1px;background:var(--border);margin:20px 0}
 .sec-title{font-family:var(--font-ui);font-size:1.18rem;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.015em}
 .sec-sub{font-size:0.94rem;color:var(--muted);margin-bottom:16px;line-height:1.55}
@@ -493,7 +499,6 @@ body{background:
 #toast.show{transform:translateY(0);opacity:1}
 .toast-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
 #importFile{display:none}
-body.editor-active .editor-only{display:flex}
 body.viewer-readonly .editor-only{display:none!important}
 body.viewer-readonly .sb-footer .sb-btn{display:none}
 body.viewer-readonly .sb-footer{padding-top:8px;padding-bottom:12px}
@@ -502,7 +507,48 @@ body.viewer-readonly #editorBtn:hover{background:rgba(59,130,246,0.16)}
 body.viewer-readonly .tb-right{gap:8px}
 body.viewer-readonly .tb-sub{max-width:520px}
 body.viewer-readonly .tb-status{max-width:760px}
-body.editor-active .editor-tray{display:flex}
+
+/* ── SNAPSHOT EXPORT ── */
+body.snapshot-mode{display:block;height:auto;overflow:auto;background:#F4F7FB;color:#11243A}
+body.snapshot-mode #sidebar,
+body.snapshot-mode #main{display:none}
+.snapshot-page{max-width:1120px;margin:0 auto;padding:28px 32px 36px;background:#fff;min-height:100vh;color:#11243A}
+.snapshot-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;border-bottom:1px solid #D7E0EB;padding-bottom:14px;margin-bottom:18px}
+.snapshot-brand{font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5B7394}
+.snapshot-title{font-size:28px;font-weight:700;line-height:1.05;color:#11243A;margin-top:6px}
+.snapshot-sub{font-size:14px;color:#5B7394;line-height:1.5;margin-top:6px;max-width:680px}
+.snapshot-meta{display:grid;gap:6px;text-align:right;font-size:11px;color:#5B7394}
+.snapshot-section{margin-top:18px}
+.snapshot-section-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#5B7394;margin-bottom:8px}
+.snapshot-summary{font-size:14px;line-height:1.65;color:#223A57}
+.snapshot-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.snapshot-metric{padding:14px;border:1px solid #D7E0EB;border-radius:12px;background:#F8FBFE}
+.snapshot-metric-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6B83A3;margin-bottom:8px}
+.snapshot-metric-value{font-size:24px;font-weight:700;line-height:1;color:#11243A}
+.snapshot-metric-copy{font-size:11px;color:#5B7394;line-height:1.5;margin-top:8px}
+.snapshot-two-col{display:grid;grid-template-columns:1.2fr 0.8fr;gap:16px;margin-top:14px}
+.snapshot-card{padding:14px 16px;border:1px solid #D7E0EB;border-radius:12px;background:#FFFFFF}
+.snapshot-card-title{font-size:13px;font-weight:700;color:#11243A;margin-bottom:8px}
+.snapshot-list{display:flex;flex-direction:column;gap:10px}
+.snapshot-item{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #E7EDF5}
+.snapshot-item:first-child{border-top:none;padding-top:0}
+.snapshot-item-main{flex:1;min-width:0}
+.snapshot-item-name{font-size:12.5px;font-weight:700;color:#11243A}
+.snapshot-item-copy{font-size:11px;color:#5B7394;line-height:1.5;margin-top:3px}
+.snapshot-item-value{font-size:12px;font-weight:700;color:#11243A;text-align:right;white-space:nowrap}
+.snapshot-quarter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.snapshot-quarter{padding:14px;border:1px solid #D7E0EB;border-radius:12px;background:#F8FBFE}
+.snapshot-quarter-head{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.snapshot-quarter-value{font-size:22px;font-weight:700;line-height:1;color:#11243A}
+.snapshot-quarter-copy{font-size:11px;color:#5B7394;line-height:1.5;margin-top:6px}
+.snapshot-roadmap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.snapshot-epic{padding:8px 0;border-top:1px solid #E7EDF5}
+.snapshot-epic:first-child{border-top:none;padding-top:0}
+.snapshot-epic-id{font-family:var(--font-mono);font-size:10px;color:#5B7394}
+.snapshot-epic-name{font-size:12px;font-weight:700;color:#11243A;margin-top:2px}
+.snapshot-epic-note{font-size:11px;color:#5B7394;line-height:1.45;margin-top:3px}
+.snapshot-footer{margin-top:18px;padding-top:10px;border-top:1px solid #D7E0EB;font-size:10.5px;color:#6B83A3;display:flex;justify-content:space-between;gap:12px}
+body.editor-panel-open .editor-tray{display:flex}
 </style>
 </head>
 <body>
@@ -526,8 +572,6 @@ body.editor-active .editor-tray{display:flex}
   <div class="nav-item" onclick="nav('risks',this)"><span class="nav-icon">⚠</span> Risks &amp; Hiring</div>
   <div class="nav-item" onclick="nav('deepdive',this)"><span class="nav-icon">◉</span> Product Deep-Dives</div>
   <div class="sb-footer">
-    <button class="sb-btn editor-only" onclick="exportData()">↓ Export JSON Backup</button>
-    <button class="sb-btn editor-only" onclick="document.getElementById('importFile').click()">↑ Import JSON Backup</button>
     <input type="file" id="importFile" accept=".json" onchange="importData(event)">
     <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px">FY 2026–27 · Confidential</div>
   </div>
@@ -558,7 +602,7 @@ body.editor-active .editor-tray{display:flex}
     </div>
     <div class="tb-right">
       <div class="tb-actions">
-        <button class="theme-btn" onclick="connectEditor()" id="editorBtn">
+        <button class="theme-btn" onclick="handleEditorButton()" id="editorBtn">
           <span class="t-icon">✎</span>
           <span id="editorLabel">Unlock Editor</span>
         </button>
@@ -567,10 +611,25 @@ body.editor-active .editor-tray{display:flex}
       </div>
     </div>
   </div>
-  <div class="editor-tray editor-only">
-    <div class="editor-tray-label">Editor Session</div>
-    <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
-    <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
+  <div class="editor-tray">
+    <div>
+      <div class="editor-tray-label">Editor Tools</div>
+      <div class="editor-tray-copy">Use this tray only when Product is updating live status. It stays out of the main shell so the command center remains readable during reviews.</div>
+    </div>
+    <div class="editor-tray-fields">
+      <div class="editor-tray-group">
+        <label class="editor-mini-label" for="actorNameInput">Updated By</label>
+        <input type="text" class="fsearch tb-input" id="actorNameInput" placeholder="Updated by" oninput="setActorName(this.value)">
+      </div>
+      <div class="editor-tray-group">
+        <label class="editor-mini-label" for="reasonInput">Reason</label>
+        <input type="text" class="fsearch tb-reason" id="reasonInput" placeholder="Reason for next live update" oninput="setPendingReason(this.value)">
+      </div>
+    </div>
+    <div class="editor-tray-actions">
+      <button class="sb-btn" type="button" onclick="exportData()">↓ Export JSON Backup</button>
+      <button class="sb-btn" type="button" onclick="document.getElementById('importFile').click()">↑ Import JSON Backup</button>
+    </div>
   </div>
   <!-- CONTENT -->
   <div id="content">
@@ -579,10 +638,13 @@ body.editor-active .editor-tray{display:flex}
     <div class="tab-pane active" id="pane-overview">
       <div class="pane-intro">
         <div class="card pane-lead">
-          <div class="eyebrow">Executive Readout</div>
-          <div class="lead-title">FY27 is a completion problem, not a demand problem.</div>
-          <div class="lead-copy">Demand is already real. The operating problem is turning near-fit into wins by closing parity gaps, clearing compliance gates, and protecting the quarters that unlock revenue.</div>
-          <div class="lead-note">
+        <div class="eyebrow">Executive Readout</div>
+        <div class="lead-title">FY27 is a completion problem, not a demand problem.</div>
+        <div class="lead-copy">Demand is already real. The operating problem is turning near-fit into wins by closing parity gaps, clearing compliance gates, and protecting the quarters that unlock revenue.</div>
+        <div class="lead-actions">
+          <button class="btn btn-pr" onclick="openLeadershipSnapshot('overall')">Leadership PDF</button>
+        </div>
+        <div class="lead-note">
             <span class="note-chip">57% of FY26 losses were feature-gap driven</span>
             <span class="note-chip">Q1 and Q2 decide recovery credibility</span>
             <span class="note-chip">Compliance is a revenue gate, not a back-office track</span>
@@ -835,10 +897,13 @@ body.editor-active .editor-tray{display:flex}
     <div class="tab-pane" id="pane-roadmap">
       <div class="roadmap-header">
         <div class="card pane-lead">
-          <div class="eyebrow">Roadmap Thesis</div>
-          <div class="lead-title lead-title-operational">Each quarter needs a distinct commercial proof point.</div>
-          <div class="lead-copy">The roadmap should read as business unlocks, not a flat EPIC dump. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens markets, and Q4 monetizes the platform layer.</div>
+        <div class="eyebrow">Roadmap Thesis</div>
+        <div class="lead-title lead-title-operational">Each quarter needs a distinct commercial proof point.</div>
+        <div class="lead-copy">The roadmap should read as business unlocks, not a flat EPIC dump. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens markets, and Q4 monetizes the platform layer.</div>
+        <div class="lead-actions">
+          <button class="btn btn-pr" onclick="openLeadershipSnapshot('roadmap')">Roadmap PDF</button>
         </div>
+      </div>
         <div class="roadmap-strip" id="qStrip"></div>
       </div>
       <div class="card roadmap-controls">
@@ -1227,6 +1292,9 @@ let ST = {};
 let SOURCE_DATA = null;
 let SHARED = {enabled:false, canEdit:true, requiresEditorKey:false, lastSaved:null, updatedBy:null, updatedReason:null, version:null, syncTimer:null, auditEntries:[]};
 let LAST_SHARED_SNAPSHOT = null;
+const URL_PARAMS = new URLSearchParams(window.location.search);
+const SNAPSHOT_MODE = URL_PARAMS.get('snapshot');
+const SNAPSHOT_PRINT = URL_PARAMS.get('print') === '1';
 const SHARED_KEYS = ['epicStatus','epicNotes','strStatus','hireStatus','decStatus','galStatus','customEpics'];
 const LOCAL_AUDIT_FALLBACK = [
   {actor:'local browser', note:'Dashboard is running in local prototype mode. Shared audit trail appears only when served through the shared web app.', at:null, version:null},
@@ -1244,6 +1312,7 @@ function loadST() {
   if(!ST.editorKey)  ST.editorKey = '';
   if(!ST.actorName)  ST.actorName = 'product-team';
   if(ST.pendingReason === undefined || ST.pendingReason === null) ST.pendingReason = '';
+  if(ST.editorPanelOpen === undefined || ST.editorPanelOpen === null) ST.editorPanelOpen = false;
 }
 function saveLocalST() { try { localStorage.setItem(LS, JSON.stringify(ST)); } catch(e){} }
 function cloneJson(value) { return JSON.parse(JSON.stringify(value)); }
@@ -1328,6 +1397,7 @@ function rerenderActiveView() {
 function updateSharedModeUi() {
   document.body.classList.toggle('viewer-readonly', SHARED.enabled && !SHARED.canEdit);
   document.body.classList.toggle('editor-active', !SHARED.enabled || SHARED.canEdit);
+  document.body.classList.toggle('editor-panel-open', !!ST.editorPanelOpen && !!SHARED.canEdit);
   const badge = document.getElementById('sharedModeBadge');
   const label = document.getElementById('editorLabel');
   const sub = document.getElementById('tbSubline');
@@ -1339,8 +1409,9 @@ function updateSharedModeUi() {
     badge.className = SHARED.enabled ? 'badge-shared status-chip-mode' : 'badge-local status-chip-mode';
   }
   if(label) {
-    if(!SHARED.enabled) label.textContent = 'Local Edit';
-    else label.textContent = SHARED.canEdit ? 'Editor Enabled' : 'Unlock Editor';
+    if(!SHARED.enabled) label.textContent = ST.editorPanelOpen ? 'Hide Editor Tools' : 'Local Edit';
+    else if(SHARED.canEdit) label.textContent = ST.editorPanelOpen ? 'Hide Editor Tools' : 'Editor Tools';
+    else label.textContent = 'Unlock Editor';
   }
   if(sub) {
     sub.textContent = 'M2P Finflux Core Lending · FY 2026–27';
@@ -1489,8 +1560,22 @@ async function connectEditor() {
   const ok = await loadSharedState();
   if(ok && SHARED.canEdit) showToast('Editor mode enabled');
   else showToast('Editor key rejected');
+  if(ok && SHARED.canEdit) {
+    ST.editorPanelOpen = true;
+    saveST('local');
+  }
   syncAuditInputs();
+  updateSharedModeUi();
   rerenderActiveView();
+}
+function handleEditorButton() {
+  if(SHARED.enabled && !SHARED.canEdit) {
+    connectEditor();
+    return;
+  }
+  ST.editorPanelOpen = !ST.editorPanelOpen;
+  saveST('local');
+  updateSharedModeUi();
 }
 function renderAuditLog() {
   const el = document.getElementById('auditLogList');
@@ -2018,6 +2103,265 @@ function exportStatusConsole(format) {
   URL.revokeObjectURL(a.href);
   showToast('Filtered status exported as CSV');
 }
+function openLeadershipSnapshot(kind) {
+  const url = `${window.location.pathname}?snapshot=${kind}&print=1`;
+  const popup = window.open(url, '_blank', 'noopener,noreferrer');
+  if(!popup) {
+    showToast('Popup blocked. Allow popups for PDF export.');
+    return;
+  }
+  showToast(`Opening ${kind === 'roadmap' ? 'roadmap' : 'overall'} snapshot. Use Save as PDF in print dialog.`);
+}
+function leadershipSummaryText() {
+  return 'Demand is real, but FY27 outcome depends on closing parity gaps, clearing compliance blockers, and protecting Q1/Q2 execution bandwidth before expansion bets dilute credibility.';
+}
+function snapshotMetaRows() {
+  const now = new Date();
+  const summary = activeSummaryEntry();
+  return [
+    {label:'Generated', value:now.toLocaleString()},
+    {label:'Fiscal Year', value:'FY 2026–27'},
+    {label:'Last Changed', value:summary?.at ? new Date(summary.at).toLocaleString() : 'No shared update'},
+    {label:'Updated By', value:displayActorName(summary)},
+  ];
+}
+function snapshotMetricRows() {
+  return [
+    {label:'FY26 Total Losses', value:document.getElementById('metricLossVal')?.textContent || '—', copy:document.getElementById('metricLossSub')?.textContent || ''},
+    {label:'Demo Loss Rate', value:document.getElementById('metricDemoVal')?.textContent || '—', copy:document.getElementById('metricDemoSub')?.textContent || ''},
+    {label:'FY27 Roadmap', value:document.getElementById('metricRoadmapVal')?.textContent || '—', copy:document.getElementById('metricRoadmapSub')?.textContent || ''},
+    {label:'Recoverable Pipeline', value:document.getElementById('metricRecoverableVal')?.textContent || '—', copy:document.getElementById('metricRecoverableSub')?.textContent || ''},
+  ];
+}
+function topQuarterRows(limit=4) {
+  return getRevenueUnlockRows()
+    .map(row => {
+      const confidence = getDeliveryConfidenceRows().find(item => item.q === row.q);
+      return {...row, confidence: confidence?.score ?? 0};
+    })
+    .sort((a,b) => b.total - a.total)
+    .slice(0, limit);
+}
+function topFocusEpics(q, limit=3) {
+  return getEpics()
+    .filter(epic => epic.q === q)
+    .sort((a,b) => {
+      const pa = a.prio === 'P0' ? 0 : a.prio === 'P1' ? 1 : 2;
+      const pb = b.prio === 'P0' ? 0 : b.prio === 'P1' ? 1 : 2;
+      if(pa !== pb) return pa - pb;
+      return epicPdValue(b) - epicPdValue(a);
+    })
+    .slice(0, limit);
+}
+function leadershipWatchRows() {
+  const strategySummary = SOURCE_DATA?.workbook?.strategic_summary || null;
+  const q1Focus = topFocusEpics('Q1', 3);
+  const topUnlock = topQuarterRows(2);
+  const items = [
+    {
+      name:'Commercial recovery window',
+      copy:topUnlock.length ? `${topUnlock.map(row => `${row.q} ₹${row.total.toFixed(1)} Cr`).join(' · ')} remain the highest recoverable quarters.` : 'Quarter unlock view unavailable.',
+      value:topUnlock.length ? topUnlock[0].q : '—',
+    },
+    {
+      name:'Q1 protected focus',
+      copy:q1Focus.map(epic => epic.name).join(' · ') || 'Q1 focus not available.',
+      value:String(q1Focus.length),
+    },
+    {
+      name:'Largest parity hole',
+      copy:(SOURCE_DATA?.workbook?.competitive_parity || PARITY_DATA).reduce((best, row) => {
+        const gap = (row.best || 0) - (row.us || 0);
+        return !best || gap > best.gap ? {name:row.name, gap} : best;
+      }, null)?.name || 'Unavailable',
+      value:(SOURCE_DATA?.workbook?.competitive_parity || PARITY_DATA).reduce((best, row) => {
+        const gap = (row.best || 0) - (row.us || 0);
+        return !best || gap > best.gap ? {name:row.name, gap} : best;
+      }, null)?.gap ? `-${(SOURCE_DATA?.workbook?.competitive_parity || PARITY_DATA).reduce((best, row) => {
+        const gap = (row.best || 0) - (row.us || 0);
+        return !best || gap > best.gap ? {name:row.name, gap} : best;
+      }, null).gap}%` : '—',
+    },
+    {
+      name:'Strategic posture',
+      copy:strategySummary?.key_insight?.body || STRATEGY_KEY_INSIGHT_DEFAULT.body,
+      value:strategySummary?.imperatives?.length ? String(strategySummary.imperatives.length) : '5',
+    },
+  ];
+  return items;
+}
+function overallRiskRows() {
+  return RISKS.slice(0, 3).map(risk => ({
+    name:risk.name,
+    copy:risk.mit,
+    value:`${risk.prob} / ${risk.impact}`,
+  }));
+}
+function decisionRows(limit=3) {
+  return DECISIONS.slice(0, limit).map(decision => ({
+    name:decision.title,
+    copy:decision.desc,
+    value:'Decision',
+  }));
+}
+function roadmapQuarterCards() {
+  const quarterSummary = getQuarterSummary();
+  return ['Q1','Q2','Q3','Q4'].map(q => {
+    const summary = quarterSummary?.[q] || {pd_total:getEpics().filter(epic => epic.q === q).reduce((sum, epic) => sum + epicPdValue(epic),0), epics:getEpics().filter(epic => epic.q === q).length};
+    const done = getEpics().filter(epic => epic.q === q && getEpicSt(epic.id) === 'Completed').length;
+    const unlock = getRevenueUnlockRows().find(row => row.q === q);
+    return {
+      q,
+      label:Q_META[q].label,
+      color:Q_META[q].color,
+      pd:summary.pd_total || 0,
+      epics:summary.epics || 0,
+      done,
+      unlock: unlock?.total || 0,
+    };
+  });
+}
+function roadmapDependencyRows() {
+  return getCompliancePanelEntries().slice(0, 4).map(row => ({
+    name:row.gate,
+    copy:`${row.quarter} · ${row.unlocks}`,
+    value:(row.epics || []).join(', ') || '—',
+  }));
+}
+function buildOverallSnapshotHtml() {
+  const metrics = snapshotMetricRows();
+  const watch = leadershipWatchRows();
+  const risks = overallRiskRows();
+  const decisions = decisionRows();
+  const meta = snapshotMetaRows();
+  return `
+    <style>@page{size:A4 portrait;margin:12mm}</style>
+    <div class="snapshot-page">
+      <div class="snapshot-header">
+        <div>
+          <div class="snapshot-brand">M2P Finflux · Leadership Snapshot</div>
+          <div class="snapshot-title">Overall Product Update</div>
+          <div class="snapshot-sub">${leadershipSummaryText()}</div>
+        </div>
+        <div class="snapshot-meta">${meta.map(item => `<div><strong>${item.label}:</strong> ${item.value}</div>`).join('')}</div>
+      </div>
+      <div class="snapshot-section">
+        <div class="snapshot-section-title">Executive Summary</div>
+        <div class="snapshot-summary">${leadershipSummaryText()}</div>
+        <div class="snapshot-metric-grid">${metrics.map(item => `
+          <div class="snapshot-metric">
+            <div class="snapshot-metric-label">${item.label}</div>
+            <div class="snapshot-metric-value">${item.value}</div>
+            <div class="snapshot-metric-copy">${item.copy}</div>
+          </div>`).join('')}</div>
+      </div>
+      <div class="snapshot-two-col">
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">What Leadership Should Watch</div>
+          <div class="snapshot-list">${watch.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">Risks & Dependencies</div>
+          <div class="snapshot-list">${risks.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+        </div>
+      </div>
+      <div class="snapshot-section">
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">Leadership Decisions Required</div>
+          <div class="snapshot-list">${decisions.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+        </div>
+      </div>
+      <div class="snapshot-footer">
+        <span>Prepared from the live Product Command Center</span>
+        <span>For leadership review · Save as PDF from browser print</span>
+      </div>
+    </div>`;
+}
+function buildRoadmapSnapshotHtml() {
+  const quarters = roadmapQuarterCards();
+  const dependencies = roadmapDependencyRows();
+  return `
+    <style>@page{size:A4 landscape;margin:10mm}</style>
+    <div class="snapshot-page">
+      <div class="snapshot-header">
+        <div>
+          <div class="snapshot-brand">M2P Finflux · Leadership Snapshot</div>
+          <div class="snapshot-title">Roadmap Snapshot</div>
+          <div class="snapshot-sub">Each quarter needs a distinct commercial proof point. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens markets, and Q4 monetizes the platform layer.</div>
+        </div>
+        <div class="snapshot-meta">${snapshotMetaRows().map(item => `<div><strong>${item.label}:</strong> ${item.value}</div>`).join('')}</div>
+      </div>
+      <div class="snapshot-section">
+        <div class="snapshot-section-title">Quarter Overview</div>
+        <div class="snapshot-quarter-grid">${quarters.map(item => `
+          <div class="snapshot-quarter">
+            <div class="snapshot-quarter-head" style="color:${item.color}">${item.q} · ${item.label}</div>
+            <div class="snapshot-quarter-value">${item.pd.toLocaleString()} PD</div>
+            <div class="snapshot-quarter-copy">${item.epics} EPICs · ${item.done} completed · ₹${item.unlock.toFixed(1)} Cr recoverable pipeline tied to this quarter</div>
+          </div>`).join('')}</div>
+      </div>
+      <div class="snapshot-section">
+        <div class="snapshot-section-title">Priority EPICs by Quarter</div>
+        <div class="snapshot-roadmap-grid">${['Q1','Q2','Q3','Q4'].map(q => `
+          <div class="snapshot-card">
+            <div class="snapshot-card-title" style="color:${Q_META[q].color}">${q} · ${Q_META[q].label}</div>
+            ${topFocusEpics(q, 3).map(epic => `
+              <div class="snapshot-epic">
+                <div class="snapshot-epic-id">${epic.id} · ${epic.prio} · ${epicPdValue(epic)} PD</div>
+                <div class="snapshot-epic-name">${epic.name}</div>
+                <div class="snapshot-epic-note">${epic.notes}</div>
+              </div>`).join('')}
+          </div>`).join('')}</div>
+      </div>
+      <div class="snapshot-section">
+        <div class="snapshot-card">
+          <div class="snapshot-card-title">Compliance Gates & Dependencies</div>
+          <div class="snapshot-list">${dependencies.map(item => `
+            <div class="snapshot-item">
+              <div class="snapshot-item-main">
+                <div class="snapshot-item-name">${item.name}</div>
+                <div class="snapshot-item-copy">${item.copy}</div>
+              </div>
+              <div class="snapshot-item-value">${item.value}</div>
+            </div>`).join('')}</div>
+        </div>
+      </div>
+      <div class="snapshot-footer">
+        <span>Prepared from the live Product Command Center roadmap</span>
+        <span>For leadership review · Save as PDF from browser print</span>
+      </div>
+    </div>`;
+}
+function renderLeadershipSnapshotPage(kind) {
+  const normalized = kind === 'roadmap' ? 'roadmap' : 'overall';
+  document.body.classList.add('snapshot-mode');
+  document.title = normalized === 'roadmap' ? 'Roadmap Snapshot' : 'Overall Product Update';
+  document.body.innerHTML = normalized === 'roadmap' ? buildRoadmapSnapshotHtml() : buildOverallSnapshotHtml();
+  if(SNAPSHOT_PRINT) {
+    setTimeout(() => window.print(), 250);
+  }
+}
 function getDependencyWatchEntries() {
   const topicMap = SOURCE_DATA?.workbook?.topic_map || [];
   if(!topicMap.length) return DEPENDENCY_WATCH_DEFAULT;
@@ -2146,6 +2490,10 @@ async function loadCommandCenterData() {
       SOURCE_DATA = await res.json();
       break;
     } catch (err) {}
+  }
+  if(SNAPSHOT_MODE) {
+    renderLeadershipSnapshotPage(SNAPSHOT_MODE);
+    return;
   }
   renderOverview();
   renderKanban();
@@ -3685,6 +4033,10 @@ bindInlineHandlers(document);
 inlineObserver.observe(document.body,{childList:true,subtree:true});
 updateSharedModeUi();
 loadSharedState().finally(() => {
+  if(SNAPSHOT_MODE) {
+    loadCommandCenterData();
+    return;
+  }
   renderOverview();
   renderStrategy();
   renderRisks();

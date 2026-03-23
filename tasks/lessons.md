@@ -15,3 +15,5 @@
 
 - Do not ship partial theme systems. If light mode does not fully theme shell, content, and controls coherently, remove it instead of exposing a split dark-shell/light-canvas UI.
 - Keep editor controls out of the primary command-center header. Editing metadata belongs in a secondary tray or dedicated edit state, not in the first visual row stakeholders scan.
+- Do not equate `editor can write` with `editor controls should stay visible`. For this dashboard, edit access must be an on-demand tools drawer so the shell remains leadership-readable even in authenticated editor sessions.
+- QA for this app must explicitly inspect the editor-authenticated shell, not just viewer mode. The clutter bug only appeared when Product had write access enabled.

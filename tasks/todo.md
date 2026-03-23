@@ -375,3 +375,11 @@
 - Updated DESIGN.md so the project source of truth matches the shipped typography system.
 
 - Removed the incomplete light mode and moved editor metadata fields into a secondary editor tray so the Strategy shell reads as one coherent operating surface.
+
+## QA Regression: Editor Shell Density
+
+- User-reported regression showed the live command center still degrading when editor access was enabled: the header was doing stakeholder status, editor session fields, and backup tooling simultaneously.
+- Root cause: the shell treated `editor authenticated` as a permanent layout state instead of a temporary tool state. That made the dashboard look like an admin form whenever Product had edit access.
+- Fixed by decoupling editor authentication from editor tool visibility. The primary header now stays command-center focused, while actor/reason fields and JSON backup actions live inside a compact editor tools drawer opened on demand.
+- Removed editor-only backup controls from the sidebar so editing does not pollute the navigation shell.
+- Local verification was done in two states: clean viewer shell and editor-tools-open shell via seeded local storage screenshots.
