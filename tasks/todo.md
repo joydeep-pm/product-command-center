@@ -388,7 +388,7 @@
 
 - [x] Review the January monthly product update sample and identify the sections leadership actually needs in PDF form
 - [x] Add a monthly-update style PDF export and improve roadmap export metadata/circulation notes
-- [ ] Verify the new snapshot routes locally and on production, then record results
+- [x] Verify the new snapshot routes locally and on production, then record results
 
 - The January sample is a structured monthly briefing, not just a metric sheet. The upgraded overall snapshot now mirrors that shape with Executive Summary, Product Updates, Platform Updates, Upcoming Features / Initiatives, and Risks & Dependencies.
 - The Overview export button now opens a monthly-style PDF route and captures an optional circulation note that is printed in the footer.
@@ -399,3 +399,6 @@
 - Tall-view render proofs were captured at:
   - `/Users/joy/autoresearch/runs/monthly_snapshot_local_tall.png`
   - `/Users/joy/autoresearch/runs/roadmap_snapshot_local_tall.png`
+- Production verification passed after deploy:
+  - the live overall snapshot route now renders `Monthly Product Update · March 2026` with `Product Updates`, `Platform Updates`, and `Leadership note`
+  - the live roadmap snapshot route now renders `Roadmap Snapshot · March 2026` with the new `Circulation note`
