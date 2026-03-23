@@ -402,3 +402,13 @@
 - Production verification passed after deploy:
   - the live overall snapshot route now renders `Monthly Product Update · March 2026` with `Product Updates`, `Platform Updates`, and `Leadership note`
   - the live roadmap snapshot route now renders `Roadmap Snapshot · March 2026` with the new `Circulation note`
+
+## Commit And Push Skill
+
+- [x] Review skill-creation guidance and existing skill layout
+- [x] Create and install a commit-and-push skill with safe defaults
+- [x] Verify the skill is present and usable
+
+- Installed new local skill at `/Users/joy/.codex/skills/commit-and-push`.
+- Kept the skill lean: no extra scripts or references, just the workflow and guardrails for selective staging, commit creation, and safe push behavior.
+- Validation passed with `python3 /Users/joy/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/joy/.codex/skills/commit-and-push`.
