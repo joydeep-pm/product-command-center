@@ -249,6 +249,17 @@
   - `/Users/joy/autoresearch/runs/strategy_pane_mobile.png`
   - `/Users/joy/autoresearch/runs/roadmap_pane_mobile.png`
   - `/Users/joy/autoresearch/runs/risks_pane_mobile.png`
+- Verified production deployment after push by authenticating through `https://autoresearch-fawn.vercel.app/api/viewer-access`, fetching the protected `/dashboard` HTML, and confirming the deployed artifact contains the new hierarchy markers:
+  - `Executive Readout`
+  - `FY27 is a completion problem, not a demand problem.`
+  - `Strategic Posture`
+  - `Roadmap Thesis`
+  - `High-probability risks`
+- Rendered the fetched production HTML into desktop screenshots for the four key panes as deploy proof:
+  - `/Users/joy/autoresearch/runs/prod_overview.png`
+  - `/Users/joy/autoresearch/runs/prod_strategy.png`
+  - `/Users/joy/autoresearch/runs/prod_roadmap.png`
+  - `/Users/joy/autoresearch/runs/prod_risks.png`
 
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published
