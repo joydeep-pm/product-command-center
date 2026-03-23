@@ -29,15 +29,13 @@ The UI is useful. The persistence model is not.
 ### Backend
 - Local development server: `/Users/joy/autoresearch/webapp/server.js`
 - Vercel deployment APIs: `/Users/joy/autoresearch/api/*.js`
-- Viewer-entry page: `/Users/joy/autoresearch/app/access.html`
-- Protected Vercel routes:
+- Optional entry page: `/Users/joy/autoresearch/app/access.html`
+- Live Vercel routes:
   - `/api/dashboard-page`
   - `/api/command-center-data`
   - `/api/dashboard-state`
   - `/api/audit-log`
   - `/api/editor-check`
-  - `/api/viewer-access`
-  - `/api/viewer-logout`
 
 ### Persistence
 - Local fallback:
@@ -61,7 +59,7 @@ Only business state is shared:
 - `galStatus`
 - `customEpics`
 
-Local viewer preferences remain browser-local:
+Local browser preferences remain browser-local:
 - theme
 - filter state
 - editor key
@@ -117,41 +115,20 @@ Returns the most recent audit events.
 
 Returns whether the current request can edit.
 
-### `POST /api/viewer-access`
-
-Request body:
-```json
-{
-  "key": "shared-viewer-key",
-  "next": "/dashboard"
-}
-```
-
-Behavior:
-- validates the shared viewer key
-- sets the viewer cookie
-- returns the next route to open
-
-### `POST /api/viewer-logout`
-
-Behavior:
-- clears the viewer cookie
-- returns `{ "ok": true }`
-
 ## Access Model
 
-For v1, the live app now has a real shared-viewer boundary:
-- viewers enter `VIEWER_KEY` on `/access`
+For v1, the live app uses open reads and protected writes:
+- internal stakeholders can open `/dashboard` directly
 - product editors separately enable edit mode with `EDITOR_KEY`
-- protected routes reject requests without viewer access
-- `/dashboard` is served through a guarded API route rather than a bare public page
+- all read routes are open
+- live write routes still reject requests without editor access
 
 Write access options:
-1. Set `VIEWER_KEY` for shared internal viewing
-2. Set `EDITOR_KEY` for product-team edits
-3. Later replace the shared viewer key with SSO or an identity-aware proxy
+1. Set `EDITOR_KEY` for product-team edits
+2. Later replace editor-key-only writes with SSO or an identity-aware proxy
+3. Add read protection only if the operating model changes again
 
-This is still weaker than SSO. It is a pragmatic internal boundary, not a final identity model.
+This is still weaker than SSO. It matches the current operating model, not a final identity model.
 
 ## Run Locally
 
@@ -162,24 +139,22 @@ vercel dev --listen 8141
 ```
 
 Local access depends on `.env.local`:
-- `VIEWER_KEY` for the access page
 - optional `EDITOR_KEY` for local shared editing
 
 Open:
-- `http://127.0.0.1:8141/access`
+- `http://127.0.0.1:8141/dashboard`
 
 ## Deployment Guidance
 
 Current live deployment path:
 - Vercel project `autoresearch`
-- guarded dashboard route via `/dashboard`
+- shared dashboard route via `/dashboard`
 - serverless APIs backed by private Blob storage
-- preview/production viewing gated by `VIEWER_KEY`
 - preview/production edits gated by `EDITOR_KEY`
 
 Current limitation:
-- the shared viewer key is still a shared secret, not identity-backed access
-- anyone with the live URL and the viewer key can view
+- anyone with the live URL can view
+- write protection is still a shared secret, not identity-backed access
 - the GitHub repository and any committed source artifacts are outside this gate
 
 Do not treat this as truly internal-only until you add one of:

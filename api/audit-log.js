@@ -1,14 +1,6 @@
 const { readAuditEntries } = require('../webapp/shared-store');
-const { viewerAuthorized } = require('../webapp/access-node');
 
 module.exports = async (req, res) => {
-  if (!viewerAuthorized(req)) {
-    res.statusCode = 401;
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store');
-    res.end(JSON.stringify({ error: 'viewer_access_required' }, null, 2));
-    return;
-  }
   if (req.method !== 'GET') {
     res.statusCode = 405;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');

@@ -60,29 +60,29 @@ body{background:
 
 /* ── MAIN ── */
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{padding:18px 26px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:rgba(11,23,38,0.92);min-height:68px;flex-shrink:0;transition:background 0.2s;gap:22px;box-shadow:0 1px 0 rgba(255,255,255,0.01)}
-.tb-left{min-width:320px;display:grid;gap:6px}
-.tb-title{font-family:"Instrument Serif",Georgia,serif;font-size:1.5rem;line-height:1.02;color:var(--text);letter-spacing:-0.02em}
-.tb-sub{font-size:0.84rem;color:var(--muted-strong);margin-top:1px;line-height:1.55;max-width:520px}
-.tb-status{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.status-chip{display:inline-flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--rs);border:1px solid var(--border);background:rgba(255,255,255,0.03);min-height:40px;min-width:0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
-.status-chip-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
-.status-chip-value{font-size:0.87rem;font-weight:600;color:var(--text);line-height:1.35;white-space:nowrap}
+.topbar{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:rgba(11,23,38,0.94);min-height:56px;flex-shrink:0;transition:background 0.2s;gap:18px;box-shadow:0 1px 0 rgba(255,255,255,0.01)}
+.tb-left{min-width:320px;display:grid;gap:4px}
+.tb-title{font-family:"Instrument Serif",Georgia,serif;font-size:1.34rem;line-height:1;color:var(--text);letter-spacing:-0.02em}
+.tb-sub{font-size:0.78rem;color:var(--muted-strong);margin-top:0;line-height:1.45;max-width:480px}
+.tb-status{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.status-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,0.03);min-height:32px;min-width:0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+.status-chip-label{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.status-chip-value{font-size:0.8rem;font-weight:600;color:var(--text);line-height:1.25;white-space:nowrap}
 .status-chip-muted .status-chip-value{color:var(--muted-strong);font-weight:500}
-.status-chip-mode{padding:9px 12px;min-height:40px;display:inline-flex;align-items:center}
-.tb-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0;min-width:0}
-.tb-actions,.tb-meta,.tb-badges{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.tb-input{min-width:140px;width:140px}
-.tb-reason{min-width:240px;width:240px}
+.status-chip-mode{padding:7px 11px;min-height:32px;display:inline-flex;align-items:center}
+.tb-right{display:flex;align-items:flex-start;gap:8px;flex-shrink:0;min-width:0}
+.tb-actions,.tb-meta,.tb-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tb-input{min-width:120px;width:120px}
+.tb-reason{min-width:180px;width:180px}
 .editor-only{display:flex}
 
 /* ── THEME TOGGLE ── */
-.theme-btn{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:12.5px;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--border-hi);background:transparent;color:var(--muted);font-size:11.5px;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap}
 .theme-btn:hover{background:var(--card);color:var(--text)}
 .theme-btn .t-icon{font-size:13px;line-height:1}
 
 /* ── BADGES ── */
-.badge-fy,.badge-conf,.badge-shared,.badge-local{padding:5px 11px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap}
+.badge-fy,.badge-conf,.badge-shared,.badge-local{padding:4px 10px;border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:0.06em;white-space:nowrap}
 .badge-fy{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(47,107,255,0.24)}
 .badge-conf{font-size:10px;text-transform:uppercase;background:var(--red-dim);color:var(--red);border:1px solid rgba(214,69,69,0.24)}
 .badge-shared{border:1px solid rgba(31,157,104,0.24);background:var(--green-dim);color:var(--green)}
@@ -317,7 +317,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 .pane-lead{padding:22px 24px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,0.03);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .lead-title{font-family:"Instrument Serif",Georgia,serif;font-size:2rem;line-height:0.98;letter-spacing:-0.03em;color:var(--text);max-width:14ch}
-.lead-copy{font-size:0.98rem;color:var(--muted-strong);line-height:1.65;max-width:62ch;margin-top:12px}
+.lead-copy{font-size:0.92rem;color:var(--muted-strong);line-height:1.58;max-width:58ch;margin-top:10px}
 .lead-note{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .note-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,0.035);border:1px solid var(--border);font-size:12px;color:var(--muted-strong)}
 .overview-metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -428,7 +428,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 .summary-pill{font-family:"Instrument Serif",Georgia,serif;font-size:20px;line-height:1;color:var(--text)}
 .strategy-section,.risk-section,.roadmap-section{margin-bottom:22px}
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
-.section-head-copy{font-size:13px;color:var(--muted);line-height:1.55;max-width:58ch}
+.section-head-copy{font-size:12px;color:var(--muted);line-height:1.5;max-width:52ch}
 .friction-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .roadmap-header{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:16px;margin-bottom:18px}
 .roadmap-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
@@ -457,6 +457,7 @@ body.light .sel option{background:#fff;color:#1C2B4A}
   .status-chip-value{white-space:normal;word-break:break-word}
   .status-chip-mode{width:auto}
   .tb-right,.tb-actions,.tb-meta,.tb-badges{width:100%;justify-content:flex-start;align-items:flex-start}
+  .tb-right{flex-direction:column;gap:8px}
   .tb-input,.tb-reason{width:100%;min-width:0;flex:1 1 100%}
   .g2,.g3,.g4,.prog-summary,.status-summary,.signal-grid,.roadmap-strip{grid-template-columns:1fr}
   .tab-pane{padding:16px}
@@ -567,16 +568,10 @@ body.viewer-readonly .tb-status{max-width:760px}
           <span class="t-icon">✎</span>
           <span id="editorLabel">Unlock Editor</span>
         </button>
-        <button class="theme-btn" onclick="lockViewerAccess()" id="lockBtn">
-          <span class="t-icon">⇤</span>
-          <span>Lock View</span>
-        </button>
         <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
           <span class="t-icon" id="themeIcon">🌙</span>
           <span id="themeLabel">Light Mode</span>
         </button>
-      </div>
-      <div class="tb-badges">
         <span class="badge-fy">FY 2026–27</span>
         <span class="badge-conf">Confidential</span>
       </div>
@@ -591,7 +586,7 @@ body.viewer-readonly .tb-status{max-width:760px}
         <div class="card pane-lead">
           <div class="eyebrow">Executive Readout</div>
           <div class="lead-title">FY27 is a completion problem, not a demand problem.</div>
-          <div class="lead-copy">The platform is already credible enough to get evaluated. The leadership problem is converting near-fit into revenue by closing high-value gaps, clearing compliance gates, and protecting quarter bandwidth where it matters commercially.</div>
+          <div class="lead-copy">Demand is already real. The operating problem is turning near-fit into wins by closing parity gaps, clearing compliance gates, and protecting the quarters that unlock revenue.</div>
           <div class="lead-note">
             <span class="note-chip">57% of FY26 losses were feature-gap driven</span>
             <span class="note-chip">Q1 and Q2 decide recovery credibility</span>
@@ -614,7 +609,7 @@ body.viewer-readonly .tb-status{max-width:760px}
         <div class="card support-card" style="border-left:3px solid var(--red)">
           <div class="section-kicker" style="color:var(--red)">Q1 Critical — Apr–Jun 2026</div>
           <div class="sec-title" style="font-size:1.45rem">Close the gap before expansion work dilutes credibility.</div>
-          <div class="card-sub">₹57 Cr of FY26 losses are directly addressed in Q1. Gold and LAS need protected bandwidth from co-lending and adjacent platform work. If those pods slip, the rest of the year becomes a narrative without commercial proof.</div>
+          <div class="card-sub">Q1 carries the cleanest recovery story. Gold and LAS need protected bandwidth. If those pods slip, the rest of the year loses commercial proof.</div>
           <div class="focus-list" id="q1Focus"></div>
         </div>
         <div class="stack-col">
@@ -643,7 +638,7 @@ body.viewer-readonly .tb-status{max-width:760px}
               <div class="section-kicker">Commercial Evidence</div>
               <div class="card-title" style="margin-top:4px">Top 5 Addressable FY26 Losses</div>
             </div>
-            <div class="section-head-copy">These are the losses most directly mapped to named EPIC fixes rather than generic platform ambition.</div>
+            <div class="section-head-copy">The losses most directly tied to named EPIC fixes.</div>
           </div>
           <div id="topLossList"></div>
           <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
@@ -662,7 +657,7 @@ body.viewer-readonly .tb-status{max-width:760px}
               <div class="section-kicker">Execution Baseline</div>
               <div class="card-title" style="margin-top:4px">Roadmap Execution Progress</div>
             </div>
-            <div class="section-head-copy">A compact quarter completion read. The detail belongs in Roadmap; Overview only needs enough to surface slippage.</div>
+            <div class="section-head-copy">Quarter completion only. The detail stays in Roadmap.</div>
           </div>
           <div class="prog-summary" id="progSummary"></div>
         </div>
@@ -791,7 +786,7 @@ body.viewer-readonly .tb-status{max-width:760px}
         <div class="card pane-lead">
           <div class="eyebrow">Strategic Posture</div>
           <div class="lead-title" style="max-width:16ch">The strategy is to turn near-fit demand into repeatable wins.</div>
-          <div class="lead-copy">This is not a broad reinvention plan. It is a sequencing plan: close high-value parity gaps, clear regulated-enterprise blockers, then use that credibility to enter higher-value adjacencies and new markets.</div>
+          <div class="lead-copy">This is a sequencing plan, not a reinvention plan: close high-value gaps, clear enterprise blockers, then use that credibility to enter new adjacencies and markets.</div>
           <div id="strategyKeyInsight" style="margin-top:18px"></div>
         </div>
         <div class="card support-card">
@@ -847,7 +842,7 @@ body.viewer-readonly .tb-status{max-width:760px}
         <div class="card pane-lead">
           <div class="eyebrow">Roadmap Thesis</div>
           <div class="lead-title" style="max-width:15ch">Each quarter needs a distinct commercial proof point.</div>
-          <div class="lead-copy">The roadmap should read as a sequence of business unlocks, not a flat EPIC dump. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens new markets, and Q4 monetizes the platform layer.</div>
+          <div class="lead-copy">The roadmap should read as business unlocks, not a flat EPIC dump. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens markets, and Q4 monetizes the platform layer.</div>
         </div>
         <div class="roadmap-strip" id="qStrip"></div>
       </div>
@@ -1333,7 +1328,7 @@ function updateSharedModeUi() {
   }
   if(stateValue) {
     if(!SHARED.enabled) stateValue.textContent = 'Browser-local state';
-    else stateValue.textContent = SHARED.canEdit ? 'Editor session active' : 'Viewer session active';
+    else stateValue.textContent = SHARED.canEdit ? 'Editor access active' : 'Read-only live view';
   }
   if(updatedValue) {
     if(!SHARED.enabled) updatedValue.textContent = 'No shared sync';
@@ -1469,14 +1464,6 @@ async function connectEditor() {
   else showToast('Editor key rejected');
   syncAuditInputs();
   rerenderActiveView();
-}
-async function lockViewerAccess() {
-  try {
-    await fetch('/api/viewer-logout', {method:'POST', headers:{'Content-Type':'application/json'}});
-  } catch (e) {
-    // Redirect anyway so the access boundary is restored even if logout telemetry fails.
-  }
-  window.location.href = `/access?next=${encodeURIComponent('/dashboard')}`;
 }
 function renderAuditLog() {
   const el = document.getElementById('auditLogList');

@@ -1,6 +1,5 @@
 const { SHARED_KEYS, sanitizeSharedState } = require('../webapp/shared-model');
 const { nowIso, readStateEnvelope, writeStateEnvelope, appendAuditEvent } = require('../webapp/shared-store');
-const { viewerAuthorized } = require('../webapp/access-node');
 
 const EDITOR_KEY = process.env.EDITOR_KEY || '';
 const ALLOW_OPEN_EDIT = process.env.ALLOW_OPEN_EDIT === '1';
@@ -18,14 +17,6 @@ function send(res, code, payload) {
 }
 
 module.exports = async (req, res) => {
-  if (!viewerAuthorized(req) && !editorAuthorized(req)) {
-    send(res, 401, {
-      error: 'viewer_access_required',
-      message: 'Viewer access is required.',
-    });
-    return;
-  }
-
   if (req.method === 'GET') {
     const envelope = await readStateEnvelope();
     send(res, 200, {

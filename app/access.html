@@ -3,18 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product Command Center Access</title>
+  <title>Product Command Center Entry</title>
   <style>
     :root{
       --bg:#0b1020;
       --panel:#121a2d;
-      --panel-2:#0f1628;
       --text:#eef3ff;
-      --muted:#8ea0c3;
+      --muted:#9caecf;
       --line:rgba(255,255,255,0.1);
-      --accent:#36d399;
-      --accent-2:#5b8cff;
-      --danger:#ff6b6b;
+      --accent:#5b8cff;
       --shadow:0 24px 80px rgba(0,0,0,0.45);
       --radius:22px;
     }
@@ -22,34 +19,28 @@
     body{
       margin:0;
       min-height:100vh;
-      font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-family:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(91,140,255,0.22), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(54,211,153,0.16), transparent 32%),
-        linear-gradient(145deg, #08111f 0%, #0f1424 54%, #080c16 100%);
+        radial-gradient(circle at top left, rgba(91,140,255,0.18), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(205,164,94,0.1), transparent 28%),
+        linear-gradient(145deg, #08111f 0%, #101724 54%, #090d16 100%);
       display:grid;
       place-items:center;
       padding:28px;
     }
-    .shell{
-      width:min(980px,100%);
-      display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:18px;
-    }
     .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      border:1px solid var(--line);
+      width:min(920px,100%);
+      padding:30px;
       border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
       box-shadow:var(--shadow);
       backdrop-filter:blur(14px);
     }
-    .hero{padding:28px 30px 30px}
-    .hero-badge,.access-pill{
+    .eyebrow{
       display:inline-flex;
       align-items:center;
-      gap:8px;
       padding:7px 12px;
       border-radius:999px;
       border:1px solid rgba(91,140,255,0.32);
@@ -61,24 +52,26 @@
     }
     h1{
       margin:18px 0 12px;
-      font-size:42px;
-      line-height:1.05;
-      max-width:11ch;
+      font-family:"Instrument Serif",Georgia,serif;
+      font-size:44px;
+      line-height:1.04;
+      max-width:12ch;
     }
     .lede{
       margin:0 0 22px;
       color:var(--muted);
       line-height:1.7;
-      max-width:56ch;
-      font-size:15px;
+      max-width:62ch;
+      font-size:17px;
     }
     .grid{
       display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:12px;
+      margin:24px 0;
     }
     .card{
-      padding:14px 16px;
+      padding:16px 18px;
       border-radius:18px;
       border:1px solid rgba(255,255,255,0.06);
       background:rgba(8,13,24,0.54);
@@ -93,178 +86,83 @@
     .card p{
       margin:0;
       color:var(--muted);
-      line-height:1.55;
-      font-size:14px;
-    }
-    .form{
-      padding:28px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .form h2{
-      margin:0 0 10px;
-      font-size:26px;
-    }
-    .form p{
-      margin:0 0 18px;
-      color:var(--muted);
-      line-height:1.65;
-      font-size:14px;
-    }
-    label{
-      display:block;
-      margin-bottom:8px;
-      font-size:12px;
-      color:#b8c7e5;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-    }
-    input{
-      width:100%;
-      padding:14px 16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.1);
-      background:rgba(6,11,22,0.7);
-      color:var(--text);
-      outline:none;
+      line-height:1.6;
       font-size:15px;
-    }
-    input:focus{
-      border-color:rgba(91,140,255,0.6);
-      box-shadow:0 0 0 4px rgba(91,140,255,0.15);
     }
     .actions{
       display:flex;
-      gap:10px;
-      margin-top:18px;
+      gap:12px;
       align-items:center;
+      flex-wrap:wrap;
     }
-    button{
-      border:0;
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
       border-radius:14px;
-      padding:13px 18px;
+      font-size:15px;
       font-weight:600;
+      text-decoration:none;
       cursor:pointer;
-      font-size:14px;
-    }
-    .primary{
-      background:linear-gradient(135deg, var(--accent-2), #77a0ff);
-      color:white;
-    }
-    .secondary{
-      background:rgba(255,255,255,0.06);
-      color:var(--text);
       border:1px solid rgba(255,255,255,0.08);
     }
-    .msg{
-      min-height:22px;
-      margin-top:12px;
-      font-size:13px;
-      color:var(--muted);
+    .primary{
+      background:linear-gradient(135deg, var(--accent), #77a0ff);
+      color:#fff;
+      border:none;
     }
-    .msg.error{color:var(--danger)}
-    .next{
-      margin-top:12px;
-      color:#93e9c2;
-      font-size:13px;
+    .secondary{
+      background:rgba(255,255,255,0.04);
+      color:var(--text);
+    }
+    .note{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:14px;
     }
     @media (max-width: 900px){
-      .shell{grid-template-columns:1fr}
-      h1{font-size:34px;max-width:none}
-      .hero,.form{padding:24px}
+      .grid{grid-template-columns:1fr}
+      h1{font-size:36px;max-width:none}
     }
     @media (max-width: 640px){
       body{padding:16px}
-      .hero,.form{padding:20px}
-      h1{font-size:30px;line-height:1.02}
-      .lede{font-size:14px;line-height:1.65}
-      .grid{grid-template-columns:1fr}
-      .card{padding:16px}
+      .panel{padding:22px}
+      h1{font-size:32px}
+      .lede{font-size:15px}
       .actions{flex-direction:column;align-items:stretch}
-      button{width:100%}
+      .button{width:100%}
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <section class="panel hero">
-      <span class="hero-badge">Internal Command Center</span>
-      <h1>Protected access for live product status.</h1>
-      <p class="lede">
-        This dashboard contains current delivery posture, quarter unlocks, regulated-deal blockers, and audit history.
-        Viewer access is shared with internal stakeholders. Product editors still need the separate editor key inside the dashboard.
-      </p>
-      <div class="grid">
-        <div class="card">
-          <h2>What You Get</h2>
-          <p>Live portfolio status, quarter execution risk, roadmap linkage, audit history, and stakeholder-ready exports.</p>
-        </div>
-        <div class="card">
-          <h2>Who Edits</h2>
-          <p>Product team members unlock editor mode inside the app. Everyone else stays in protected view mode.</p>
-        </div>
-        <div class="card">
-          <h2>Session Model</h2>
-          <p>Access persists in this browser for a limited session. Use the lock action in the top bar to clear access when needed.</p>
-        </div>
-        <div class="card">
-          <h2>Why This Gate</h2>
-          <p>This is a practical internal boundary for now. It protects reads immediately while leaving room for later SSO.</p>
-        </div>
+  <section class="panel">
+    <span class="eyebrow">Internal Command Center</span>
+    <h1>Open the live product command center directly.</h1>
+    <p class="lede">
+      Viewing the dashboard no longer needs a shared key. Internal stakeholders can open the live command center directly.
+      Product team members still need the editor key inside the dashboard before they can change live status.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h2>Live Status</h2>
+        <p>See current quarter posture, blockers, unlocks, and audit history without an entry gate.</p>
       </div>
-    </section>
-    <section class="panel form">
-      <span class="access-pill">Viewer Access</span>
-      <h2>Enter the internal viewer key</h2>
-      <p>Use the shared internal viewer key to enter the command center. Product team editors will still use the editor key after the dashboard loads.</p>
-      <form id="accessForm">
-        <label for="viewerKey">Viewer Key</label>
-        <input id="viewerKey" name="viewerKey" type="password" autocomplete="current-password" placeholder="Shared internal access key">
-        <div class="actions">
-          <button class="primary" type="submit">Open Command Center</button>
-          <button class="secondary" type="button" id="clearBtn">Clear</button>
-        </div>
-        <div class="msg" id="msg"></div>
-        <div class="next" id="nextLabel"></div>
-      </form>
-    </section>
-  </div>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const nextPath = params.get('next') || '/dashboard';
-    const msg = document.getElementById('msg');
-    const nextLabel = document.getElementById('nextLabel');
-    const keyInput = document.getElementById('viewerKey');
-    nextLabel.textContent = `Next destination: ${nextPath}`;
-    document.getElementById('clearBtn').addEventListener('click', () => {
-      keyInput.value = '';
-      keyInput.focus();
-      msg.textContent = '';
-      msg.className = 'msg';
-    });
-    document.getElementById('accessForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      msg.textContent = 'Checking access…';
-      msg.className = 'msg';
-      try {
-        const res = await fetch('/api/viewer-access', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({key: keyInput.value, next: nextPath}),
-        });
-        const payload = await res.json();
-        if (!res.ok || !payload.ok) {
-          msg.textContent = payload.message || 'Viewer key rejected.';
-          msg.className = 'msg error';
-          return;
-        }
-        window.location.href = payload.next || '/dashboard';
-      } catch (error) {
-        msg.textContent = 'Access check failed. Try again in a moment.';
-        msg.className = 'msg error';
-      }
-    });
-  </script>
+      <div class="card">
+        <h2>Write Protection</h2>
+        <p>Only product-team editors can change live state. Editing still requires the editor key in the dashboard shell.</p>
+      </div>
+      <div class="card">
+        <h2>Use This Page</h2>
+        <p>Keep this route as a simple internal entry page or share the direct dashboard URL if you do not need a landing step.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="button primary" href="/dashboard">Open Command Center</a>
+      <a class="button secondary" href="/">Open Root URL</a>
+    </div>
+    <div class="note">Editor access remains protected by <code>EDITOR_KEY</code>. No viewer key is required.</div>
+  </section>
 </body>
 </html>

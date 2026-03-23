@@ -1,6 +1,5 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const { viewerAuthorized } = require('../webapp/access-node');
 
 const DASHBOARD_PATH = path.join(process.cwd(), 'app', 'dashboard.html');
 
@@ -9,13 +8,6 @@ module.exports = async (req, res) => {
     res.statusCode = 405;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.end(JSON.stringify({ error: 'method_not_allowed' }, null, 2));
-    return;
-  }
-  if (!viewerAuthorized(req)) {
-    const next = encodeURIComponent(req.url?.startsWith('/') ? req.url : '/dashboard');
-    res.statusCode = 307;
-    res.setHeader('Location', `/access?next=${next}`);
-    res.end();
     return;
   }
   const html = await fs.readFile(DASHBOARD_PATH, 'utf8');

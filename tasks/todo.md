@@ -351,3 +351,18 @@
 - Verified the deployed production HTML includes the pane-legibility CSS changes by checking the protected dashboard for the updated `AOP` and strategy typography rules after deploy.
 - Extended the same readability cleanup into `Roadmap` and `Product Deep-Dives` in commit `bb8a0bf`, focusing on filter-bar legibility, kanban/deep-dive card copy, and metadata sizing rather than changing workflows.
 - Added a dedicated executive-usability checklist at `/Users/joy/autoresearch/docs/executive_usability_qa_checklist.md` so future QA passes explicitly check density, type scale, protected-view hydration, and the 30-second executive scan test.
+
+## Access Model Simplification
+
+- [x] Remove viewer-key protection from live read routes while preserving editor-key write protection
+- [x] Update dashboard shell and entry-page copy to match the open-read model
+- [x] Verify anonymous reads and editor-only writes locally, then push the change
+
+- Product decision changed: the command center no longer needs a viewer key. Read access is now intentionally open to internal stakeholders, while writes remain guarded by `EDITOR_KEY`.
+- Simplified the live API model so `/dashboard`, `/api/command-center-data`, `/api/dashboard-state` (`GET`), `/api/audit-log`, and `/api/editor-check` no longer depend on viewer authorization.
+- Kept `POST /api/dashboard-state` protected by `EDITOR_KEY`, which preserves the core business control: shared visibility without shared write access.
+- Removed `Lock View` from the dashboard shell and changed live-state copy from “viewer session” language to explicit read-only/editor-access language.
+- Replaced the old viewer-key entry page with a simple internal landing page that explains the current model instead of asking for a viewing key.
+- Verified under `vercel dev` that anonymous `GET /dashboard`, `GET /api/command-center-data`, `GET /api/dashboard-state`, `GET /api/audit-log`, and `GET /api/editor-check` all return successfully with no viewer gate.
+- Verified that anonymous `POST /api/dashboard-state` still returns `403 editor_key_required`, while an editor-key-authenticated write succeeds and round-trips shared state.
+- Verification caveat: `vercel dev` was connected to the live Blob store, so the smoke-test write temporarily changed shared metadata. The prior live content (`ECO-01` back to `In Progress`) was restored immediately after the check.
