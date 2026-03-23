@@ -366,3 +366,5 @@
 - Verified under `vercel dev` that anonymous `GET /dashboard`, `GET /api/command-center-data`, `GET /api/dashboard-state`, `GET /api/audit-log`, and `GET /api/editor-check` all return successfully with no viewer gate.
 - Verified that anonymous `POST /api/dashboard-state` still returns `403 editor_key_required`, while an editor-key-authenticated write succeeds and round-trips shared state.
 - Verification caveat: `vercel dev` was connected to the live Blob store, so the smoke-test write temporarily changed shared metadata. The prior live content (`ECO-01` back to `In Progress`) was restored immediately after the check.
+- Removed the unused viewer-gate implementation files (`/Users/joy/autoresearch/webapp/access-node.js`, `/Users/joy/autoresearch/api/viewer-access.js`, `/Users/joy/autoresearch/api/viewer-logout.js`) so the repo no longer carries dead access-control code.
+- Adjusted the dashboard audit presentation so system-originated verification/restore entries are visually marked as `System` and do not take over the topbar’s `Last Changed` / `Updated By` summary when a newer business entry exists.

@@ -89,12 +89,17 @@ body{background:
 .badge-local{border:1px solid rgba(200,146,46,0.24);background:var(--amber-dim);color:var(--amber)}
 .audit-list{display:flex;flex-direction:column;gap:10px}
 .audit-row{padding:12px;border:1px solid var(--border);border-radius:var(--rs);background:rgba(255,255,255,0.02)}
+.audit-row.system{background:rgba(255,255,255,0.012);border-style:dashed}
 .audit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+.audit-actor-wrap{display:flex;align-items:center;gap:8px;min-width:0}
 .audit-actor{font-size:11.5px;font-weight:600;color:var(--text)}
 .audit-time{font-size:10px;color:var(--muted);white-space:nowrap}
 .audit-note{font-size:11px;color:var(--muted);line-height:1.5}
 .audit-reason{font-size:10.5px;color:var(--text);line-height:1.45;margin-top:5px}
 .audit-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.audit-kind{font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid var(--border)}
+.audit-kind.business{color:var(--green);background:var(--green-dim);border-color:rgba(16,185,129,0.18)}
+.audit-kind.system{color:var(--muted);background:rgba(255,255,255,0.04)}
 .audit-empty{padding:14px;border:1px dashed var(--border);border-radius:var(--rs);font-size:11px;color:var(--muted);line-height:1.5}
 
 /* ── CONTENT ── */
@@ -1230,7 +1235,7 @@ const RESOURCE_RISK_DEFAULT = [
 const LS = 'finflux27_v3';
 let ST = {};
 let SOURCE_DATA = null;
-let SHARED = {enabled:false, canEdit:true, requiresEditorKey:false, lastSaved:null, updatedBy:null, version:null, syncTimer:null};
+let SHARED = {enabled:false, canEdit:true, requiresEditorKey:false, lastSaved:null, updatedBy:null, updatedReason:null, version:null, syncTimer:null, auditEntries:[]};
 let LAST_SHARED_SNAPSHOT = null;
 const SHARED_KEYS = ['epicStatus','epicNotes','strStatus','hireStatus','decStatus','galStatus','customEpics'];
 const LOCAL_AUDIT_FALLBACK = [
@@ -1298,6 +1303,30 @@ function buildSharedAuditPayload(note='', reason='') {
     reason: String(reason || '').trim(),
   };
 }
+function isSystemAuditEntry(entry) {
+  const actor = String(entry?.actor || '').trim().toLowerCase();
+  const note = String(entry?.note || '').trim().toLowerCase();
+  const reason = String(entry?.reason || '').trim().toLowerCase();
+  if(['codex','deploy-check'].includes(actor)) return true;
+  return /(verification|restore|smoke test|deploy check)/.test(`${note} ${reason}`);
+}
+function displayActorName(entry) {
+  if(!entry) return 'System';
+  return isSystemAuditEntry(entry) ? 'System' : (entry.actor || 'System');
+}
+function activeSummaryEntry() {
+  const entries = Array.isArray(SHARED.auditEntries) ? SHARED.auditEntries : [];
+  const businessEntry = entries.find(entry => !isSystemAuditEntry(entry));
+  if(businessEntry) return businessEntry;
+  if(entries.length) return entries[0];
+  if(!SHARED.enabled) return null;
+  return {
+    actor: SHARED.updatedBy || 'System',
+    at: SHARED.lastSaved,
+    reason: SHARED.updatedReason || null,
+    note: 'Dashboard state updated',
+  };
+}
 function rerenderActiveView() {
   const active = document.querySelector('.tab-pane.active')?.id;
   renderOverview();
@@ -1332,16 +1361,20 @@ function updateSharedModeUi() {
   }
   if(updatedValue) {
     if(!SHARED.enabled) updatedValue.textContent = 'No shared sync';
-    else updatedValue.textContent = SHARED.lastSaved ? new Date(SHARED.lastSaved).toLocaleString() : 'Awaiting live update';
+    else {
+      const summary = activeSummaryEntry();
+      updatedValue.textContent = summary?.at ? new Date(summary.at).toLocaleString() : 'Awaiting live update';
+    }
   }
   if(actorValue) {
     if(!SHARED.enabled) actorValue.textContent = 'Local session';
-    else actorValue.textContent = SHARED.updatedBy || 'System';
+    else actorValue.textContent = displayActorName(activeSummaryEntry());
   }
 }
 async function fetchAuditLog() {
   if(!SHARED.enabled) {
     SHARED.auditEntries = LOCAL_AUDIT_FALLBACK;
+    updateSharedModeUi();
     renderAuditLog();
     return;
   }
@@ -1355,6 +1388,7 @@ async function fetchAuditLog() {
       {actor:'system', note:'Shared audit log is currently unavailable.', at:null, version:null},
     ];
   }
+  updateSharedModeUi();
   renderAuditLog();
 }
 async function loadSharedState() {
@@ -1367,6 +1401,7 @@ async function loadSharedState() {
     SHARED.requiresEditorKey = !!payload.requires_editor_key;
     SHARED.lastSaved = payload.meta?.updated_at || null;
     SHARED.updatedBy = payload.meta?.updated_by || null;
+    SHARED.updatedReason = payload.meta?.updated_reason || null;
     SHARED.version = payload.meta?.version || null;
     applySharedState(payload.state || {});
     LAST_SHARED_SNAPSHOT = cloneJson(getSharedState());
@@ -1377,6 +1412,7 @@ async function loadSharedState() {
   } catch (e) {
     SHARED.enabled = false;
     SHARED.canEdit = true;
+    SHARED.updatedReason = null;
     updateSharedModeUi();
     fetchAuditLog();
     return false;
@@ -1412,6 +1448,7 @@ async function pushSharedState(note='', reason='') {
     const payload = await res.json();
     SHARED.lastSaved = payload.meta?.updated_at || SHARED.lastSaved;
     SHARED.updatedBy = payload.meta?.updated_by || SHARED.updatedBy;
+    SHARED.updatedReason = payload.meta?.updated_reason || SHARED.updatedReason;
     SHARED.version = payload.meta?.version || SHARED.version;
     LAST_SHARED_SNAPSHOT = cloneJson(payload.state || getSharedState());
     applySharedState(payload.state || getSharedState());
@@ -1477,9 +1514,13 @@ function renderAuditLog() {
     const at = row.at ? new Date(row.at).toLocaleString() : (SHARED.enabled ? 'No timestamp' : 'Local only');
     const versionTag = row.version ? `<span class="trace-tag">v${row.version}</span>` : '';
     const sharedTag = SHARED.enabled ? `<span class="trace-tag">shared</span>` : `<span class="trace-tag">local</span>`;
-    return `<div class="audit-row">
+    const system = isSystemAuditEntry(row);
+    return `<div class="audit-row ${system ? 'system' : 'business'}">
       <div class="audit-head">
-        <div class="audit-actor">${row.actor || 'system'}</div>
+        <div class="audit-actor-wrap">
+          <div class="audit-actor">${displayActorName(row)}</div>
+          <span class="audit-kind ${system ? 'system' : 'business'}">${system ? 'System' : 'Business'}</span>
+        </div>
         <div class="audit-time">${at}</div>
       </div>
       <div class="audit-note">${row.note || 'Dashboard state updated'}</div>
