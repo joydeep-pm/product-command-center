@@ -224,6 +224,7 @@
 - [x] Define a source-of-truth design direction for the command center
 - [x] Create `DESIGN.md`, a preview artifact, and implementation guardrails for future UI work
 - [x] Apply the new design system to the live dashboard shell and verify the shell visually
+- [x] Restructure Overview, Strategy, Roadmap, and Risks to follow the new decision-first hierarchy
 
 ## Review
 - There is no `requirements.md` in the repo, so the design system is grounded in `docs/command_center_spec.md`, `docs/dashboard_metric_spec.md`, `docs/shared_command_center_webapp.md`, and the live shell in `app/dashboard.html`.
@@ -235,6 +236,19 @@
 - Verified the updated shell by rendering direct desktop and mobile screenshots from `app/dashboard.html`:
   - `/Users/joy/autoresearch/runs/dashboard_shell_file_desktop.png`
   - `/Users/joy/autoresearch/runs/dashboard_shell_file_mobile.png`
+- Overview is no longer a flat wall of equal-weight cards. It now leads with an executive readout, then separates quarter-critical action, quarter thesis, commercial evidence, and execution baseline into clearer blocks.
+- Strategy now has a top strategic-posture section with a key insight and summary panel before dropping into imperatives, parity, moats, and friction zones.
+- Roadmap now opens with a quarter-thesis lead block and a structured quarter strip before the filter bar and kanban board, so the board reads as execution detail rather than the first thing stakeholders see.
+- Risks now starts with four risk-summary tiles, then separates strategic risks from hiring and loss-prevention controls, followed by the compliance/capacity layer and the C-suite decision stack.
+- Verified all four panes through direct rendered previews on desktop and mobile:
+  - `/Users/joy/autoresearch/runs/overview_pane.png`
+  - `/Users/joy/autoresearch/runs/strategy_pane.png`
+  - `/Users/joy/autoresearch/runs/roadmap_pane.png`
+  - `/Users/joy/autoresearch/runs/risks_pane.png`
+  - `/Users/joy/autoresearch/runs/overview_pane_mobile.png`
+  - `/Users/joy/autoresearch/runs/strategy_pane_mobile.png`
+  - `/Users/joy/autoresearch/runs/roadmap_pane_mobile.png`
+  - `/Users/joy/autoresearch/runs/risks_pane_mobile.png`
 
 ## GitHub Push
 - [ ] Inspect repo state and identify what should not be published

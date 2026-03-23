@@ -313,12 +313,25 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 .ddp-epics-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:16px}
 
 /* ── OVERVIEW SPECIFICS ── */
-.insight-row{display:flex;gap:0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
-.ins-item{flex:1;padding:14px 18px;border-right:1px solid var(--border)}
-.ins-item:last-child{border-right:none}
-.ins-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px}
-.ins-val{font-size:18px;font-family:Georgia,serif;color:var(--text)}
-.ins-sub{font-size:10.5px;color:var(--muted);margin-top:2px}
+.pane-intro{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,1fr);gap:16px;margin-bottom:18px}
+.pane-lead{padding:22px 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,0.03);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.lead-title{font-family:"Instrument Serif",Georgia,serif;font-size:2rem;line-height:0.98;letter-spacing:-0.03em;color:var(--text);max-width:14ch}
+.lead-copy{font-size:0.98rem;color:var(--muted-strong);line-height:1.65;max-width:62ch;margin-top:12px}
+.lead-note{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.note-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,0.035);border:1px solid var(--border);font-size:12px;color:var(--muted-strong)}
+.overview-metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.overview-metric-grid .metric{min-height:152px}
+.insight-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.ins-item{padding:14px 16px;border:1px solid var(--border);border-radius:var(--rs);background:rgba(255,255,255,0.025)}
+.ins-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.ins-val{font-size:1.2rem;font-family:"Instrument Serif",Georgia,serif;color:var(--text)}
+.ins-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
+.overview-core-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;margin-bottom:18px}
+.overview-secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.stack-col{display:flex;flex-direction:column;gap:16px}
+.support-card{display:flex;flex-direction:column;gap:14px}
+.section-kicker{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
 .q-arc-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
 .q-arc-row:last-child{border-bottom:none}
 .qa-dot{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
@@ -406,7 +419,27 @@ body.light .sel option{background:#fff;color:#1C2B4A}
 .resource-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .resource-copy{margin-top:4px}
 .resource-badge{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,0.22)}
+.strategy-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,0.8fr);gap:16px;margin-bottom:20px}
+.summary-list{display:flex;flex-direction:column;gap:10px}
+.summary-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.summary-row:last-child{border-bottom:none;padding-bottom:0}
+.summary-name{font-size:13px;color:var(--text);font-weight:600}
+.summary-copy{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:3px}
+.summary-pill{font-family:"Instrument Serif",Georgia,serif;font-size:20px;line-height:1;color:var(--text)}
+.strategy-section,.risk-section,.roadmap-section{margin-bottom:22px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.section-head-copy{font-size:13px;color:var(--muted);line-height:1.55;max-width:58ch}
+.friction-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.roadmap-header{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:16px;margin-bottom:18px}
+.roadmap-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.roadmap-controls{padding:16px 18px}
+.risk-hero-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.risk-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,0.8fr);gap:16px;margin-bottom:20px}
+.risk-stack{display:flex;flex-direction:column;gap:16px}
+.decision-stack{display:flex;flex-direction:column;gap:9px}
 @media(max-width:900px){
+  .pane-intro,.overview-core-grid,.overview-secondary-grid,.strategy-grid,.roadmap-header,.risk-layout{grid-template-columns:1fr}
+  .overview-metric-grid,.risk-hero-grid,.friction-grid{grid-template-columns:1fr}
   .source-row,.resource-row{flex-direction:column}
   body{flex-direction:column;height:auto;min-height:100vh;overflow:auto}
   #sidebar{width:100%;min-width:0;border-right:none;border-bottom:1px solid var(--border);display:block;white-space:nowrap;overflow-x:auto;overflow-y:hidden}
@@ -425,17 +458,16 @@ body.light .sel option{background:#fff;color:#1C2B4A}
   .status-chip-mode{width:auto}
   .tb-right,.tb-actions,.tb-meta,.tb-badges{width:100%;justify-content:flex-start;align-items:flex-start}
   .tb-input,.tb-reason{width:100%;min-width:0;flex:1 1 100%}
-  .g2,.g3,.g4,.prog-summary,.status-summary,.signal-grid{grid-template-columns:1fr}
+  .g2,.g3,.g4,.prog-summary,.status-summary,.signal-grid,.roadmap-strip{grid-template-columns:1fr}
   .tab-pane{padding:16px}
-  .insight-row{display:grid;grid-template-columns:1fr}
-  .ins-item{border-right:none;border-bottom:1px solid var(--border)}
-  .ins-item:last-child{border-bottom:none}
+  .insight-row{grid-template-columns:1fr}
   .status-console-row,.status-row,.source-row,.dep-item,.resource-row,.risk-row,.dec-row,.hire-row,.ddp-hero,.par-row,.loss-row{flex-direction:column;align-items:flex-start}
   .status-side,.signal-side{align-items:flex-start;min-width:0}
   .status-micro,.dep-links,.gate-links,.resource-meta{justify-content:flex-start}
   .loss-amt,.loss-fix,.hire-when,.hire-why,.par-name,.par-nums,.qa-pd{width:auto;text-align:left}
   .gal-grid{grid-template-columns:1fr}
   .ddp-bar,.ddp-scroll{padding-left:16px;padding-right:16px}
+  .lead-title{font-size:1.65rem}
 }
 
 /* ── STRATEGY ── */
@@ -555,39 +587,64 @@ body.viewer-readonly .tb-status{max-width:760px}
 
     <!-- ══ OVERVIEW ══ -->
     <div class="tab-pane active" id="pane-overview">
-      <!-- KPIs -->
-      <div class="g4" style="margin-bottom:18px">
-        <div class="metric m-red"><div class="m-label">FY26 Total Losses</div><div class="m-val red" id="metricLossVal">₹100.5 Cr</div><div class="m-sub" id="metricLossSub">23 deals · India pipeline</div></div>
-        <div class="metric m-amber"><div class="m-label">Demo Loss Rate</div><div class="m-val amber" id="metricDemoVal">78.5%</div><div class="m-sub" id="metricDemoSub">Philippines 100% · India 75%</div></div>
-        <div class="metric m-blue"><div class="m-label">FY27 Roadmap</div><div class="m-val blue" id="metricRoadmapVal">5,551 PD</div><div class="m-sub" id="metricRoadmapSub">42 EPICs · ~40–45 engineers</div></div>
-        <div class="metric m-green"><div class="m-label">Recoverable Pipeline</div><div class="m-val green" id="metricRecoverableVal">₹49–55 Cr</div><div class="m-sub" id="metricRecoverableSub">+₹25–40 Cr net-new · AI +15–25% ACV</div></div>
+      <div class="pane-intro">
+        <div class="card pane-lead">
+          <div class="eyebrow">Executive Readout</div>
+          <div class="lead-title">FY27 is a completion problem, not a demand problem.</div>
+          <div class="lead-copy">The platform is already credible enough to get evaluated. The leadership problem is converting near-fit into revenue by closing high-value gaps, clearing compliance gates, and protecting quarter bandwidth where it matters commercially.</div>
+          <div class="lead-note">
+            <span class="note-chip">57% of FY26 losses were feature-gap driven</span>
+            <span class="note-chip">Q1 and Q2 decide recovery credibility</span>
+            <span class="note-chip">Compliance is a revenue gate, not a back-office track</span>
+          </div>
+          <div class="insight-row">
+            <div class="ins-item"><div class="ins-label">Why We Lose</div><div class="ins-val" style="color:var(--red)">57%</div><div class="ins-sub">Feature gaps are the main loss bucket and directly roadmap-addressable.</div></div>
+            <div class="ins-item"><div class="ins-label">Near-Fit Problem</div><div class="ins-val" style="color:var(--amber)">62.5%</div><div class="ins-sub">The platform reaches evaluation but loses on the final layer of enterprise depth.</div></div>
+            <div class="ins-item"><div class="ins-label">New-Market Bet</div><div class="ins-val" style="color:var(--green)">$3.5 Bn</div><div class="ins-sub">Islamic finance remains a material expansion bet with zero revenue today.</div></div>
+          </div>
+        </div>
+        <div class="overview-metric-grid">
+          <div class="metric m-red"><div class="m-label">FY26 Total Losses</div><div class="m-val red" id="metricLossVal">₹100.5 Cr</div><div class="m-sub" id="metricLossSub">23 deals · India pipeline</div></div>
+          <div class="metric m-amber"><div class="m-label">Demo Loss Rate</div><div class="m-val amber" id="metricDemoVal">78.5%</div><div class="m-sub" id="metricDemoSub">Philippines 100% · India 75%</div></div>
+          <div class="metric m-blue"><div class="m-label">FY27 Roadmap</div><div class="m-val blue" id="metricRoadmapVal">5,551 PD</div><div class="m-sub" id="metricRoadmapSub">42 EPICs · ~40–45 engineers</div></div>
+          <div class="metric m-green"><div class="m-label">Recoverable Pipeline</div><div class="m-val green" id="metricRecoverableVal">₹49–55 Cr</div><div class="m-sub" id="metricRecoverableSub">+₹25–40 Cr net-new · AI +15–25% ACV</div></div>
+        </div>
       </div>
-      <!-- Key Insight Strip -->
-      <div class="insight-row">
-        <div class="ins-item"><div class="ins-label">Why We Lose</div><div class="ins-val" style="color:var(--red)">57%</div><div class="ins-sub">Feature gaps — directly addressable</div></div>
-        <div class="ins-item"><div class="ins-label">"Almost Comply"</div><div class="ins-val" style="color:var(--amber)">62.5%</div><div class="ins-sub">Platform convinces lenders, loses on depth</div></div>
-        <div class="ins-item"><div class="ins-label">Gold Loan Parity</div><div class="ins-val" style="color:var(--red)">20%</div><div class="ins-sub">vs A3SL 90% · ₹16 Cr at stake Q1</div></div>
-        <div class="ins-item"><div class="ins-label">LAMF/LAS Parity</div><div class="ins-val" style="color:var(--amber)">53%</div><div class="ins-sub">vs A3SL 95% · ₹5 Cr at stake Q1</div></div>
-        <div class="ins-item"><div class="ins-label">Islamic Finance TAM</div><div class="ins-val" style="color:var(--green)">$3.5 Bn</div><div class="ins-sub">GCC/ASEAN · zero revenue today</div></div>
-      </div>
-      <div class="g2" style="margin-bottom:18px">
-        <!-- Q1 Focus -->
-        <div class="card" style="border-left:3px solid var(--red)">
-          <div style="font-size:9.5px;font-weight:700;letter-spacing:1px;color:var(--red);text-transform:uppercase;margin-bottom:6px">⚡ Q1 Critical — Apr–Jun 2026</div>
-          <div style="font-family:Georgia,serif;font-size:16px;color:var(--text);margin-bottom:4px">Close the Gap</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:10px">₹57 Cr of FY26 losses addressed in Q1. Gold+LAMF pods must run separate from co-lending (ECO-01). Do not cannibalize PROD-03/04.</div>
+      <div class="overview-core-grid">
+        <div class="card support-card" style="border-left:3px solid var(--red)">
+          <div class="section-kicker" style="color:var(--red)">Q1 Critical — Apr–Jun 2026</div>
+          <div class="sec-title" style="font-size:1.45rem">Close the gap before expansion work dilutes credibility.</div>
+          <div class="card-sub">₹57 Cr of FY26 losses are directly addressed in Q1. Gold and LAS need protected bandwidth from co-lending and adjacent platform work. If those pods slip, the rest of the year becomes a narrative without commercial proof.</div>
           <div class="focus-list" id="q1Focus"></div>
         </div>
-        <!-- FY27 Arc -->
-        <div class="card">
-          <div class="card-title" style="margin-bottom:12px">FY27 Four-Quarter Arc</div>
-          <div id="arcView"></div>
+        <div class="stack-col">
+          <div class="card support-card">
+            <div class="section-head">
+              <div>
+                <div class="section-kicker">Quarter Thesis</div>
+                <div class="card-title" style="margin-top:4px">FY27 Four-Quarter Arc</div>
+              </div>
+            </div>
+            <div id="arcView"></div>
+          </div>
+          <div class="card support-card">
+            <div class="section-kicker">Parity Heat</div>
+            <div class="g2" style="gap:10px">
+              <div class="ins-item"><div class="ins-label">Gold Loan Parity</div><div class="ins-val" style="color:var(--red)">20%</div><div class="ins-sub">vs A3SL 90% · ₹16 Cr at stake in Q1</div></div>
+              <div class="ins-item"><div class="ins-label">LAMF / LAS Parity</div><div class="ins-val" style="color:var(--amber)">53%</div><div class="ins-sub">vs A3SL 95% · ₹5 Cr at stake in Q1</div></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="g2">
-        <!-- Top Losses -->
-        <div class="card">
-          <div class="card-title" style="margin-bottom:12px">Top 5 Addressable FY26 Losses</div>
+      <div class="overview-secondary-grid">
+        <div class="card support-card">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Commercial Evidence</div>
+              <div class="card-title" style="margin-top:4px">Top 5 Addressable FY26 Losses</div>
+            </div>
+            <div class="section-head-copy">These are the losses most directly mapped to named EPIC fixes rather than generic platform ambition.</div>
+          </div>
           <div id="topLossList"></div>
           <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
             <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Loss reason breakdown (23 deals)</div>
@@ -599,9 +656,14 @@ body.viewer-readonly .tb-status{max-width:760px}
             </div>
           </div>
         </div>
-        <!-- Progress -->
-        <div class="card">
-          <div class="card-title" style="margin-bottom:12px">Roadmap Execution Progress</div>
+        <div class="card support-card">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Execution Baseline</div>
+              <div class="card-title" style="margin-top:4px">Roadmap Execution Progress</div>
+            </div>
+            <div class="section-head-copy">A compact quarter completion read. The detail belongs in Roadmap; Overview only needs enough to surface slippage.</div>
+          </div>
           <div class="prog-summary" id="progSummary"></div>
         </div>
       </div>
@@ -725,11 +787,37 @@ body.viewer-readonly .tb-status{max-width:760px}
 
     <!-- ══ STRATEGY ══ -->
     <div class="tab-pane" id="pane-strategy">
-      <div class="sec-title">Five Strategic Imperatives</div>
-      <div class="sec-sub">Foundational pillars guiding every FY27 investment decision</div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px" id="pillars"></div>
+      <div class="strategy-grid">
+        <div class="card pane-lead">
+          <div class="eyebrow">Strategic Posture</div>
+          <div class="lead-title" style="max-width:16ch">The strategy is to turn near-fit demand into repeatable wins.</div>
+          <div class="lead-copy">This is not a broad reinvention plan. It is a sequencing plan: close high-value parity gaps, clear regulated-enterprise blockers, then use that credibility to enter higher-value adjacencies and new markets.</div>
+          <div id="strategyKeyInsight" style="margin-top:18px"></div>
+        </div>
+        <div class="card support-card">
+          <div class="section-kicker">What Leadership Should Watch</div>
+          <div class="card-title">Strategic summary</div>
+          <div class="summary-list" id="strategySummary"></div>
+        </div>
+      </div>
+      <div class="strategy-section">
+        <div class="section-head">
+          <div>
+            <div class="sec-title">Five Strategic Imperatives</div>
+            <div class="sec-sub">The non-negotiable investment logic for FY27.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px" id="pillars"></div>
+      </div>
       <div class="divider"></div>
-      <div class="g2">
+      <div class="strategy-section">
+        <div class="section-head">
+          <div>
+            <div class="sec-title">Competitive posture</div>
+            <div class="sec-sub">Where parity gaps are largest and where durable differentiation still exists.</div>
+          </div>
+        </div>
+        <div class="g2">
         <div class="card">
           <div class="card-title" style="margin-bottom:14px">Competitive Parity</div>
           <div style="display:flex;font-size:9px;color:var(--muted);gap:8px;padding-bottom:6px;border-bottom:1px solid var(--border);margin-bottom:4px"><span style="flex:1">Product</span><span style="width:90px">Track (us/best)</span><span style="width:80px;text-align:right">Scores</span><span style="width:42px;text-align:right">Gap</span></div>
@@ -740,16 +828,31 @@ body.viewer-readonly .tb-status{max-width:760px}
           <div style="display:flex;flex-direction:column;gap:12px" id="moatList"></div>
         </div>
       </div>
+      </div>
       <div class="divider"></div>
-      <div class="sec-title">Five Platform Friction Zones</div>
-      <div class="sec-sub">Honest internal assessment for leadership alignment</div>
-      <div class="g3" id="frictionZones"></div>
+      <div class="strategy-section">
+        <div class="section-head">
+          <div>
+            <div class="sec-title">Platform friction zones</div>
+            <div class="sec-sub">The internal constraints that can keep the strategy theoretical if left untreated.</div>
+          </div>
+        </div>
+        <div class="friction-grid" id="frictionZones"></div>
+      </div>
     </div>
 
     <!-- ══ ROADMAP ══ -->
     <div class="tab-pane" id="pane-roadmap">
-      <div id="qStrip" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px"></div>
-      <div class="fbar">
+      <div class="roadmap-header">
+        <div class="card pane-lead">
+          <div class="eyebrow">Roadmap Thesis</div>
+          <div class="lead-title" style="max-width:15ch">Each quarter needs a distinct commercial proof point.</div>
+          <div class="lead-copy">The roadmap should read as a sequence of business unlocks, not a flat EPIC dump. Q1 proves parity closure, Q2 proves enterprise readiness, Q3 opens new markets, and Q4 monetizes the platform layer.</div>
+        </div>
+        <div class="roadmap-strip" id="qStrip"></div>
+      </div>
+      <div class="card roadmap-controls">
+      <div class="fbar" style="margin-bottom:0">
         <span style="font-size:11px;color:var(--muted)">Quarter:</span>
         <button class="fb on" onclick="setRmQ('ALL',this)">All</button>
         <button class="fb" onclick="setRmQ('Q1',this)">Q1</button>
@@ -762,6 +865,7 @@ body.viewer-readonly .tb-status{max-width:760px}
         <button class="fb" onclick="setRmSt('Completed',this)">Completed</button>
         <input type="text" class="fsearch" placeholder="Search EPICs…" oninput="setRmSearch(this.value)">
         <button class="btn btn-pr" style="padding:5px 12px;font-size:11px;margin-left:auto" onclick="openAddModal()">+ Add EPIC</button>
+      </div>
       </div>
       <div class="kanban" id="kanban"></div>
     </div>
@@ -801,33 +905,48 @@ body.viewer-readonly .tb-status{max-width:760px}
 
     <!-- ══ RISKS ══ -->
     <div class="tab-pane" id="pane-risks">
-      <div class="g2" style="margin-bottom:20px">
-        <div class="card" style="grid-column:1/-1">
-          <div class="card-title" style="margin-bottom:4px">Strategic Risk Register</div>
-          <div class="card-sub" style="margin-bottom:14px">Six risks that, unmanaged, could derail FY27 execution</div>
+      <div class="risk-hero-grid" id="riskHeroGrid"></div>
+      <div class="risk-layout">
+        <div class="card support-card">
+          <div class="section-head">
+            <div>
+              <div class="sec-title">Strategic Risk Register</div>
+              <div class="sec-sub">The risks that can derail FY27 if they are not actively managed.</div>
+            </div>
+            <div class="section-head-copy">This is the forward-risk view of the command center. It matters because a “green” roadmap can still fail commercially if these are ignored.</div>
+          </div>
           <div style="display:flex;gap:8px;font-size:9px;color:var(--muted);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border)">
             <span style="width:55px">Prob</span><span style="width:62px">Impact</span><span style="flex:1">Risk &amp; Mitigation</span><span style="width:140px">Status</span>
           </div>
           <div id="riskList"></div>
         </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Domain Specialist Hiring</div>
-          <div class="card-sub" style="margin-bottom:12px">Q1 action required — gating constraint for Q3</div>
-          <div id="hireList"></div>
-        </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:4px">Loss Prevention Framework</div>
-          <div class="card-sub" style="margin-bottom:12px">43% of losses trace to trust deficit &amp; incumbency</div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">01 Hypercare → Reference</div><div style="font-size:11px;color:var(--muted)">Dedicated ISM 90 days post-go-live. Week-8 reference readiness assessment.</div></div>
-            <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">02 QBRs — Retention + Expansion</div><div style="font-size:11px;color:var(--muted)">Lead with DPD, NPA, disbursement metrics. Every QBR closes with expansion opportunity in CRM.</div></div>
-            <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">03 CSAT/NPS Leading Indicators</div><div style="font-size:11px;color:var(--muted)">Measure D45 · M6 · M18. Score below 8 triggers executive call within 48 hours.</div></div>
-            <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">04 Win-Loss Closed Loop</div><div style="font-size:11px;color:var(--muted)">Every deal &gt;₹3 Cr debriefed quarterly. Includes prospect conversation, not just internal.</div></div>
-            <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">05 Structured Escalation</div><div style="font-size:11px;color:var(--muted)">Triggers: deal &gt;₹5 Cr stalled &gt;60d · reference unanswered &gt;72h · trust concern in BD note.</div></div>
+        <div class="risk-stack">
+          <div class="card support-card">
+            <div class="card-title">Domain Specialist Hiring</div>
+            <div class="card-sub">Q1 and Q2 hiring decisions determine whether Q3 bets are real or merely planned.</div>
+            <div id="hireList"></div>
+          </div>
+          <div class="card support-card">
+            <div class="card-title">Loss Prevention Framework</div>
+            <div class="card-sub">43% of losses trace to trust deficit and incumbency. These controls are how the product team protects reference quality, not just velocity.</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">01 Hypercare → Reference</div><div style="font-size:11px;color:var(--muted)">Dedicated ISM 90 days post-go-live. Week-8 reference readiness assessment.</div></div>
+              <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">02 QBRs — Retention + Expansion</div><div style="font-size:11px;color:var(--muted)">Lead with DPD, NPA, disbursement metrics. Every QBR closes with expansion opportunity in CRM.</div></div>
+              <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">03 CSAT/NPS Leading Indicators</div><div style="font-size:11px;color:var(--muted)">Measure D45 · M6 · M18. Score below 8 triggers executive call within 48 hours.</div></div>
+              <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">04 Win-Loss Closed Loop</div><div style="font-size:11px;color:var(--muted)">Every deal &gt;₹3 Cr debriefed quarterly. Includes prospect conversation, not just internal.</div></div>
+              <div style="padding:10px 12px;border-radius:7px;background:rgba(255,255,255,0.025);border:1px solid var(--border)"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px">05 Structured Escalation</div><div style="font-size:11px;color:var(--muted)">Triggers: deal &gt;₹5 Cr stalled &gt;60d · reference unanswered &gt;72h · trust concern in BD note.</div></div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="g2" style="margin-bottom:20px">
+      <div class="risk-section">
+        <div class="section-head">
+          <div>
+            <div class="sec-title">Compliance and capacity concentration</div>
+            <div class="sec-sub">The gating surfaces that can invalidate quarter confidence even when feature work is on track.</div>
+          </div>
+        </div>
+        <div class="g2" style="margin-bottom:20px">
         <div class="card">
           <div class="card-title" style="margin-bottom:4px">Compliance Command Panel</div>
           <div class="card-sub" style="margin-bottom:12px">Deal-gate modules, linked EPICs, and what each gate unlocks for the business.</div>
@@ -839,10 +958,13 @@ body.viewer-readonly .tb-status{max-width:760px}
           <div class="resource-list" id="resourceRisk"></div>
         </div>
       </div>
+      </div>
       <div class="divider"></div>
+      <div class="risk-section">
       <div class="sec-title">Five C-Suite Decisions</div>
       <div class="sec-sub">Required before Q1 Sprint 1 — April 2026</div>
-      <div style="display:flex;flex-direction:column;gap:9px" id="decList"></div>
+      <div class="decision-stack" id="decList"></div>
+      </div>
     </div>
 
     <!-- ══ PRODUCT DEEP-DIVES ══ -->
@@ -2155,6 +2277,38 @@ function renderStrategy() {
   const frictionZones = strategySummary?.friction_zones || FRICTION_ZONES_DEFAULT;
   const keyInsight = strategySummary?.key_insight || STRATEGY_KEY_INSIGHT_DEFAULT;
   const parityData = getParityData();
+  const biggestGap = parityData.reduce((best, row) => {
+    const gap = (row.best || 0) - (row.us || 0);
+    if(!best || gap > best.gap) return {name:row.name, gap};
+    return best;
+  }, null);
+  const q3BetCount = getEpics().filter(epic => epic.q === 'Q3' && ['Products','Capital Markets'].includes(epic.cat)).length;
+  const strategySummaryEl = document.getElementById('strategySummary');
+  const strategyInsightEl = document.getElementById('strategyKeyInsight');
+  if(strategyInsightEl) {
+    strategyInsightEl.innerHTML = `
+      <div class="ins-item" style="padding:16px 18px;border-color:rgba(31,157,104,0.28);background:rgba(31,157,104,0.04)">
+        <div class="ins-label" style="color:${keyInsight.color}">${keyInsight.label}</div>
+        <div class="ins-val" style="color:${keyInsight.color}">${keyInsight.title}</div>
+        <div class="ins-sub" style="margin-top:8px">${keyInsight.body}</div>
+        ${strategyTraceHTML(keyInsight.source_refs)}
+      </div>`;
+  }
+  if(strategySummaryEl) {
+    strategySummaryEl.innerHTML = [
+      {name:'Imperatives', pill:String(imperatives.length), copy:'Five priorities define what deserves FY27 investment and what should stay background noise.'},
+      {name:'Largest parity hole', pill:biggestGap ? `-${biggestGap.gap}%` : '—', copy:biggestGap ? `${biggestGap.name} is the widest visible parity gap in the tracked portfolio.` : 'Parity data unavailable.'},
+      {name:'Q3 expansion bets', pill:String(q3BetCount), copy:'Q3 is carrying the international and B2B expansion burden, which raises sequencing risk.'},
+      {name:'Durable moats', pill:String(moats.length), copy:'The moat layer is narrow on purpose. The value is in defensible wedges, not a long innovation list.'},
+    ].map(item => `
+      <div class="summary-row">
+        <div>
+          <div class="summary-name">${item.name}</div>
+          <div class="summary-copy">${item.copy}</div>
+        </div>
+        <div class="summary-pill">${item.pill}</div>
+      </div>`).join('');
+  }
   document.getElementById('pillars').innerHTML = imperatives.map((p,i)=>
     `<div class="pillar" style="border-left:3px solid ${p.color}">
       <div class="pil-num" style="color:${p.color}">${String(i+1).padStart(2,'0')}</div>
@@ -2310,6 +2464,24 @@ function renderRisks() {
   const sourceAware = !!SOURCE_DATA;
   const probC={High:'rtag-high',Med:'rtag-med',Low:'rtag-low'};
   const impC={Critical:'rtag-crit',High:'rtag-hi',Medium:'rtag-med'};
+  const riskHero = document.getElementById('riskHeroGrid');
+  if(riskHero) {
+    const highProb = RISKS.filter(r => r.prob === 'High').length;
+    const criticalImpact = RISKS.filter(r => r.impact === 'Critical').length;
+    const openHires = HIRES.filter((_,i) => (ST.hireStatus[i] || 'Not Started') !== 'Completed').length;
+    const blockedDecisions = DECISIONS.filter((_,i) => ['Blocked','Not Started'].includes(ST.decStatus[i] || 'Not Started')).length;
+    riskHero.innerHTML = [
+      {label:'High-probability risks', value:String(highProb), copy:'These are active enough to affect quarter confidence now.', tone:'var(--red)'},
+      {label:'Critical-impact risks', value:String(criticalImpact), copy:'If one of these lands, revenue unlock math changes materially.', tone:'var(--amber)'},
+      {label:'Open hiring tracks', value:String(openHires), copy:'People dependencies are still gating Q3 credibility.', tone:'var(--blue)'},
+      {label:'Decisions still open', value:String(blockedDecisions), copy:'Leadership decisions not yet complete or currently blocked.', tone:'var(--green)'},
+    ].map(item => `
+      <div class="metric">
+        <div class="m-label">${item.label}</div>
+        <div class="m-val" style="color:${item.tone}">${item.value}</div>
+        <div class="m-sub">${item.copy}</div>
+      </div>`).join('');
+  }
   document.getElementById('riskList').innerHTML = RISKS.map(r=>
     `<div class="risk-row">
       <span class="rtag ${probC[r.prob]||'rtag-med'}">${r.prob}</span>
